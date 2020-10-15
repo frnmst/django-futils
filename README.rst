@@ -1,7 +1,7 @@
-fegin
-=====
+django-futils
+=============
 
-A Django web application for running a medical office.
+Common Django patterns.
 
 Documentation
 -------------
