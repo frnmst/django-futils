@@ -18,6 +18,7 @@ from .models import (AttachmentType, PersonAttachment,
                      PersonEmail, CompanyEmail, EmailType, PersonAddress,
                      AddressType, Municipality, Person, Company,
                      CompanyAddress, NominatimCache)
+from .formsets import HasPrimaryInlineFormSet
 from django_futils.settings import OPENLAYERS_URL, FOREIGN_KEY_FIELDS
 # from grantmeapp.widgets import MoneyHiddenCurrencyWidget
 # from .forms import ServiceForm
@@ -26,15 +27,6 @@ import django_futils.constants as const
 # Remove the delete action globally. See
 # https://docs.djangoproject.com/en/dev/ref/contrib/admin/actions/#disabling-a-site-wide-action
 site.disable_action('delete_selected')
-
-
-class HasPrimaryInlineFormSet(BaseInlineFormSet):
-    r"""Avoid deleting primary objects."""
-    def clean(self):
-        super().clean()
-        for form in self.deleted_forms:
-            if form.instance.is_primary:
-                raise ValidationError(_('cannot delete primary object'))
 
 
 ################
@@ -216,10 +208,9 @@ class CompanyAdminInline(BaseAdminInline):
 class PersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
     model = PersonAddress
     formset = HasPrimaryInlineFormSet
-#    readonly_fields = BaseAdminInline.readonly_fields + (
-#        'is_primary',
-#    )
-    readonly_fields = ('is_primary', 'id',)
+    readonly_fields = BaseAdminInline.readonly_fields + (
+        'is_primary',
+    )
     if FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
         form = CompanyAddressForm
     elif FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:

@@ -1,4 +1,6 @@
 /Pipfile.lock
+/django_futils/__pycache__/
+django_futils/__pycache__
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
