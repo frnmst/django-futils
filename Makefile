@@ -20,7 +20,9 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-default: doc test
+export PACKAGE_NAME=django_futils
+
+default: doc
 
 doc:
 	pipenv run $(MAKE) -C docs html
@@ -29,7 +31,7 @@ install:
 	pip3 install . --user
 
 uninstall:
-	pip3 install automated_tasks
+	pip3 uninstall $(PACKAGE_NAME)
 
 install-dev:
 	pipenv install --dev
@@ -45,4 +47,4 @@ clean:
 	rm -rf build dist *.egg-info
 	pipenv run $(MAKE) -C docs clean
 
-.PHONY: default pep doc install-dev uninstall-dev clean
+.PHONY: default doc install uninstall install-dev uninstall-dev test clean

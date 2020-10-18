@@ -50,24 +50,28 @@ class Type(BasicElement):
 
 class AddressType(Type):
     class Meta:
+        abstract = True
         verbose_name = _('address type')
         verbose_name_plural = _('address types')
 
 
 class EmailType(Type):
     class Meta:
+        abstract = True
         verbose_name = _('email type')
         verbose_name_plural = _('email types')
 
 
 class TelephoneType(Type):
     class Meta:
+        abstract = True
         verbose_name = _('telephone type')
         verbose_name_plural = _('telephone types')
 
 
 class AttachmentType(Type):
     class Meta:
+        abstract = True
         verbose_name = _('attachment type')
         verbose_name_plural = _('attachment types')
 
@@ -94,6 +98,7 @@ class Municipality(Element):
     country = CountryField(_('country'), default='IT')
 
     class Meta:
+        abstract = True
         verbose_name = _('municipality')
         verbose_name_plural = _('municipalities')
 
@@ -169,6 +174,7 @@ class PersonTelephone(TelephoneCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             # This constraint should nevery be hit because of the save method
             # which corrects the error.
@@ -213,6 +219,7 @@ class CompanyTelephone(TelephoneCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(
                 fields=['company'],
@@ -276,6 +283,7 @@ class PersonEmail(EmailCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),
@@ -317,6 +325,7 @@ class CompanyEmail(EmailCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(fields=['company'],
                                     condition=Q(is_primary=True),
@@ -397,6 +406,7 @@ class PersonAddress(AddressCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),
@@ -442,6 +452,7 @@ class CompanyAddress(AddressCommon):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(
                 fields=['company'],
@@ -487,6 +498,7 @@ class Company(RecordTimestamps):
     )
 
     class Meta:
+        abstract = True
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),
@@ -530,6 +542,7 @@ class Person(RecordTimestamps):
         return self.first_name + ' ' + self.last_name + ' ' + '[' + self.fiscal_code + ']'
 
     class Meta:
+        abstract = True
         verbose_name = _('person')
         verbose_name_plural = _('people')
 
@@ -548,6 +561,7 @@ class PersonAttachment(CommonAttachment):
     )
 
     class Meta:
+        abstract = True
         verbose_name = _('person attachment')
         verbose_name_plural = _('person attachments')
 
@@ -565,5 +579,6 @@ class NominatimCache(RecordTimestamps):
     cache_hits = models.IntegerField(_('cache hits'), default=0)
 
     class Meta:
+        abstract = True
         verbose_name = _('Nominatim cache')
         verbose_name_plural = _('Nominatim caches')

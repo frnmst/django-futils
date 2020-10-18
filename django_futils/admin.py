@@ -20,14 +20,7 @@ from .models import (AttachmentType, PersonAttachment,
                      CompanyAddress, NominatimCache)
 from .formsets import HasPrimaryInlineFormSet
 from django_futils.settings import OPENLAYERS_URL, FOREIGN_KEY_FIELDS
-# from grantmeapp.widgets import MoneyHiddenCurrencyWidget
-# from .forms import ServiceForm
 import django_futils.constants as const
-
-# Remove the delete action globally. See
-# https://docs.djangoproject.com/en/dev/ref/contrib/admin/actions/#disabling-a-site-wide-action
-site.disable_action('delete_selected')
-
 
 ################
 # Base classes #
@@ -71,7 +64,6 @@ class BaseAdminInline(admin.StackedInline):
         },
     }
     extra = 0
-#    classes = ['collapse']
 
     # Show the link with the pencil icon in the inline element that
     # opens a new change window.
@@ -113,7 +105,6 @@ class AddressCommonAdmin(BaseMapAdmin):
 ##########
 # Leaves #
 ##########
-@admin.register(CompanyAddress)
 class CompanyAddressAdmin(AddressCommonAdmin):
     actions = ['delete_selected']
     readonly_fields = ('id', )
@@ -144,32 +135,26 @@ class CompanyAddressAdmin(AddressCommonAdmin):
         return delete
 
 
-@admin.register(AddressType)
 class AddressTypeAdmin(TypeBaseAdmin):
     pass
 
 
-@admin.register(EmailType)
 class EmailTypeAdmin(TypeBaseAdmin):
     pass
 
 
-@admin.register(TelephoneType)
 class TelephoneTypeAdmin(TypeBaseAdmin):
     pass
 
 
-@admin.register(AttachmentType)
 class AttachmentTypeAdmin(TypeBaseAdmin):
     pass
 
 
-@admin.register(Municipality)
 class MunicipalityAdmin(NameBaseAdmin):
     pass
 
 
-@admin.register(NominatimCache)
 class NominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
     actions = ['delete_selected']
     readonly_fields = (
@@ -290,7 +275,6 @@ class PersonAttachmentAdminInline(BaseAdminInline):
 ########
 # Main #
 ########
-@admin.register(PersonAddress)
 class PersonAddressAdmin(AddressCommonAdmin):
     readonly_fields = (
         'id',
@@ -336,7 +320,6 @@ class PersonAddressAdmin(AddressCommonAdmin):
         return delete
 
 
-@admin.register(PersonEmail)
 class PersonEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -380,7 +363,6 @@ class PersonEmailAdmin(BaseAdmin):
         return change
 
 
-@admin.register(CompanyEmail)
 class CompanyEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -423,7 +405,6 @@ class CompanyEmailAdmin(BaseAdmin):
         return change
 
 
-@admin.register(PersonTelephone)
 class PersonTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -467,7 +448,6 @@ class PersonTelephoneAdmin(BaseAdmin):
         return delete
 
 
-@admin.register(CompanyTelephone)
 class CompanyTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -510,7 +490,6 @@ class CompanyTelephoneAdmin(BaseAdmin):
         return change
 
 
-@admin.register(PersonAttachment)
 class PersonAttachmentAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -522,7 +501,6 @@ class PersonAttachmentAdmin(BaseAdmin):
     raw_id_fields = ('person', 'attachment_type')
 
 
-@admin.register(Person)
 class PersonAdmin(BaseAdmin):
     readonly_fields = (
         'id',
@@ -564,7 +542,6 @@ class PersonAdmin(BaseAdmin):
         return deleted_objects, model_count, set(), protected
 
 
-@admin.register(Company)
 class CompanyAdmin(BaseAdmin):
     readonly_fields = (
         'id',

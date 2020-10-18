@@ -1,3 +1,5 @@
+from django.forms.models import BaseInlineFormSet
+
 class HasPrimaryInlineFormSet(BaseInlineFormSet):
     r"""Avoid deleting primary objects."""
     def clean(self):
