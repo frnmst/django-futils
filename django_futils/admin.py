@@ -269,7 +269,7 @@ class PersonAdminInline(BaseAdminInline):
 class PersonAttachmentAdminInline(BaseAdminInline):
     model = PersonAttachment
     readonly_fields = ('id', )
-    raw_id_fields = ('attachment_type', )
+    raw_id_fields = ('type', )
 
 
 ########
@@ -498,7 +498,7 @@ class PersonAttachmentAdmin(BaseAdmin):
     )
     list_display = ('id', 'person', 'file', 'added', 'updated')
     list_select_related = ('person', )
-    raw_id_fields = ('person', 'attachment_type')
+    raw_id_fields = ('person', 'type')
 
 
 class PersonAdmin(BaseAdmin):
