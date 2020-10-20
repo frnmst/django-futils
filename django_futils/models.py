@@ -118,12 +118,6 @@ class RecordTimestamps(models.Model):
 class CommonAttachment(RecordTimestamps):
     name = models.CharField(_('name'), max_length=const.NAME_LENGTH)
     notes = models.TextField(_('notes'), blank=True, null=True)
-    attachment_type = models.ForeignKey(
-        'AttachmentType',
-        related_name='%(class)s_of_this_attachmenttype',
-        on_delete=models.PROTECT,
-        verbose_name=_('attachment type'),
-    )
 
     class Meta:
         abstract = True
@@ -151,13 +145,6 @@ class TelephoneCommon(HasPrimary):
     has_telegram = models.BooleanField(_('has telegram'), default=False)
     is_primary = models.BooleanField(_('primary'), default=False)
 
-    type = models.ForeignKey(
-        'TelephoneType',
-        related_name='%(class)s_of_this_telephonetype',
-        on_delete=models.PROTECT,
-        verbose_name=_('type'),
-    )
-
     def __str__(self):
         return str(self.number)
 
@@ -166,13 +153,6 @@ class TelephoneCommon(HasPrimary):
 
 
 class PersonTelephone(TelephoneCommon):
-    person = models.ForeignKey(
-        'Person',
-        related_name='persontelephone_of_this_person',
-        on_delete=models.CASCADE,
-        verbose_name=_('person'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -211,13 +191,6 @@ class PersonTelephone(TelephoneCommon):
 
 
 class CompanyTelephone(TelephoneCommon):
-    company = models.ForeignKey(
-        'Company',
-        related_name='companytelephone_of_this_company',
-        on_delete=models.CASCADE,
-        verbose_name=_('company'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -260,13 +233,6 @@ class EmailCommon(HasPrimary):
                               unique=True,
                               db_index=True)
 
-    type = models.ForeignKey(
-        'EmailType',
-        related_name='%(class)s_of_this_emailtype',
-        on_delete=models.PROTECT,
-        verbose_name=_('type'),
-    )
-
     class Meta:
         abstract = True
 
@@ -275,13 +241,6 @@ class EmailCommon(HasPrimary):
 
 
 class PersonEmail(EmailCommon):
-    person = models.ForeignKey(
-        'Person',
-        related_name='personemail_of_this_person',
-        on_delete=models.CASCADE,
-        verbose_name=_('person'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -317,13 +276,6 @@ class PersonEmail(EmailCommon):
 
 
 class CompanyEmail(EmailCommon):
-    company = models.ForeignKey(
-        'Company',
-        related_name='companyemail_of_this_company',
-        on_delete=models.CASCADE,
-        verbose_name=_('company'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -370,19 +322,6 @@ class AddressCommon(HasPrimary):
                                    blank=True)
     auto_fill = models.BooleanField(_('auto fill'), default=False)
 
-    type = models.ForeignKey(
-        'AddressType',
-        related_name='%(class)s_address_of_this_addresstype',
-        on_delete=models.PROTECT,
-        verbose_name=_('type'),
-    )
-    municipality = models.ForeignKey(
-        'Municipality',
-        related_name='%(class)s_address_of_this_municipality',
-        on_delete=models.PROTECT,
-        verbose_name=_('municipality'),
-    )
-
     class Meta:
         abstract = True
 
@@ -398,13 +337,6 @@ class AddressCommon(HasPrimary):
 
 
 class PersonAddress(AddressCommon):
-    person = models.ForeignKey(
-        'Person',
-        related_name='personaddress_of_this_person',
-        on_delete=models.CASCADE,
-        verbose_name=_('person'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -444,13 +376,6 @@ class PersonAddress(AddressCommon):
 
 
 class CompanyAddress(AddressCommon):
-    company = models.ForeignKey(
-        'Company',
-        related_name='companyaddress_of_this_company',
-        on_delete=models.CASCADE,
-        verbose_name=_('company'),
-    )
-
     class Meta:
         abstract = True
         constraints = [
@@ -490,12 +415,6 @@ class Company(RecordTimestamps):
     name = models.CharField(_('name'), max_length=const.GENERIC_CHAR_FIELD_LENGTH)
     vat = VATINField(_('VAT'), unique=True)
     is_primary = models.BooleanField(_('is primary'), default=False)
-    person = models.ForeignKey(
-        'Person',
-        related_name='company_of_this_person',
-        on_delete=models.CASCADE,
-        verbose_name=_('person'),
-    )
 
     class Meta:
         abstract = True
@@ -551,14 +470,6 @@ class PersonAttachment(CommonAttachment):
     file = models.FileField(_('file'),
                             upload_to=utils.personattachment_directory_path,
                             null=True)
-    person = models.ForeignKey(
-        'Person',
-        related_name='personattachment_of_this_person',
-        on_delete=models.CASCADE,
-        verbose_name=_('person'),
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         abstract = True
