@@ -71,7 +71,6 @@ INSTALLED_APPS = [
     'phone_field',
     'django_countries',
     'django.contrib.gis',
-    'djmoney',
     'django_extensions',
     'django_futils.apps.DjangoFutilsConfig',
     'django.contrib.admin',

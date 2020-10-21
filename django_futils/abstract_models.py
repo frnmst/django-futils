@@ -1,7 +1,4 @@
 from django.db import models
-from djmoney.models.fields import MoneyField
-from djmoney.money import Money
-from djmoney.models.validators import MinMoneyValidator
 from django.contrib.gis.db import models as gis_models
 from django_countries.fields import CountryField
 from django.core.exceptions import ValidationError
@@ -9,10 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from phone_field import PhoneField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import Sum, Q
+from django.db.models import Q
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
-import decimal
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 import django_futils.utils as utils

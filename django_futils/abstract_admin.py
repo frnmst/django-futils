@@ -13,11 +13,6 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.admin import SimpleHistoryAdmin
 from djmoney.models.fields import MoneyField
 
-from .models import (AttachmentType, PersonAttachment,
-                     PersonTelephone, CompanyTelephone, TelephoneType,
-                     PersonEmail, CompanyEmail, EmailType, PersonAddress,
-                     AddressType, Municipality, Person, Company,
-                     CompanyAddress, NominatimCache)
 from .formsets import HasPrimaryInlineFormSet
 from django_futils.settings import OPENLAYERS_URL, FOREIGN_KEY_FIELDS
 import django_futils.constants as const
@@ -173,7 +168,6 @@ class NominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
 # Inlines #
 ###########
 class CompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
-    model = CompanyAddress
     formset = HasPrimaryInlineFormSet
     if FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
         form = CompanyAddressForm
@@ -187,11 +181,9 @@ class CompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
 
 
 class CompanyAdminInline(BaseAdminInline):
-    model = Company
-
+    pass
 
 class PersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
-    model = PersonAddress
     formset = HasPrimaryInlineFormSet
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
@@ -215,7 +207,6 @@ class PersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
 
 
 class PersonEmailAdminInline(BaseAdminInline):
-    model = PersonEmail
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -226,7 +217,6 @@ class PersonEmailAdminInline(BaseAdminInline):
 
 
 class CompanyEmailAdminInline(BaseAdminInline):
-    model = CompanyEmail
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -237,7 +227,6 @@ class CompanyEmailAdminInline(BaseAdminInline):
 
 
 class PersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
-    model = PersonTelephone
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -248,7 +237,6 @@ class PersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
 
 
 class CompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
-    model = CompanyTelephone
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -259,7 +247,6 @@ class CompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
 
 
 class PersonAdminInline(BaseAdminInline):
-    model = Person
     readonly_fields = (
         'id',
     )
@@ -267,7 +254,6 @@ class PersonAdminInline(BaseAdminInline):
 
 
 class PersonAttachmentAdminInline(BaseAdminInline):
-    model = PersonAttachment
     readonly_fields = ('id', )
     raw_id_fields = ('type', )
 
