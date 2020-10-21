@@ -35,7 +35,7 @@ setup(
     author='Franco Masotti',
     author_email='franco.masotti@live.com',
     keywords='django',
-    url='https://github.com/frnmst/md-toc',
+    url='https://github.com/frnmst/django-futils',
     python_requires='>=3.8, <4',
     test_suite='tests',
     classifiers=[
