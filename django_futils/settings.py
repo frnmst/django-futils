@@ -65,12 +65,14 @@ LANGUAGES = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.contenttypes',
     'simple_history',
     'vies',
     'phone_field',
     'django_countries',
     'django.contrib.gis',
     'djmoney',
+    'django_extensions',
     'django_futils.apps.DjangoFutilsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -92,10 +94,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#AUTHENTICATION_BACKENDS = [
-#    # Django ModelBackend is the default authentication backend.
-#    'django.contrib.auth.backends.ModelBackend',
-#]
+AUTHENTICATION_BACKENDS = [
+    # Django ModelBackend is the default authentication backend.
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 #ROOT_URLCONF = 'grantme.urls'
 
