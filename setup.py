@@ -46,5 +46,5 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Programming Language :: Python :: 3',
     ],
-    install_requires=['requests==2.24.0', 'Django>=3.1.1', 'django-money==1.1', 'django-countries==6.1.3', 'django-phone-field==1.8.1', 'django-vies==5.0.2', 'django-simple-history==2.11.0', 'django-cleanup==5.1.0'],
+    install_requires=[''],
 )
