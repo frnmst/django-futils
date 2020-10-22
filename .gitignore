@@ -1,6 +1,16 @@
 /Pipfile.lock
 /django_futils/__pycache__/
 django_futils/__pycache__
+/SECRET_SETTINGS.*
+!/SECRET_SETTINGS.dist.py
+/static
+/docs/dbschema.svg
+/*/migrations
+/requirements.txt
+/db
+/locale/*/LC_MESSAGES/django.mo
+/ci
+/get-pip.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
