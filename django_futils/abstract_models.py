@@ -10,15 +10,20 @@ from django.db.models import Q
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser
 import django_futils.utils as utils
 import django_futils.constants as const
 
 
-################
-# BasicElement #
-################
-class BasicElement(models.Model):
+class AbstractRecordTimestamps(models.Model):
+    added = models.DateTimeField(_('added'), auto_now_add=True)
+    updated = models.DateTimeField(_('updated'), auto_now=True)
+    history = HistoricalRecords(inherit=True)
+
+    class Meta:
+        abstract = True
+
+
+class AbstractBasicElement(models.Model):
     code = models.CharField(_('code'),
                             max_length=const.CODE_LENGTH,
                             unique=True)
@@ -29,10 +34,10 @@ class BasicElement(models.Model):
         abstract = True
 
 
-################
-# Type classes #
-################
-class Type(BasicElement):
+########################
+# AbstractType classes #
+########################
+class AbstractType(AbstractBasicElement):
     type = models.CharField(_('type'),
                             max_length=const.NAME_LENGTH,
                             db_index=True)
@@ -44,38 +49,38 @@ class Type(BasicElement):
         abstract = True
 
 
-class AddressType(Type):
+class AbstractAddressType(AbstractType):
     class Meta:
         abstract = True
         verbose_name = _('address type')
         verbose_name_plural = _('address types')
 
 
-class EmailType(Type):
+class AbstractEmailType(AbstractType):
     class Meta:
         abstract = True
         verbose_name = _('email type')
         verbose_name_plural = _('email types')
 
 
-class TelephoneType(Type):
+class AbstractTelephoneType(AbstractType):
     class Meta:
         abstract = True
         verbose_name = _('telephone type')
         verbose_name_plural = _('telephone types')
 
 
-class AttachmentType(Type):
+class AbstractAttachmentType(AbstractType):
     class Meta:
         abstract = True
         verbose_name = _('attachment type')
         verbose_name_plural = _('attachment types')
 
 
-###################
-# Element classes #
-###################
-class Element(BasicElement):
+###########################
+# AbstractElement classes #
+###########################
+class AbstractElement(AbstractBasicElement):
     name = models.CharField(_('name'),
                             max_length=const.NAME_LENGTH,
                             db_index=True)
@@ -87,7 +92,7 @@ class Element(BasicElement):
         abstract = True
 
 
-class Municipality(Element):
+class AbstractMunicipality(AbstractElement):
     r"""This is the equivalent of:
         'comune'    in 'IT'
     """
@@ -99,19 +104,10 @@ class Municipality(Element):
         verbose_name_plural = _('municipalities')
 
 
-class RecordTimestamps(models.Model):
-    added = models.DateTimeField(_('added'), auto_now_add=True)
-    updated = models.DateTimeField(_('updated'), auto_now=True)
-    history = HistoricalRecords(inherit=True)
-
-    class Meta:
-        abstract = True
-
-
 ##################
 # Normal classes #
 ##################
-class CommonAttachment(RecordTimestamps):
+class AbstractCommonAttachment(AbstractRecordTimestamps):
     name = models.CharField(_('name'), max_length=const.NAME_LENGTH)
     notes = models.TextField(_('notes'), blank=True, null=True)
 
@@ -122,7 +118,7 @@ class CommonAttachment(RecordTimestamps):
         return self.name
 
 
-class HasPrimary(RecordTimestamps):
+class AbstractHasPrimary(AbstractRecordTimestamps):
     is_primary = models.BooleanField(_('is primary'), default=False)
 
     class Meta:
@@ -135,7 +131,7 @@ class HasPrimary(RecordTimestamps):
             super().delete(*args, **kwargs)
 
 
-class TelephoneCommon(HasPrimary):
+class AbstractTelephoneCommon(AbstractHasPrimary):
     number = PhoneField(_('number'), unique=True, db_index=True)
     has_whatsapp = models.BooleanField(_('has whatsapp'), default=False)
     has_telegram = models.BooleanField(_('has telegram'), default=False)
@@ -148,7 +144,7 @@ class TelephoneCommon(HasPrimary):
         abstract = True
 
 
-class PersonTelephone(TelephoneCommon):
+class AbstractPersonTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -186,7 +182,7 @@ class PersonTelephone(TelephoneCommon):
                 raise ValidationError(_('cannot assign a primary telephone to a different person once it is set'))
 
 
-class CompanyTelephone(TelephoneCommon):
+class AbstractCompanyTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -223,7 +219,7 @@ class CompanyTelephone(TelephoneCommon):
                 raise ValidationError(_('cannot assign a primary telephone to a different company once it is set'))
 
 
-class EmailCommon(HasPrimary):
+class AbstractEmailCommon(AbstractHasPrimary):
     email = models.EmailField(_('email'),
                               max_length=const.EMAIL_MAX_LENGTH,
                               unique=True,
@@ -236,7 +232,7 @@ class EmailCommon(HasPrimary):
         return str(self.email)
 
 
-class PersonEmail(EmailCommon):
+class AbstractPersonEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -271,7 +267,7 @@ class PersonEmail(EmailCommon):
                 raise ValidationError(_('cannot assign a primary email to a different person once it is set'))
 
 
-class CompanyEmail(EmailCommon):
+class AbstractCompanyEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -306,7 +302,7 @@ class CompanyEmail(EmailCommon):
                 raise ValidationError(_('cannot assign a primary email to a different company once it is set'))
 
 
-class AddressCommon(HasPrimary):
+class AbstractAddressCommon(AbstractHasPrimary):
     map = gis_models.PointField(_('map'), blank=True, null=True)
     street_number = models.CharField(_('street number'),
                                      max_length=const.GENERIC_CHAR_FIELD_LENGTH,
@@ -332,7 +328,7 @@ class AddressCommon(HasPrimary):
         return self.street + ', ' + self.street_number + ', ' + self.city
 
 
-class PersonAddress(AddressCommon):
+class AbstractPersonAddress(AbstractAddressCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -371,7 +367,7 @@ class PersonAddress(AddressCommon):
                 raise ValidationError(_('cannot assign a primary address to a different person once it is set'))
 
 
-class CompanyAddress(AddressCommon):
+class AbstractCompanyAddress(AbstractAddressCommon):
     class Meta:
         abstract = True
         constraints = [
@@ -407,7 +403,7 @@ class CompanyAddress(AddressCommon):
                 raise ValidationError(_('cannot assign a primary address to a different company once it is set'))
 
 
-class Company(RecordTimestamps):
+class AbstractCompany(AbstractRecordTimestamps):
     name = models.CharField(_('name'), max_length=const.GENERIC_CHAR_FIELD_LENGTH)
     vat = VATINField(_('VAT'), unique=True)
     is_primary = models.BooleanField(_('is primary'), default=False)
@@ -441,7 +437,7 @@ class Company(RecordTimestamps):
         return self.name
 
 
-class Person(RecordTimestamps):
+class AbstractPerson(AbstractRecordTimestamps):
     first_name = models.CharField(_('first name'),
                                   max_length=const.GENERIC_CHAR_FIELD_LENGTH,
                                   db_index=True)
@@ -462,7 +458,7 @@ class Person(RecordTimestamps):
         verbose_name_plural = _('people')
 
 
-class PersonAttachment(CommonAttachment):
+class AbstractPersonAttachment(AbstractCommonAttachment):
     file = models.FileField(_('file'),
                             upload_to=utils.personattachment_directory_path,
                             null=True)
@@ -473,7 +469,7 @@ class PersonAttachment(CommonAttachment):
         verbose_name_plural = _('person attachments')
 
 
-class NominatimCache(RecordTimestamps):
+class AbstractNominatimCache(AbstractRecordTimestamps):
     r"""As required by the terms of use, Nominatim results must be cached.
         See
         https://operations.osmfoundation.org/policies/nominatim/
