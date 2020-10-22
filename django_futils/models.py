@@ -21,6 +21,7 @@ class TelephoneType(AbstractTelephoneType):
 class AttachmentType(AbstractAttachmentType):
     pass
 
+
 ###################
 # Element classes #
 ###################
@@ -150,7 +151,7 @@ class Person(AbstractPerson):
     pass
 
 
-class Company(AbstractPerson):
+class Company(AbstractCompany):
     person = models.ForeignKey(
         'Person',
         related_name='company_of_this_person',

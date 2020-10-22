@@ -14,8 +14,11 @@ from simple_history.admin import SimpleHistoryAdmin
 from djmoney.models.fields import MoneyField
 
 from .formsets import HasPrimaryInlineFormSet
-from django_futils.settings import OPENLAYERS_URL, FOREIGN_KEY_FIELDS
+from django.conf import settings
 import django_futils.constants as const
+
+OPENLAYERS_URL=settings.OPENLAYERS_URL
+FOREIGN_KEY_FIELDS=settings.FOREIGN_KEY_FIELDS
 
 ################
 # Base classes #
@@ -100,9 +103,9 @@ class AddressCommonAdmin(BaseMapAdmin):
 ##########
 # Leaves #
 ##########
-class CompanyAddressAdmin(AddressCommonAdmin):
+class AbstractCompanyAddressAdmin(AddressCommonAdmin):
     actions = ['delete_selected']
-    readonly_fields = ('id', )
+    readonly_fields = ('id', 'is_primary',)
     list_display = (
         'id',
         'company',
@@ -130,27 +133,27 @@ class CompanyAddressAdmin(AddressCommonAdmin):
         return delete
 
 
-class AddressTypeAdmin(TypeBaseAdmin):
+class AbstractAddressTypeAdmin(TypeBaseAdmin):
     pass
 
 
-class EmailTypeAdmin(TypeBaseAdmin):
+class AbstractEmailTypeAdmin(TypeBaseAdmin):
     pass
 
 
-class TelephoneTypeAdmin(TypeBaseAdmin):
+class AbstractTelephoneTypeAdmin(TypeBaseAdmin):
     pass
 
 
-class AttachmentTypeAdmin(TypeBaseAdmin):
+class AbstractAttachmentTypeAdmin(TypeBaseAdmin):
     pass
 
 
-class MunicipalityAdmin(NameBaseAdmin):
+class AbstractMunicipalityAdmin(NameBaseAdmin):
     pass
 
 
-class NominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
+class AbstractNominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
     actions = ['delete_selected']
     readonly_fields = (
         'id',
@@ -167,8 +170,11 @@ class NominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
 ###########
 # Inlines #
 ###########
-class CompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
+class AbstractCompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
+    readonly_fields = BaseAdminInline.readonly_fields + (
+        'is_primary',
+    )
     if FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
         form = CompanyAddressForm
     elif FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -180,10 +186,13 @@ class CompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
     exclude = ('map', )
 
 
-class CompanyAdminInline(BaseAdminInline):
-    pass
+class AbstractCompanyAdminInline(BaseAdminInline):
+    readonly_fields = BaseAdminInline.readonly_fields + (
+        'is_primary',
+    )
 
-class PersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
+
+class AbstractPersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
@@ -206,7 +215,7 @@ class PersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
         return super().get_formset(request, obj, **kwargs)
 
 
-class PersonEmailAdminInline(BaseAdminInline):
+class AbstractPersonEmailAdminInline(BaseAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -216,7 +225,7 @@ class PersonEmailAdminInline(BaseAdminInline):
     raw_id_fields = ('type', )
 
 
-class CompanyEmailAdminInline(BaseAdminInline):
+class AbstractCompanyEmailAdminInline(BaseAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -226,7 +235,7 @@ class CompanyEmailAdminInline(BaseAdminInline):
     raw_id_fields = ('type', )
 
 
-class PersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
+class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -236,7 +245,7 @@ class PersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     raw_id_fields = ('type', )
 
 
-class CompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
+class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
@@ -253,7 +262,7 @@ class PersonAdminInline(BaseAdminInline):
     list_display = ('id', )
 
 
-class PersonAttachmentAdminInline(BaseAdminInline):
+class AbstractPersonAttachmentAdminInline(BaseAdminInline):
     readonly_fields = ('id', )
     raw_id_fields = ('type', )
 
@@ -261,7 +270,7 @@ class PersonAttachmentAdminInline(BaseAdminInline):
 ########
 # Main #
 ########
-class PersonAddressAdmin(AddressCommonAdmin):
+class AbstractPersonAddressAdmin(AddressCommonAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -306,7 +315,7 @@ class PersonAddressAdmin(AddressCommonAdmin):
         return delete
 
 
-class PersonEmailAdmin(BaseAdmin):
+class AbstractPersonEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -349,7 +358,7 @@ class PersonEmailAdmin(BaseAdmin):
         return change
 
 
-class CompanyEmailAdmin(BaseAdmin):
+class AbstractCompanyEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -391,7 +400,7 @@ class CompanyEmailAdmin(BaseAdmin):
         return change
 
 
-class PersonTelephoneAdmin(BaseAdmin):
+class AbstractPersonTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -434,7 +443,7 @@ class PersonTelephoneAdmin(BaseAdmin):
         return delete
 
 
-class CompanyTelephoneAdmin(BaseAdmin):
+class AbstractCompanyTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -476,7 +485,7 @@ class CompanyTelephoneAdmin(BaseAdmin):
         return change
 
 
-class PersonAttachmentAdmin(BaseAdmin):
+class AbstractPersonAttachmentAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -487,7 +496,7 @@ class PersonAttachmentAdmin(BaseAdmin):
     raw_id_fields = ('person', 'type')
 
 
-class PersonAdmin(BaseAdmin):
+class AbstractPersonAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
@@ -499,13 +508,6 @@ class PersonAdmin(BaseAdmin):
         'first_name',
         'last_name',
     )
-
-    inlines = [
-        PersonAddressAdminInline,
-        PersonTelephoneAdminInline,
-        PersonEmailAdminInline,
-        PersonAttachmentAdminInline,
-    ]
 
     def get_form(self, request, obj=None, **kwargs):
         help_texts = {
@@ -528,20 +530,15 @@ class PersonAdmin(BaseAdmin):
         return deleted_objects, model_count, set(), protected
 
 
-class CompanyAdmin(BaseAdmin):
+class AbstractCompanyAdmin(BaseAdmin):
     readonly_fields = (
         'id',
         'added',
         'updated',
+        'is_primary',
     )
     list_display = (
         'id',
     )
 
     search_fields = ('id', )
-
-    inlines = [
-        CompanyAddressAdminInline,
-        CompanyTelephoneAdminInline,
-        CompanyEmailAdminInline,
-    ]
