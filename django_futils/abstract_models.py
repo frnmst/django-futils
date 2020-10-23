@@ -1,3 +1,24 @@
+#
+# abstract_models.py
+#
+# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+#
+# This file is part of django-futils.
+#
+# django-futils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# django-futils is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from django.db import models
 from django.contrib.gis.db import models as gis_models
 from django_countries.fields import CountryField
@@ -5,12 +26,11 @@ from django.core.exceptions import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from phone_field import PhoneField
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import Q
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
-import django_futils.utils as utils
+from .utils import personattachment_directory_path, get_address_data
 import django_futils.constants as const
 
 
@@ -164,11 +184,11 @@ class AbstractPersonTelephone(AbstractTelephoneCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            telephone = PersonTelephone.objects.get(
+            telephone = type(self).objects.get(
                 Q(person=self.person) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                PersonTelephone.objects.filter(
+                type(self).objects.filter(
                     Q(id=telephone.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -178,7 +198,7 @@ class AbstractPersonTelephone(AbstractTelephoneCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if PersonTelephone.objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).person != self.person:
                 raise ValidationError(_('cannot assign a primary telephone to a different person once it is set'))
 
 
@@ -201,11 +221,11 @@ class AbstractCompanyTelephone(AbstractTelephoneCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            telephone = CompanyTelephone.objects.get(
+            telephone = type(self).objects.get(
                 Q(company=self.company) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                CompanyTelephone.objects.filter(
+                type(self).objects.filter(
                     Q(id=telephone.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -215,7 +235,7 @@ class AbstractCompanyTelephone(AbstractTelephoneCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if CompanyTelephone.objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).person != self.person:
                 raise ValidationError(_('cannot assign a primary telephone to a different company once it is set'))
 
 
@@ -249,11 +269,11 @@ class AbstractPersonEmail(AbstractEmailCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            email = PersonEmail.objects.get(
+            email = type(self).objects.get(
                 Q(person=self.person) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                PersonEmail.objects.filter(
+                type(self).objects.filter(
                     Q(id=email.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -263,7 +283,7 @@ class AbstractPersonEmail(AbstractEmailCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if PersonEmail.objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).person != self.person:
                 raise ValidationError(_('cannot assign a primary email to a different person once it is set'))
 
 
@@ -284,11 +304,11 @@ class AbstractCompanyEmail(AbstractEmailCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            email = CompanyEmail.objects.get(
+            email = type(self).objects.get(
                 Q(company=self.company) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                CompanyEmail.objects.filter(
+                type(self).objects.filter(
                     Q(id=email.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -298,7 +318,7 @@ class AbstractCompanyEmail(AbstractEmailCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if CompanyEmail.objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).person != self.person:
                 raise ValidationError(_('cannot assign a primary email to a different company once it is set'))
 
 
@@ -318,7 +338,7 @@ class AbstractAddressCommon(AbstractHasPrimary):
         abstract = True
 
     def save(self, *args, **kwargs):
-        self.point, self.postal_code = utils.get_address_data(
+        self.point, self.postal_code = get_address_data(
             self.municipality.country.code, self.city, self.street_number,
             self.street, self.postal_code, self.auto_fill)
 
@@ -349,11 +369,11 @@ class AbstractPersonAddress(AbstractAddressCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            address = PersonAddress.objects.get(
+            address = type(self).objects.get(
                 Q(person=self.person) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                PersonAddress.objects.filter(
+                type(self).objects.filter(
                     Q(id=address.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -363,7 +383,7 @@ class AbstractPersonAddress(AbstractAddressCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if PersonAddress.objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).person != self.person:
                 raise ValidationError(_('cannot assign a primary address to a different person once it is set'))
 
 
@@ -385,11 +405,11 @@ class AbstractCompanyAddress(AbstractAddressCommon):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            address = CompanyAddress.objects.get(
+            address = type(self).objects.get(
                 Q(company=self.company) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                CompanyAddress.objects.filter(
+                type(self).objects.filter(
                     Q(id=address.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -399,7 +419,7 @@ class AbstractCompanyAddress(AbstractAddressCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if CompanyAddress.objects.get(pk=self.pk).company != self.company:
+            if type(self).objects.get(pk=self.pk).company != self.company:
                 raise ValidationError(_('cannot assign a primary address to a different company once it is set'))
 
 
@@ -421,11 +441,11 @@ class AbstractCompany(AbstractRecordTimestamps):
     def save(self, *args, **kwargs):
         # One object must always be primary.
         try:
-            company = Company.objects.get(
+            company = type(self).objects.get(
                 Q(person=self.person) & Q(is_primary=True))
             if self.is_primary:
                 # Change value on the fly.
-                Company.objects.filter(
+                type(self).objects.filter(
                     Q(id=company.id)).update(is_primary=False)
                 self.is_primary = True
         except ObjectDoesNotExist:
@@ -460,7 +480,7 @@ class AbstractPerson(AbstractRecordTimestamps):
 
 class AbstractPersonAttachment(AbstractCommonAttachment):
     file = models.FileField(_('file'),
-                            upload_to=utils.personattachment_directory_path,
+                            upload_to=personattachment_directory_path,
                             null=True)
 
     class Meta:

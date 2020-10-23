@@ -1,4 +1,24 @@
-import django_futils.models as models
+#
+# utils.py
+#
+# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+#
+# This file is part of django-futils.
+#
+# django-futils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# django-futils is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from django.utils.timezone import localdate
 from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
@@ -7,6 +27,10 @@ from django.utils import timezone
 import requests
 import uuid
 import urllib.parse
+try:
+    from .models import NominatimCache
+except ImportError:
+    pass
 
 
 # In case of renaming these functions you must change the migration files. See:
@@ -69,12 +93,12 @@ def get_address_data(country: str, city: str, street_number: str,
         postcode = postal_code
     else:
         # Escape variables and special characters of the url so that it can be validated as a URLField.
-        osm_request_url = (NOMINATIM_URL + '/' + urllib.parse.quote('search?format=geojson&limit=1&addressdetails=1&city=' \
+        osm_request_url = (settings.NOMINATIM_URL + '/' + urllib.parse.quote('search?format=geojson&limit=1&addressdetails=1&city=' \
             + city + '&street=' + street_number + ', ' + street + '&country=' + country.lower(), safe='?&=/'))
 
         try:
-            cache = models.NominatimCache.objects.get(request_url=osm_request_url)
-            if (timezone.now() - cache.updated).seconds > NOMINATIM_CACHE_TTL_SECONDS:
+            cache = NominatimCache.objects.get(request_url=osm_request_url)
+            if (timezone.now() - cache.updated).seconds > settings.NOMINATIM_CACHE_TTL_SECONDS:
                 # Update the cache once it expires.
                 point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
                 cache.map = point
@@ -89,12 +113,12 @@ def get_address_data(country: str, city: str, street_number: str,
                 updated = cache.updated
 
                 # Replace the updated field with its original value.
-                models.NominatimCache.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
+                NominatimCache.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
 
         except ObjectDoesNotExist:
             # Create the cache.
             point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
-            cache = models.NominatimCache(request_url=osm_request_url, map=point, postal_code=postcode)
+            cache = NominatimCache(request_url=osm_request_url, map=point, postal_code=postcode)
             cache.save()
 
     return point, postcode

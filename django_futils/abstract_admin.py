@@ -1,3 +1,24 @@
+#
+# abstract_admin.py
+#
+# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+#
+# This file is part of django-futils.
+#
+# django-futils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# django-futils is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 from django.contrib import admin
 from django.db import models
 from django.forms import TextInput, Textarea
@@ -17,8 +38,6 @@ from .formsets import HasPrimaryInlineFormSet
 from django.conf import settings
 import django_futils.constants as const
 
-OPENLAYERS_URL=settings.OPENLAYERS_URL
-FOREIGN_KEY_FIELDS=settings.FOREIGN_KEY_FIELDS
 
 ################
 # Base classes #
@@ -85,7 +104,7 @@ class BaseMapAdmin(OSMGeoAdmin, BaseAdmin):
     default_lon = -90
     default_lat = 10
     modifiable = False
-    openlayers_url = OPENLAYERS_URL
+    openlayers_url = settings.OPENLAYERS_URL
 
 
 class AddressCommonAdmin(BaseMapAdmin):
@@ -175,9 +194,10 @@ class AbstractCompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
     )
-    if FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyAddressForm
-    elif FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        # form = CompanyAddressForm
+        pass
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
             'company',
             'type',
@@ -197,9 +217,10 @@ class AbstractPersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
     )
-    if FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyAddressForm
-    elif FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        # form = CompanyAddressForm
+        pass
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
             'type',
             'municipality',
