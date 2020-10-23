@@ -30,7 +30,7 @@ from django.db.models import Q
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
-from .utils import personattachment_directory_path, get_address_data
+from .utils import personattachment_directory_path, get_address_data, save_primary
 import django_futils.constants as const
 
 
@@ -182,18 +182,7 @@ class AbstractPersonTelephone(AbstractTelephoneCommon):
         verbose_name_plural = _('peoples\' telephone')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            telephone = type(self).objects.get(
-                Q(person=self.person) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=telephone.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='person', field_value=self.person)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -219,18 +208,7 @@ class AbstractCompanyTelephone(AbstractTelephoneCommon):
         verbose_name_plural = _('companies\' telephone')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            telephone = type(self).objects.get(
-                Q(company=self.company) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=telephone.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='company', field_value=self.company)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -267,18 +245,7 @@ class AbstractPersonEmail(AbstractEmailCommon):
         verbose_name_plural = _('peoples\' email')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            email = type(self).objects.get(
-                Q(person=self.person) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=email.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='person', field_value=self.person)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -302,18 +269,7 @@ class AbstractCompanyEmail(AbstractEmailCommon):
         verbose_name_plural = _('companies\' email')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            email = type(self).objects.get(
-                Q(company=self.company) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=email.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='company', field_value=self.company)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -379,6 +335,7 @@ class AbstractPersonAddress(AbstractAddressCommon):
         except ObjectDoesNotExist:
             self.is_primary = True
 
+        save_primary(self=self, field_name='person', field_value=self.person)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -403,18 +360,7 @@ class AbstractCompanyAddress(AbstractAddressCommon):
         verbose_name_plural = _('companies\' address')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            address = type(self).objects.get(
-                Q(company=self.company) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=address.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='company', field_value=self.company)
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -439,18 +385,7 @@ class AbstractCompany(AbstractRecordTimestamps):
         verbose_name_plural = _('companies')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            company = type(self).objects.get(
-                Q(person=self.person) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=company.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
+        save_primary(self=self, field_name='person', field_value=self.person)
         super().save(*args, **kwargs)
 
     def __str__(self):

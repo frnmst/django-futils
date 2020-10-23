@@ -24,6 +24,7 @@ from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.db.models import Q
 import requests
 import uuid
 import urllib.parse
@@ -31,6 +32,18 @@ try:
     from .models import NominatimCache
 except ImportError:
     pass
+
+
+def save_primary(self, field_name, field_value):
+    r"""One object must always be primary."""
+    try:
+        obj = type(self).objects.get(Q(**{field_name: field_value}) & Q(is_primary=True))
+        if self.is_primary:
+            # Change value on the fly.
+            type(self).objects.filter(Q(id=obj.id)).update(is_primary=False)
+            self.is_primary = True
+    except ObjectDoesNotExist:
+        self.is_primary = True
 
 
 # In case of renaming these functions you must change the migration files. See:
