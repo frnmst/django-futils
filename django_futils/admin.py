@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.admin import SimpleHistoryAdmin
 from django.contrib.auth.admin import UserAdmin
 from .models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, NominatimCache
-from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractNominatimCacheAdmin
+from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractNominatimCacheAdmin, AbstractCompanyAdminInline
 
 
 admin.site.register(AddressType, AbstractAddressTypeAdmin)
@@ -17,17 +17,19 @@ admin.site.register(EmailType, AbstractEmailTypeAdmin)
 admin.site.register(TelephoneType, AbstractTelephoneTypeAdmin)
 admin.site.register(AttachmentType, AbstractAttachmentTypeAdmin)
 admin.site.register(Municipality, AbstractMunicipalityAdmin)
-
 admin.site.register(CompanyAddress, AbstractCompanyAddressAdmin)
 admin.site.register(CompanyTelephone, AbstractCompanyTelephoneAdmin)
 admin.site.register(CompanyEmail, AbstractCompanyEmailAdmin)
-
 admin.site.register(PersonAddress, AbstractPersonAddressAdmin)
 admin.site.register(PersonTelephone, AbstractPersonTelephoneAdmin)
 admin.site.register(PersonEmail, AbstractPersonEmailAdmin)
 admin.site.register(PersonAttachment, AbstractPersonAttachmentAdmin)
-
 admin.site.register(NominatimCache, AbstractNominatimCacheAdmin)
+
+
+class CompanyAdminInline(AbstractCompanyAdminInline):
+    model = Company
+
 
 class CompanyAddressAdminInline(AbstractCompanyAddressAdminInline):
     model = CompanyAddress
@@ -65,6 +67,7 @@ class CompanyAdmin(AbstractCompanyAdmin):
         CompanyEmailAdminInline,
     ]
 
+
 @admin.register(Person)
 class PersonAdmin(AbstractPersonAdmin):
     inlines = [
@@ -72,10 +75,5 @@ class PersonAdmin(AbstractPersonAdmin):
         PersonTelephoneAdminInline,
         PersonEmailAdminInline,
         PersonAttachmentAdminInline,
+        CompanyAdminInline,
     ]
-
-#admin.site.register(EmailType, django_futils.admin.EmailTypeAdmin)
-#admin.site.register(TelephoneType, django_futils.admin.TelephoneTypeAdmin)
-#admin.site.register(AttachmentType, django_futils.admin.AttachmentTypeAdmin)
-#admin.site.register(Municipality, django_futils.admin.MunicipalityAdmin)
-#admin.site.register(NominatimCache, django_futils.admin.NominatimCacheAdmin)
