@@ -204,7 +204,7 @@ check:
 	$(COMMAND_PREFIX) python3 manage.py check --fail-level INFO
 
 clean:
-	rm -rf build dist *.egg-info static __pycache__ requirements.txt locale/django.po
+	rm -rf build dist *.egg-info static __pycache__ requirements.txt locale/django.po requirements.txt
 	$(COMMAND_PREFIX) $(MAKE) -C docs clean
 
 .PHONY: default doc install uninstall install-dev uninstall-dev test clean

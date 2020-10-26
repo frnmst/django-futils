@@ -1,0 +1,66 @@
+#
+# borgmatic.docker_postgis_django_futils.dist_prod.yaml
+#
+# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+#
+# This file is part of django-futils.
+#
+# django-futils is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# django-futils is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Where to look for files to backup, and where to store those backups.
+# See https://borgbackup.readthedocs.io/en/stable/quickstart.html and
+# https://borgbackup.readthedocs.io/en/stable/usage/create.html
+# for details.
+location:
+    # List of source directories to backup (required). Globs and
+    # tildes are expanded.
+    source_directories:
+        - ../db/prod/data
+
+    # Paths to local or remote repositories (required). Tildes are
+    # expanded. Multiple repositories are backed up to in
+    # sequence. See ssh_command for SSH options like identity file
+    # or port.
+    repositories:
+        - /tmp/backups/django_futils/prod.borg
+
+storage:
+    # The password used for the backups.
+    encryption_passphrase: "password"
+
+hooks:
+    postgresql_databases:
+        # Settings used by pg_dump and pg_restore
+        - name: postgres_prod
+          hostname: 127.0.0.1
+          port: 3051
+          username: postgres
+          password: postgres
+          format: tar
+          options: ""
+
+consistency:
+    checks:
+        - repository
+        - data
+
+output:
+    color: false
+
+# Snapshots.
+retention:
+    # Keep all snapshots made  during the last week.
+    keep_within: 1w
+    keep_monthly: 10
