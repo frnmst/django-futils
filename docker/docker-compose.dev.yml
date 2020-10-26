@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    db:
+        volumes:
+          - ./db/dev/postgis-data:/var/lib/postgresql
+
+    web:
+        volumes:
+          - ./db/dev/data:/data
+
+        ports:
+            - 3050:3050
+
+        environment:
+            - DJANGO_ENV=development

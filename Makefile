@@ -34,6 +34,94 @@ endif
 
 default: doc
 
+##########
+# Docker #
+##########
+docker.rm:
+    # Remove stopped containers.
+	docker-compose rm --stop
+
+
+# Development #
+###############
+## Build the image.
+docker.build.dev:
+	. ${CURDIR}/.env; pipenv lock --requirements > requirements.txt
+	. ${CURDIR}/.env; pipenv lock --requirements --dev >> requirements.txt
+	docker-compose build --build-arg DJANGO_ENV=development
+
+## Initialization.
+docker.up.dev.debug.no-volume.init:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit
+
+docker.up.dev.debug.volume.init:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit
+
+## Server.
+docker.up.dev.debug.volume.serve:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up
+
+## Stop.
+docker.down.dev.debug.volume:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.serve_dev.yml --file docker/docker-compose.db_name_dev.yml down
+
+## Shell.
+docker.run.dev.debug.no-volume.shell:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.db_name_dev.yml run web bash
+
+docker.run.dev.debug.volume.shell:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml run web bash
+
+## Db only.
+docker.up.dev.db:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.db_name_dev.yml up db
+
+# Production #
+##############
+## Build the image.
+docker.build.prod:
+	pipenv lock --requirements > requirements.txt
+	docker-compose build --build-arg DJANGO_ENV=production
+
+## Initialization.
+docker.up.prod.no-debug.no-volume.init:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --abort-on-container-exit
+
+## Server.
+docker.up.prod.no-debug.no-volume.serve:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.serve_prod.yml --file docker/docker-compose.db_name_prod.yml up
+
+## Stop.
+docker.down.prod.no-debug.no-volume.serve:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.serve_prod.yml --file docker/docker-compose.db_name_prod.yml down
+
+## Shell.
+docker.run.prod.no-debug.no-volume.shell:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.db_name_prod.yml run web bash
+
+## Db only.
+docker.up.prod.db:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.db_name_prod.yml up db
+
+######################
+# Inside docker only #
+######################
+# Development.
+docker.init.dev: remove-migrations migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations compile-translations test doc check
+
+docker.gen-superuser.dev:
+	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')" | python3 manage.py shell
+
+docker.serve.dev: serve-dev
+
+# Production.
+docker.init.prod: migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations compile-translations check
+
+docker.serve.prod: serve-production
+
+###################
+# Bare metal only #
+###################
 install:
 	pip3 install . --user
 
@@ -51,6 +139,8 @@ dist: # clean
 	pipenv run python setup.py sdist
 	pipenv run python setup.py bdist_wheel
 	pipenv run twine check dist/*
+
+init: install-dev remove-migrations migrations migrate collectstatic gen-superuser syncdb initialize-translations compile-translations
 
 ##########
 # Common #
@@ -99,6 +189,16 @@ migrate:
 
 serve-dev:
 	$(COMMAND_PREFIX) python3 manage.py runserver 0.0.0.0:3050
+
+# TODO
+# Docker
+# serve-production:
+#	DEBUG="False" uwsgi --chdir=${CURDIR} --module=$(PROJECT_NAME).wsgi:application --env DJANGO_SETTINGS_MODULE=$(PROJECT_NAME).settings --master --pidfile=/run/project-master.pid --processes=5 --harakiri=20 --max-requests=5000 --vacuum --http=0.0.0.0:3050 --check-static ${CURDIR}
+serve-production:
+	$(COMMAND_PREFIX) uwsgi --chdir=${CURDIR} --module=$(PROJECT_NAME).wsgi:application --env DJANGO_SETTINGS_MODULE=$(PROJECT_NAME).settings --master --pidfile=/tmp/project-master.pid --http=0.0.0.0:3050 --processes=5 --uid=1019 --gid=1019 --harakiri=20 --max-requests=5000 --vacuum --check-static ${CURDIR}
+
+check:
+	$(COMMAND_PREFIX) python3 manage.py check --fail-level INFO
 
 clean:
 	rm -rf build dist *.egg-info static __pycache__ requirements.txt locale/django.po

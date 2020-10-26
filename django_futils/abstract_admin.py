@@ -32,7 +32,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from simple_history.admin import SimpleHistoryAdmin
-from djmoney.models.fields import MoneyField
 
 from .formsets import HasPrimaryInlineFormSet
 from django.conf import settings

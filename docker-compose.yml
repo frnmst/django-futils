@@ -1,0 +1,49 @@
+#
+# docker-compose.yml
+#
+# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+#
+# This file is part of grantme.
+#
+# grantme is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# grantme is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with grantme.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+version: '3.8'
+
+services:
+    db:
+        # https://github.com/kartoza/docker-postgis
+        image: kartoza/postgis:12.1
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASS=${POSTGRES_PASS}
+            - POSTGRES_MULTIPLE_EXTENSIONS=postgis
+            - EXISTING_DATA_DIR=true
+            # Do not create __pycache__ directories. See
+            # https://stackoverflow.com/questions/50752302/python3-pycache-generating-even-if-pythondontwritebytecode-1
+            - PYTHONDONTWRITEBYTECODE=1
+        restart: on-failure
+
+        # Enable access to the database from localhost only.
+        ports:
+            - "127.0.0.1:${POSTGRES_EXPOSED_PORT}:${POSTGRES_GUEST_PORT}"
+
+    web:
+        image: futils_web
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: on-failure
+        depends_on:
+            - db

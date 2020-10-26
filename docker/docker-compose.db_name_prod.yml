@@ -1,0 +1,6 @@
+version: '3.8'
+
+services:
+    db:
+        environment:
+            - POSTGRES_DBNAME=postgres_prod
