@@ -148,6 +148,9 @@ init: install-dev remove-migrations migrations migrate collectstatic gen-superus
 remove-migrations:
 	rm -rf $(APP_NAME)/migrations
 
+# Run
+# $(COMMAND_PREFIX) python3 manage.py makemessages -l ${LANGUAGE_CODE}
+# to create a po file.
 initialize-translations:
 	$(COMMAND_PREFIX) python3 manage.py makemessages --all
 
