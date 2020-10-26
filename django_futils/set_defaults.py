@@ -44,6 +44,10 @@ except AttributeError:
     # 1=raw
     # 2=autocomplete
     settings.FOREIGN_KEY_FIELDS = 1
+try:
+    settings.SIMPLE_HISTORY_REVERT_DISABLE
+except AttributeError:
+    settings.SIMPLE_HISTORY_REVERT_DISABLE = False
 
 # Validate the custom secret settings.
 if not isinstance(settings.NOMINATIM_URL, str):

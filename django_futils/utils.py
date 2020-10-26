@@ -32,6 +32,7 @@ try:
     from .models import NominatimCache
 except ImportError:
     pass
+import django_futils.set_defaults
 
 
 def save_primary(self, field_name, field_value):
