@@ -20,14 +20,15 @@
 #
 
 from django.test import TestCase, TransactionTestCase
-from .models import PersonTelephone
+from .models import PersonTelephone, NominatimCache
 from model_bakery import baker
 import decimal
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from unittest import mock
 from django.utils import timezone
-from vies.types import VATIN
+from .utils import get_address_data, run_nominatim_request
+from django.conf import settings
 
 
 ##########
@@ -112,9 +113,64 @@ def mock_date():
     return timezone.make_aware(timezone.datetime(year=1970, month=2, day=1))
 
 
-# Changed the date function in the Django builtin modules and in the utils module.
+def mock_run_nominatim_request_empty(**kwargs):
+    return None, str()
+
+
+# Change the date function in the Django builtin modules (in this test module)
+# and in the utils module.
 @mock.patch('django_futils.utils.localdate', mock_date)
 @mock.patch('django.utils.timezone.now', mock_date)
 class UtilsTestCase(TestCase):
-    def test_get_address_data(self):
-        pass
+    def setUp(self):
+        self.city = 'c'
+        self.street_number = '1'
+        self.street = 's'
+
+    def test_get_address_data_None(self):
+        # Existing postal code.
+        country = None
+        postal_code = 'a'
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, 'a')
+
+        # Empty string postal code.
+        country = None
+        postal_code = str()
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+        # Empty postal code.
+        country = None
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+    def test_get_address_data_no_autofill(self):
+        country = 'a'
+        postal_code = None
+        auto_fill = False
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+    @mock.patch('django_futils.utils.run_nominatim_request', mock_run_nominatim_request_empty)
+    def test_get_address_data_autofill(self):
+        country = 'c'
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+
+        c = NominatimCache.objects.first()
+        self.assertEqual(c.request_url, settings.NOMINATIM_URL + '/search?format=geojson&limit=1&addressdetails=1&city=' + self.city + '&street=' + self.street_number + '%2C%20' + self.street + '&country=' + country)
+        self.assertEqual(c.cache_hits, 0)
+        self.assertEqual(c.postal_code, str())
+        self.assertEqual(c.map, None)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())

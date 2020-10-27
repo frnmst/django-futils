@@ -28,14 +28,10 @@ from django.db.models import Q
 import requests
 import uuid
 import urllib.parse
-try:
-    from .models import NominatimCache
-except ImportError:
-    pass
 import django_futils.set_defaults
 
 
-def save_primary(self, field_name, field_value):
+def save_primary(self, field_name: str, field_value: str):
     r"""One object must always be primary."""
     try:
         obj = type(self).objects.get(Q(**{field_name: field_value}) & Q(is_primary=True))
@@ -85,6 +81,8 @@ def run_nominatim_request(request_url: str, postal_code: str) -> tuple:
 
     except (requests.RequestException, ValueError):
         point = None
+        if postal_code is None:
+            postal_code = str()
         postcode = postal_code
 
     return point, postcode
@@ -110,6 +108,8 @@ def get_address_data(country: str, city: str, street_number: str,
         osm_request_url = (settings.NOMINATIM_URL + '/' + urllib.parse.quote('search?format=geojson&limit=1&addressdetails=1&city=' \
             + city + '&street=' + street_number + ', ' + street + '&country=' + country.lower(), safe='?&=/'))
 
+        # Defer  to avoid cirular imports.
+        from .models import NominatimCache
         try:
             cache = NominatimCache.objects.get(request_url=osm_request_url)
             if (timezone.now() - cache.updated).seconds > settings.NOMINATIM_CACHE_TTL_SECONDS:
