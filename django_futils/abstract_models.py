@@ -323,18 +323,6 @@ class AbstractPersonAddress(AbstractAddressCommon):
         verbose_name_plural = _('peoples\' address')
 
     def save(self, *args, **kwargs):
-        # One object must always be primary.
-        try:
-            address = type(self).objects.get(
-                Q(person=self.person) & Q(is_primary=True))
-            if self.is_primary:
-                # Change value on the fly.
-                type(self).objects.filter(
-                    Q(id=address.id)).update(is_primary=False)
-                self.is_primary = True
-        except ObjectDoesNotExist:
-            self.is_primary = True
-
         save_primary(self=self, field_name='person', field_value=self.person)
         super().save(*args, **kwargs)
 

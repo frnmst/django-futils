@@ -34,6 +34,14 @@ from vies.types import VATIN
 # Models #
 ##########
 class PersonTelephoneTestCase(TestCase):
+    r"""test
+        CompanyTelephoneTestCase
+        PersonEmailTestCase
+        CompanyEmailTestCase
+        PersonAddressTestCase
+        CompanyAddressTestCase
+        Company
+    """
     def setUp(self):
         self.person = baker.make('Person')
         self.telephonetype = baker.make('TelephoneType')
@@ -44,7 +52,7 @@ class PersonTelephoneTestCase(TestCase):
                                    person=self.person)
 
     def test_constraints_duplicate_elements(self):
-        # Same type, number and person.
+        r"""Same type, number and person."""
         with self.assertRaises(IntegrityError):
             self.persontelephone_2 = baker.make('PersonTelephone',
                                        number='112233',
@@ -52,17 +60,30 @@ class PersonTelephoneTestCase(TestCase):
                                        person=self.person)
 
     def test_constraints_duplicate_is_primary(self):
-        r"""This constraint should nevery be hit because of the save method
-           which corrects the error.
-        """
+        r"""This constraint should nevery be hit because of the save method which corrects the error."""
 
     def test_save_new(self):
         # Re-read the data from the database. If we read from
         # the local variables we cannot track the changes.
+        # Get the data from the setUp method.
         t1 = PersonTelephone.objects.first()
         self.assertEqual(t1.is_primary, True)
 
-    def test_save_new_primary(self):
+    def test_save_new_as_non_primary(self):
+        self.persontelephone_2 = baker.make('PersonTelephone',
+                                       number='112234',
+                                       is_primary=False,
+                                       type=self.telephonetype,
+                                       person=self.person)
+
+        # Re-read the data from the database. If we read from
+        # the local variables we cannot track the changes.
+        t1 = PersonTelephone.objects.first()
+        t2 = PersonTelephone.objects.last()
+        self.assertEqual(t1.is_primary, True)
+        self.assertEqual(t2.is_primary, False)
+
+    def test_save_new_as_primary(self):
         self.persontelephone_2 = baker.make('PersonTelephone',
                                        number='112234',
                                        is_primary=True,
@@ -77,30 +98,11 @@ class PersonTelephoneTestCase(TestCase):
         self.assertEqual(t2.is_primary, True)
 
     def test_clean(self):
+        r"""Test assignment to a new Person."""
         self.person_2 = baker.make('Person')
         self.persontelephone_1.person = self.person_2
         with self.assertRaises(ValidationError):
             self.persontelephone_1.full_clean()
-
-
-class CompanyTelephoneTestCase(TestCase):
-    r"""This works the same as the PersonTelephone."""
-
-
-class PersonEmailTestCase(TestCase):
-    r"""This works the same as the PersonTelephone."""
-
-
-class CompanyEmailTestCase(TestCase):
-    r"""This works the same as the PersonTelephone."""
-
-
-class PersonAddressTestCase(TestCase):
-    r"""This works the same as the PersonTelephone."""
-
-
-class CompanyAddressTestCase(TestCase):
-    r"""This works the same as the PersonTelephone."""
 
 
 #########
@@ -114,4 +116,5 @@ def mock_date():
 @mock.patch('django_futils.utils.localdate', mock_date)
 @mock.patch('django.utils.timezone.now', mock_date)
 class UtilsTestCase(TestCase):
-    pass
+    def test_get_address_data(self):
+        pass
