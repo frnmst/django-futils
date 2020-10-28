@@ -109,17 +109,23 @@ class PersonTelephoneTestCase(TestCase):
 #########
 # Utils #
 #########
+
+# Mocks
 def mock_date():
     return timezone.make_aware(timezone.datetime(year=1970, month=2, day=1))
 
 
-def mock_run_nominatim_request_empty(**kwargs):
+def mock_run_nominatim_request_empty(**kwargs) -> tuple:
     return None, str()
+
+
+NOMINATIM_URL = 'https://a/b'
+NOMINATIM_CACHE_TTL_SECONDS_HIT = float('inf')
+NOMINATIM_CACHE_TTL_SECONDS_MISS = 0
 
 
 # Change the date function in the Django builtin modules (in this test module)
 # and in the utils module.
-@mock.patch('django_futils.utils.localdate', mock_date)
 @mock.patch('django.utils.timezone.now', mock_date)
 class UtilsTestCase(TestCase):
     def setUp(self):
@@ -161,7 +167,59 @@ class UtilsTestCase(TestCase):
         self.assertEqual(postcode, str())
 
     @mock.patch('django_futils.utils.run_nominatim_request', mock_run_nominatim_request_empty)
-    def test_get_address_data_autofill(self):
+    @mock.patch('django.conf.settings.NOMINATIM_URL', NOMINATIM_URL)
+    def test_get_address_data_autofill_new(self):
+        # Cache miss because it is new.
+        country = 'c'
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+
+        c = NominatimCache.objects.first()
+        self.assertEqual(c.request_url, settings.NOMINATIM_URL + '/search?format=geojson&limit=1&addressdetails=1&city=' + self.city + '&street=' + self.street_number + '%2C%20' + self.street + '&country=' + country)
+        self.assertEqual(c.cache_hits, 0)
+        self.assertEqual(c.postal_code, str())
+        self.assertEqual(c.map, None)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+    @mock.patch('django_futils.utils.run_nominatim_request', mock_run_nominatim_request_empty)
+    @mock.patch('django.conf.settings.NOMINATIM_URL', NOMINATIM_URL)
+    @mock.patch('django.conf.settings.NOMINATIM_CACHE_TTL_SECONDS', NOMINATIM_CACHE_TTL_SECONDS_HIT)
+    def test_get_address_data_autofill_cache_hit(self):
+        country = 'c'
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        c = NominatimCache.objects.first()
+        # Get the pervious value.
+        updated = c.updated
+        country = 'c'
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+
+        c = NominatimCache.objects.first()
+        self.assertEqual(c.request_url, settings.NOMINATIM_URL + '/search?format=geojson&limit=1&addressdetails=1&city=' + self.city + '&street=' + self.street_number + '%2C%20' + self.street + '&country=' + country)
+        self.assertEqual(c.cache_hits, 1)
+        self.assertEqual(c.postal_code, str())
+        self.assertEqual(c.map, None)
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+        self.assertEqual(c.updated, updated)
+
+    @mock.patch('django_futils.utils.run_nominatim_request', mock_run_nominatim_request_empty)
+    @mock.patch('django.conf.settings.NOMINATIM_URL', NOMINATIM_URL)
+    @mock.patch('django.conf.settings.NOMINATIM_CACHE_TTL_SECONDS', NOMINATIM_CACHE_TTL_SECONDS_MISS)
+    def test_get_address_data_autofill_cache_miss(self):
+        r"""Simulate a cache expiry."""
+        country = 'c'
+        postal_code = None
+        auto_fill = True
+        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
+
+        c = NominatimCache.objects.first()
+        # Get the pervious value.
         country = 'c'
         postal_code = None
         auto_fill = True

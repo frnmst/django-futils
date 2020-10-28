@@ -72,6 +72,9 @@ docker.run.dev.debug.no-volume.shell:
 docker.run.dev.debug.volume.shell:
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml run web bash
 
+docker.up.dev.debug.volume.test:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.test_dev.yml up  --abort-on-container-exit
+
 ## Db only.
 docker.up.dev.db:
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.db_name_dev.yml up db

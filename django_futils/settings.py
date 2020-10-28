@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from django.utils.translation import gettext_lazy as _
 import django_futils.constants as const
+import sys
 
 # Required variables.
 from SECRET_SETTINGS import SECRET_KEY, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, MEDIA_ROOT, MEDIA_URL, INTERNAL_IPS, DEBUG, ALLOWED_HOSTS, LANGUAGE_CODE, TIME_ZONE, USE_X_FORWARDED_HOST, STATIC_URL, STATIC_ROOT_SUFFIX, STATICFILES_DIR_SUFFIX, LOCALE_DIR_SUFFIX
@@ -123,6 +124,9 @@ DATABASES = {
         'PASSWORD': DB_PASSWORD,
         'HOST': DB_HOST,
         'PORT': DB_PORT,
+        'TEST': {
+            'MIGRATE': True,
+        },
     }
 }
 
@@ -146,3 +150,9 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.app_directories.Loader',
     )),
 )
+
+# Unit tests.
+if 'test' in sys.argv:
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.CryptPasswordHasher',
+    ]

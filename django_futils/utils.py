@@ -112,7 +112,7 @@ def get_address_data(country: str, city: str, street_number: str,
         from .models import NominatimCache
         try:
             cache = NominatimCache.objects.get(request_url=osm_request_url)
-            if (timezone.now() - cache.updated).seconds > settings.NOMINATIM_CACHE_TTL_SECONDS:
+            if (timezone.now() - cache.updated).seconds >= settings.NOMINATIM_CACHE_TTL_SECONDS:
                 # Update the cache once it expires.
                 point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
                 cache.map = point
@@ -126,7 +126,8 @@ def get_address_data(country: str, city: str, street_number: str,
                 hit = cache.cache_hits + 1
                 updated = cache.updated
 
-                # Replace the updated field with its original value.
+                # Since we are not changing neither the map nor the postal_code values,
+                # replace the updated field with its original value.
                 NominatimCache.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
 
         except ObjectDoesNotExist:
