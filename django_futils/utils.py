@@ -55,6 +55,10 @@ def run_nominatim_request(request_url: str, postal_code: str) -> tuple:
     try:
         r = requests.get(request_url)
         j = r.json()
+
+        if 'features' not in j:
+            raise ValueError
+
         if j['features'] == list():
             point = None
             postcode = postal_code
