@@ -134,29 +134,42 @@ class UtilsTestCase(TestCase):
         self.street = 's'
 
     def test_get_address_data_None(self):
-        # Existing postal code.
-        country = None
-        postal_code = 'a'
-        auto_fill = True
-        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
-        self.assertEqual(point, None)
-        self.assertEqual(postcode, 'a')
+        x = 'a',
+        y = None
+        z = str()
+        # Some permutations of possible values in the first function conditional
+        # statement.
+        perms = [[x, x, x, y], [x, x, y, x], [x, y, x, x], [y, x, x, x], [x, x, x, z], [x, x, z, x], [x, z, x, x], [z, x, x, x]]
 
-        # Empty string postal code.
-        country = None
-        postal_code = str()
-        auto_fill = True
-        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
-        self.assertEqual(point, None)
-        self.assertEqual(postcode, str())
+        i = 0
+        for e in perms:
+            country = perms[i][0]
+            city = perms[i][1]
+            street = perms[i][2]
+            street_number = perms[i][3]
 
-        # Empty postal code.
-        country = None
-        postal_code = None
-        auto_fill = True
-        point, postcode = get_address_data(country, self.city, self.street_number, self.street, postal_code, auto_fill)
-        self.assertEqual(point, None)
-        self.assertEqual(postcode, str())
+            # Existing postal code.
+            postal_code = 'a'
+            auto_fill = True
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            self.assertEqual(point, None)
+            self.assertEqual(postcode, 'a')
+
+            # Empty string postal code.
+            postal_code = str()
+            auto_fill = True
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            self.assertEqual(point, None)
+            self.assertEqual(postcode, str())
+
+            # Empty postal code.
+            postal_code = None
+            auto_fill = True
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            self.assertEqual(point, None)
+            self.assertEqual(postcode, str())
+
+            i += 1
 
     def test_get_address_data_no_autofill(self):
         country = 'a'
