@@ -156,6 +156,24 @@ NOMINATIM_JSON_MISSING_POSTCODE = {
         },
     ],
 }
+NOMINATIM_JSON_MISSING_GEOMETRY = {
+    "features": [
+        {
+            "properties": {
+                "address": {
+                    "city": DEFAULT_CITY,
+                    "road": DEFAULT_STREET,
+                },
+            },
+        },
+    ],
+}
+NOMINATIM_JSON_MISSING_FEATURES_CONTENT = {
+    "features": [
+    ],
+}
+NOMINATIM_JSON_MISSING_FEATURES = {
+}
 NOMINATIM_URL = 'https://a/b'
 NOMINATIM_CACHE_TTL_SECONDS_HIT = float('inf')
 NOMINATIM_CACHE_TTL_SECONDS_MISS = 0
@@ -180,6 +198,24 @@ def mock_requests_get_nominatim_missing_postcode(url):
     # See
     # https://stackoverflow.com/a/52971142
     return mock.Mock(status_code=200, json=lambda: NOMINATIM_JSON_MISSING_POSTCODE)
+
+
+def mock_requests_get_nominatim_missing_geometry(url):
+    # See
+    # https://stackoverflow.com/a/52971142
+    return mock.Mock(status_code=200, json=lambda: NOMINATIM_JSON_MISSING_GEOMETRY)
+
+
+def mock_requests_get_nominatim_missing_features_content(url):
+    # See
+    # https://stackoverflow.com/a/52971142
+    return mock.Mock(status_code=200, json=lambda: NOMINATIM_JSON_MISSING_FEATURES_CONTENT)
+
+
+def mock_requests_get_nominatim_missing_features(url):
+    # See
+    # https://stackoverflow.com/a/52971142
+    return mock.Mock(status_code=200, json=lambda: NOMINATIM_JSON_MISSING_FEATURES)
 
 
 # Change the date function in the Django builtin modules (in this test module)
@@ -328,4 +364,22 @@ class UtilsTestCase(TestCase):
             "type": "Point",
         })
         self.assertEqual(point, GEOSGeometry(pnt, srid=4326))
+        self.assertEqual(postcode, str())
+
+    @mock.patch('django_futils.utils.requests.get', mock_requests_get_nominatim_missing_geometry)
+    def test_run_nominatim_request_missing_geometry(self):
+        point, postcode = run_nominatim_request(str(), str())
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+    @mock.patch('django_futils.utils.requests.get', mock_requests_get_nominatim_missing_features_content)
+    def test_run_nominatim_request_missing_features_content(self):
+        point, postcode = run_nominatim_request(str(), str())
+        self.assertEqual(point, None)
+        self.assertEqual(postcode, str())
+
+    @mock.patch('django_futils.utils.requests.get', mock_requests_get_nominatim_missing_features)
+    def test_run_nominatim_request_missing_features(self):
+        point, postcode = run_nominatim_request(str(), str())
+        self.assertEqual(point, None)
         self.assertEqual(postcode, str())

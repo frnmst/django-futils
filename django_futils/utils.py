@@ -58,31 +58,25 @@ def run_nominatim_request(request_url: str, postal_code: str) -> tuple:
 
         if 'features' not in j:
             raise ValueError
-
-        if j['features'] == list():
-            point = None
-            postcode = postal_code
-        else:
-            data = j['features']
-            if len(data) > 0:
-                if 'geometry' in data[0]:
-                    pnt = str(data[0]['geometry'])
-                    # See
-                    # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#geosgeometry
-                    # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#creating-a-geometry
-                    # https://tools.ietf.org/html/rfc7946#section-9
-                    # https://en.wikipedia.org/wiki/World_Geodetic_System
-                    point = GEOSGeometry(pnt, srid=4326)
-                else:
-                    point = None
-
-                if 'properties' in data[0] and 'address' in data[0]['properties'] and 'postcode' in data[0]['properties']['address']:
-                    postcode = str(j['features'][0]['properties']['address']['postcode'])
-                else:
-                    postcode = str()
+        data = j['features']
+        if len(data) > 0:
+            if 'geometry' in data[0]:
+                pnt = str(data[0]['geometry'])
+                # See
+                # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#geosgeometry
+                # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#creating-a-geometry
+                # https://tools.ietf.org/html/rfc7946#section-9
+                # https://en.wikipedia.org/wiki/World_Geodetic_System
+                point = GEOSGeometry(pnt, srid=4326)
             else:
-                raise ValueError
+                point = None
 
+            if 'properties' in data[0] and 'address' in data[0]['properties'] and 'postcode' in data[0]['properties']['address']:
+                postcode = str(j['features'][0]['properties']['address']['postcode'])
+            else:
+                postcode = str()
+        else:
+            raise ValueError
     except (requests.RequestException, ValueError):
         point = None
         if postal_code is None:
