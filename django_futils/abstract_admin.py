@@ -35,7 +35,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from .formsets import HasPrimaryInlineFormSet
 from django.conf import settings
-import django_futils.constants as const
+from . import constants as const
 
 
 ################
@@ -130,12 +130,12 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
     )
     list_select_related = ('company', )
     list_per_page = 10
-
-    raw_id_fields = (
-        'type',
-        'municipality',
-        'company',
-    )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'company',
+            'type',
+            'municipality',
+        )
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
@@ -193,10 +193,7 @@ class AbstractCompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
     )
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        # form = CompanyAddressForm
-        pass
-    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
             'company',
             'type',

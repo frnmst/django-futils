@@ -11,6 +11,11 @@ number and if you want to delete the address, or the telephone number
 you must delete the whole person. If you have multiple addresses you can change
 the primary address and then execute a deletion.
 
+Abstract models
+---------------
+
+TODO
+
 Continuous integration
 ----------------------
 

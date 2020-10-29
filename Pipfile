@@ -34,7 +34,7 @@ psycopg2 =  "==2.8.5"
 # Tools.
 django-extensions = "==3.0.7"
 ## Autocomplete fields.
-django-autocomplete-light = "==3.5.0"
+django-autocomplete-light = "==3.8.1"
 
 [packages]
 

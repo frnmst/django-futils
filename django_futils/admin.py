@@ -22,14 +22,23 @@
 from django.contrib import admin
 from .models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, NominatimCache
 from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractNominatimCacheAdmin, AbstractCompanyAdminInline
-
+from .forms import CompanyAddressForm
+from django.conf import settings
+from . import constants as const
 
 admin.site.register(AddressType, AbstractAddressTypeAdmin)
 admin.site.register(EmailType, AbstractEmailTypeAdmin)
 admin.site.register(TelephoneType, AbstractTelephoneTypeAdmin)
 admin.site.register(AttachmentType, AbstractAttachmentTypeAdmin)
 admin.site.register(Municipality, AbstractMunicipalityAdmin)
-admin.site.register(CompanyAddress, AbstractCompanyAddressAdmin)
+
+
+@admin.register(CompanyAddress)
+class CompanyAddressAdmin(AbstractCompanyAddressAdmin):
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        form = CompanyAddressForm
+
+
 admin.site.register(CompanyTelephone, AbstractCompanyTelephoneAdmin)
 admin.site.register(CompanyEmail, AbstractCompanyEmailAdmin)
 admin.site.register(PersonAddress, AbstractPersonAddressAdmin)
@@ -45,6 +54,8 @@ class CompanyAdminInline(AbstractCompanyAdminInline):
 
 class CompanyAddressAdminInline(AbstractCompanyAddressAdminInline):
     model = CompanyAddress
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        form = CompanyAddressForm
 
 
 class CompanyEmailAdminInline(AbstractCompanyEmailAdminInline):
