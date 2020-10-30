@@ -36,7 +36,7 @@ PYTHON3=$(which python3)
 DOCKER_COMPOSE=$(which docker-compose)
 MAKE=$(which make)
 
-export BASE_CI_DIR='./ci'
+export BASE_CI_DIR=""$(pwd)"/ci"
 export PYENV_HOME=""${BASE_CI_DIR}"/python_env"
 export PIPENV_CACHE_DIR=""${BASE_CI_DIR}"/pipenv_cache"
 export WORKON_HOME=""${BASE_CI_DIR}"/pipenv_venv_home"
