@@ -66,12 +66,12 @@ if [ "${ENV}" = 'development' ]; then
     ${DOCKER_COMPOSE} build --force-rm --no-cache --memory=2GB --build-arg DJANGO_ENV=development
 
     # Do not enable named volumes and delete anonymous volumes when finished.
-    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit
+    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit
 else
     ${DOCKER_COMPOSE} build --force-rm --no-cache --memory=2GB --build-arg DJANGO_ENV=production
 
     # Do not enable named volumes and delete anonymous volumes when finished.
-    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit
+    ${DOCKER_COMPOSE} --file docker-compose.yml --file  docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit
 fi
 
 ${DOCKER_COMPOSE} down --volumes
