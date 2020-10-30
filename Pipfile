@@ -35,6 +35,10 @@ psycopg2 =  "==2.8.5"
 django-extensions = "==3.0.7"
 ## Autocomplete fields.
 django-autocomplete-light = "==3.8.1"
+# If you prefer to avoid building psycopg2 from source, please install the PyPI
+#'psycopg2-binary' package instead.
+psycopg2-binary = "==2.8.6"
+
 
 [packages]
 
