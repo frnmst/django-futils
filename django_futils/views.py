@@ -23,7 +23,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponse
 from dal import autocomplete
-from .models import Company
+from .models import AddressType, EmailType, TelephoneType, AttachmentType, Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
 
 ################
 # Autocomplete #
@@ -39,9 +39,93 @@ class CompanyFKAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Company.objects.none()
 
-        qs = Company.objects.all()
+        qs = Company.objects.all().order_by('id')
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+
+class AddressTypeFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return AddressType.objects.none()
+
+        qs = AddressType.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(type__istartswith=self.q)
+
+        return qs
+
+
+class TelephoneTypeFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return TelephoneType.objects.none()
+
+        qs = TelephoneType.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(type__istartswith=self.q)
+
+        return qs
+
+
+class EmailTypeFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return EmailType.objects.none()
+
+        qs = EmailType.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(type__istartswith=self.q)
+
+        return qs
+
+
+class PersonFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Person.objects.none()
+
+        qs = Person.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(type__istartswith=self.q)
+
+        return qs
+
+
+class MunicipalityFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Municipality.objects.none()
+
+        qs = Municipality.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+
+class AttachmentTypeFKAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return AttachmentType.objects.none()
+
+        qs = AttachmentType.objects.all().order_by('id')
+
+        if self.q:
+            qs = qs.filter(type__istartswith=self.q)
 
         return qs

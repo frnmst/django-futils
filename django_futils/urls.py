@@ -40,4 +40,34 @@ urlpatterns += [
         views.CompanyFKAutocomplete.as_view(),
         name='company-fk-autocomplete',
     ),
+    re_path(
+        r'^addresstype-fk-autocomplete/$',
+        views.AddressTypeFKAutocomplete.as_view(),
+        name='addresstype-fk-autocomplete',
+    ),
+    re_path(
+        r'^telephonetype-fk-autocomplete/$',
+        views.TelephoneTypeFKAutocomplete.as_view(),
+        name='telephonetype-fk-autocomplete',
+    ),
+    re_path(
+        r'^emailtype-fk-autocomplete/$',
+        views.EmailTypeFKAutocomplete.as_view(),
+        name='emailtype-fk-autocomplete',
+    ),
+    re_path(
+        r'^person-fk-autocomplete/$',
+        views.PersonFKAutocomplete.as_view(),
+        name='person-fk-autocomplete',
+    ),
+    re_path(
+        r'^municipality-fk-autocomplete/$',
+        views.MunicipalityFKAutocomplete.as_view(),
+        name='municipality-fk-autocomplete',
+    ),
+    re_path(
+        r'^attachmenttype-fk-autocomplete/$',
+        views.AttachmentTypeFKAutocomplete.as_view(),
+        name='attachmenttype-fk-autocomplete',
+    ),
 ]

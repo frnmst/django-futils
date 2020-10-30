@@ -213,10 +213,7 @@ class AbstractPersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
     readonly_fields = BaseAdminInline.readonly_fields + (
         'is_primary',
     )
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        # form = CompanyAddressForm
-        pass
-    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
             'type',
             'municipality',
@@ -249,7 +246,8 @@ class AbstractCompanyEmailAdminInline(BaseAdminInline):
         'is_primary',
     )
     list_display = ('id', )
-    raw_id_fields = ('type', )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('type', )
 
 
 class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
@@ -259,7 +257,8 @@ class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
         'is_primary',
     )
     list_display = ('id', )
-    raw_id_fields = ('type', )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('type', )
 
 
 class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
@@ -269,7 +268,8 @@ class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
         'is_primary',
     )
     list_display = ('id', )
-    raw_id_fields = ('type', )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('type', )
 
 
 class PersonAdminInline(BaseAdminInline):
@@ -281,7 +281,8 @@ class PersonAdminInline(BaseAdminInline):
 
 class AbstractPersonAttachmentAdminInline(BaseAdminInline):
     readonly_fields = ('id', )
-    raw_id_fields = ('type', )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('type', )
 
 
 ########
@@ -307,7 +308,8 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
         'type',
         'municipality',
     )
-    raw_id_fields = ('person', 'type', 'municipality')
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('person', 'type', 'municipality')
     search_fields = (
         'id',
         'street_number',
@@ -349,10 +351,11 @@ class AbstractPersonEmailAdmin(BaseAdmin):
         'person',
         'type',
     )
-    raw_id_fields = (
-        'person',
-        'type',
-    )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'person',
+            'type',
+        )
     search_fields = (
         'id',
         'email',
@@ -392,10 +395,11 @@ class AbstractCompanyEmailAdmin(BaseAdmin):
         'company',
         'type',
     )
-    raw_id_fields = (
-        'company',
-        'type',
-    )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'company',
+            'type',
+        )
     search_fields = (
         'id',
         'email',
@@ -434,10 +438,11 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
         'person',
         'type',
     )
-    raw_id_fields = (
-        'person',
-        'type',
-    )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'person',
+            'type',
+        )
     search_fields = (
         'id',
         'number',
@@ -477,10 +482,11 @@ class AbstractCompanyTelephoneAdmin(BaseAdmin):
         'company',
         'type',
     )
-    raw_id_fields = (
-        'company',
-        'type',
-    )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'company',
+            'type',
+        )
     search_fields = (
         'id',
         'number',

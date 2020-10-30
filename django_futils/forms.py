@@ -19,7 +19,7 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .models import CompanyAddress
+from .models import Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
 from django import forms
 from dal import autocomplete
 
@@ -29,10 +29,82 @@ from dal import autocomplete
 # for options
 
 
+class PersonAddressForm(forms.ModelForm):
+    class Meta:
+        model = PersonAddress
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='addresstype-fk-autocomplete'),
+            'municipality': autocomplete.ModelSelect2(url='municipality-fk-autocomplete'),
+            'person': autocomplete.ModelSelect2(url='person-fk-autocomplete'),
+        }
+
+
+class PersonTelephoneForm(forms.ModelForm):
+    class Meta:
+        model = PersonTelephone
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='telephonetype-fk-autocomplete'),
+            'person': autocomplete.ModelSelect2(url='person-fk-autocomplete'),
+        }
+
+
+class PersonEmailForm(forms.ModelForm):
+    class Meta:
+        model = PersonEmail
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='emailtype-fk-autocomplete'),
+            'person': autocomplete.ModelSelect2(url='person-fk-autocomplete'),
+        }
+
+
+class PersonAttachmentForm(forms.ModelForm):
+    class Meta:
+        model = PersonAttachment
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='attachmenttype-fk-autocomplete'),
+            'person': autocomplete.ModelSelect2(url='person-fk-autocomplete'),
+        }
+
+
 class CompanyAddressForm(forms.ModelForm):
     class Meta:
         model = CompanyAddress
         fields = ('__all__')
         widgets = {
+            'type': autocomplete.ModelSelect2(url='addresstype-fk-autocomplete'),
+            'municipality': autocomplete.ModelSelect2(url='municipality-fk-autocomplete'),
             'company': autocomplete.ModelSelect2(url='company-fk-autocomplete'),
+        }
+
+
+class CompanyTelephoneForm(forms.ModelForm):
+    class Meta:
+        model = CompanyTelephone
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='telephonetype-fk-autocomplete'),
+            'company': autocomplete.ModelSelect2(url='company-fk-autocomplete'),
+        }
+
+
+class CompanyEmailForm(forms.ModelForm):
+    class Meta:
+        model = CompanyEmail
+        fields = ('__all__')
+        widgets = {
+            'type': autocomplete.ModelSelect2(url='emailtype-fk-autocomplete'),
+            'company': autocomplete.ModelSelect2(url='company-fk-autocomplete'),
+        }
+
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ('__all__')
+        widgets = {
+            'person': autocomplete.ModelSelect2(url='person-fk-autocomplete'),
         }
