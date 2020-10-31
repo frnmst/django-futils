@@ -3,10 +3,15 @@ Installation
 
 Secret settings file
 --------------------
+
 First of copy these files and then edit them if needed:
 
 - copy ``./SECRET_SETTINGS.dist.py`` into ``./SECRET_SETTINGS.py``
 - copy ``./env.dist`` into ``./.env``
+
+Have a look at the bottom of ``./SECRET_SETTINGS.py``. You will see the database settings
+both for Docker and to be able to run the the app on *bare metal*.
+By default the Docker credential are enabled so . Change them if needed.
 
 Bare metal
 ----------
@@ -71,6 +76,8 @@ Create the database with the new user:
 
     createdb -O ${DB_USER} ${DB_NAME}
 
+
+where the ``DB_USER`` and ``DB_NAME`` variables must be the same as the ones reported in ``./SECRET_SETTINGS.py``.
 
 Initialization
 ``````````````
@@ -145,4 +152,4 @@ Default credentials and variables
 
 .. warning:: Change the django credentials immediately! The Django admin user is infact a superuser.
 
-.. important:: You can change some of the docker-compose variables in the `./.env` file.
+.. important:: You can change some of the docker-compose variables in the ``./.env`` file.
