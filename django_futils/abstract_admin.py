@@ -123,10 +123,19 @@ class AddressCommonAdmin(BaseMapAdmin):
 ##########
 class AbstractCompanyAddressAdmin(AddressCommonAdmin):
     actions = ['delete_selected']
-    readonly_fields = ('id', 'is_primary',)
+    readonly_fields = (
+        'id',
+        'added',
+        'updated',
+    )
     list_display = (
         'id',
+        'street_number',
+        'street',
+        'city',
         'company',
+        'type',
+        'is_primary',
     )
     list_select_related = ('company', )
     list_per_page = 10
@@ -149,6 +158,14 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
             if obj.is_primary:
                 delete = False
         return delete
+
+    search_fields = (
+        'id',
+        'street_number',
+        'street',
+        'city',
+        'company__name',
+    )
 
 
 class AbstractAddressTypeAdmin(TypeBaseAdmin):
@@ -560,8 +577,6 @@ class AbstractCompanyAdmin(BaseAdmin):
         'updated',
         'is_primary',
     )
-    list_display = (
-        'id',
-    )
+    list_display = ('id', )
 
     search_fields = ('id', )
