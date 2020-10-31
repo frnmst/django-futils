@@ -69,9 +69,18 @@ SIMPLE_HISTORY_REVERT_DISABLED = True
 ############
 # Database #
 ############
-# Bare metal
-DB_NAME = 'futils'
-DB_USER = 'futils'
-DB_PASSWORD = 'futils'
-DB_HOST = '127.0.0.1'
+# Bare metal.
+
+# DB_NAME = 'futils'
+# DB_USER = 'futils'
+# DB_PASSWORD = 'futils'
+# DB_HOST = '127.0.0.1'
+# DB_PORT = '5432'
+
+# Docker.
+
+DB_NAME = 'postgres'
+DB_USER = 'postgres'
+DB_PASSWORD = 'postgres'
+DB_HOST = 'db'
 DB_PORT = '5432'
