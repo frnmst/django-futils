@@ -26,6 +26,8 @@
 # or
 # env --ignore-environment ENV="production" PATH=$PATH bash --noprofile --norc -c './ci.sh'
 
+# WARNING: this script replaces the SECRET_SETTINGS.py file!
+
 set -euo pipefail
 
 [ -n "${ENV}" ]
