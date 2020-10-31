@@ -23,6 +23,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponse
 from dal import autocomplete
+from django.db.models import Q
+
 from .models import AddressType, EmailType, TelephoneType, AttachmentType, Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
 
 ################
@@ -98,7 +100,7 @@ class PersonFKAutocomplete(autocomplete.Select2QuerySetView):
         qs = Person.objects.all().order_by('id')
 
         if self.q:
-            qs = qs.filter(type__istartswith=self.q)
+            qs = qs.filter(Q(first_name__istartswith=self.q) | Q(last_name__istartswith=self.q) | Q(fiscal_code__istartswith=self.q))
 
         return qs
 

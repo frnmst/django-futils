@@ -22,7 +22,7 @@
 from django.contrib import admin
 from .models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, NominatimCache
 from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractNominatimCacheAdmin, AbstractCompanyAdminInline
-from .forms import CompanyAddressForm, CompanyTelephoneForm, CompanyEmailForm, PersonAddressForm, PersonTelephoneForm, PersonEmailForm, PersonAttachmentForm
+from .forms import CompanyForm, CompanyAddressForm, CompanyTelephoneForm, CompanyEmailForm, PersonAddressForm, PersonTelephoneForm, PersonEmailForm, PersonAttachmentForm
 from django.conf import settings
 from . import constants as const
 
@@ -126,6 +126,9 @@ class PersonAttachmentAdminInline(AbstractPersonAttachmentAdminInline):
 
 @admin.register(Company)
 class CompanyAdmin(AbstractCompanyAdmin):
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        form = CompanyForm
+
     inlines = [
         CompanyAddressAdminInline,
         CompanyTelephoneAdminInline,
