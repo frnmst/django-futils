@@ -168,18 +168,12 @@ class AbstractPersonTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
         constraints = [
-            # This constraint should nevery be hit because of the save method
-            # which corrects the error.
-            models.UniqueConstraint(
-                fields=['person'],
-                condition=Q(is_primary=True),
-                name='is_primary_persontelephone_costraint'),
             models.UniqueConstraint(
                 fields=['number', 'type', 'person'],
                 name='persontelephone_constraint'),
         ]
-        verbose_name = _('person\'s telephone')
-        verbose_name_plural = _('peoples\' telephone')
+        verbose_name = _("person's telephone")
+        verbose_name_plural = _("peoples' telephone")
 
     def save(self, *args, **kwargs):
         save_primary(self=self, field_name='person', field_value=self.person)
@@ -195,10 +189,6 @@ class AbstractCompanyTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
         constraints = [
-            models.UniqueConstraint(
-                fields=['company'],
-                condition=Q(is_primary=True),
-                name='is_primary_companytelephone_costraint'),
             models.UniqueConstraint(
                 fields=['number', 'type', 'company'],
                 name='companytelephone_constraint'),
@@ -234,15 +224,12 @@ class AbstractPersonEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
         constraints = [
-            models.UniqueConstraint(fields=['person'],
-                                    condition=Q(is_primary=True),
-                                    name='is_primary_personemail_costraint'),
             models.UniqueConstraint(
                 fields=['email', 'type', 'person'],
                 name='personemail_constraint'),
         ]
-        verbose_name = _('person\'s email')
-        verbose_name_plural = _('peoples\' email')
+        verbose_name = _("person's email")
+        verbose_name_plural = _("peoples' email")
 
     def save(self, *args, **kwargs):
         save_primary(self=self, field_name='person', field_value=self.person)
@@ -258,15 +245,12 @@ class AbstractCompanyEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
         constraints = [
-            models.UniqueConstraint(fields=['company'],
-                                    condition=Q(is_primary=True),
-                                    name='is_primary_companyemail_costraint'),
             models.UniqueConstraint(
                 fields=['email', 'type', 'company'],
                 name='companyemail_constraint'),
         ]
-        verbose_name = _('company\'s email')
-        verbose_name_plural = _('companies\' email')
+        verbose_name = _("company's email")
+        verbose_name_plural = _("companies' email")
 
     def save(self, *args, **kwargs):
         save_primary(self=self, field_name='company', field_value=self.company)
@@ -308,9 +292,6 @@ class AbstractPersonAddress(AbstractAddressCommon):
     class Meta:
         abstract = True
         constraints = [
-            models.UniqueConstraint(fields=['person'],
-                                    condition=Q(is_primary=True),
-                                    name='is_primary_presonaddress_constraint'),
             # See
             # https://stackoverflow.com/questions/55044802/django-admin-inline-unique-constraint-violation-on-edit
             # https://stackoverflow.com/questions/40891574/how-can-i-set-a-table-constraint-deferrable-initially-deferred-in-django-model
@@ -319,8 +300,8 @@ class AbstractPersonAddress(AbstractAddressCommon):
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'person'],
                 name='personaddress_constraint'),
         ]
-        verbose_name = _('person\'s address')
-        verbose_name_plural = _('peoples\' address')
+        verbose_name = _("person's address")
+        verbose_name_plural = _("peoples' address")
 
     def save(self, *args, **kwargs):
         save_primary(self=self, field_name='person', field_value=self.person)
@@ -337,15 +318,11 @@ class AbstractCompanyAddress(AbstractAddressCommon):
         abstract = True
         constraints = [
             models.UniqueConstraint(
-                fields=['company'],
-                condition=Q(is_primary=True),
-                name='is_primary_companyaddress_costraint'),
-            models.UniqueConstraint(
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
                 name='companyaddress_constraint'),
         ]
-        verbose_name = _('company\'s address')
-        verbose_name_plural = _('companies\' address')
+        verbose_name = _("company's address")
+        verbose_name_plural = _("companies' address")
 
     def save(self, *args, **kwargs):
         save_primary(self=self, field_name='company', field_value=self.company)

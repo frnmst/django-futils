@@ -32,7 +32,20 @@ import django_futils.set_defaults
 
 
 def save_primary(self, field_name: str, field_value: str):
-    r"""One object must always be primary."""
+    r"""One object must always be primary.
+
+        This function avoids the need of implementing this constraint which has
+        been remove after commit d67dc41. If neended call the save_primary
+        function manually.
+
+        constraints = [
+            # This constraint should nevery be hit because of the save method
+            # which corrects the error.
+            models.UniqueConstraint(
+                fields=['person'],
+                condition=Q(is_primary=True),
+                name='is_primary_persontelephone_costraint'),
+    """
     try:
         obj = type(self).objects.get(Q(**{field_name: field_value}) & Q(is_primary=True))
         if self.is_primary:
