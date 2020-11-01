@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 17:53+0100\n"
+"POT-Creation-Date: 2020-11-01 19:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: django_futils/abstract_admin.py:115 django_futils/abstract_admin.py:232
+#: django_futils/abstract_admin.py:115 django_futils/abstract_admin.py:243
 msgid "fill the postal code and the map data automatically"
 msgstr "riempi automaticamente il CAP e la mappa"
 
@@ -38,10 +38,10 @@ msgstr "codice"
 msgid "description"
 msgstr "descrizione"
 
-#: django_futils/abstract_models.py:61 django_futils/models.py:57
-#: django_futils/models.py:72 django_futils/models.py:87
-#: django_futils/models.py:102 django_futils/models.py:117
-#: django_futils/models.py:138
+#: django_futils/abstract_models.py:61 django_futils/models.py:58
+#: django_futils/models.py:73 django_futils/models.py:88
+#: django_futils/models.py:103 django_futils/models.py:118
+#: django_futils/models.py:139
 msgid "type"
 msgstr "tipo"
 
@@ -69,7 +69,7 @@ msgstr "tipo di telefono"
 msgid "telephone types"
 msgstr "tipi di telefono"
 
-#: django_futils/abstract_models.py:96 django_futils/models.py:159
+#: django_futils/abstract_models.py:96 django_futils/models.py:160
 msgid "attachment type"
 msgstr "tipo di email"
 
@@ -78,7 +78,7 @@ msgid "attachment types"
 msgstr "tipi di allegato"
 
 #: django_futils/abstract_models.py:104 django_futils/abstract_models.py:131
-#: django_futils/abstract_models.py:373
+#: django_futils/abstract_models.py:338
 msgid "name"
 msgstr "nome"
 
@@ -86,8 +86,8 @@ msgstr "nome"
 msgid "country"
 msgstr "stato"
 
-#: django_futils/abstract_models.py:123 django_futils/models.py:123
-#: django_futils/models.py:144
+#: django_futils/abstract_models.py:123 django_futils/models.py:124
+#: django_futils/models.py:145
 msgid "municipality"
 msgstr "comune"
 
@@ -99,7 +99,7 @@ msgstr "comuni"
 msgid "notes"
 msgstr "note"
 
-#: django_futils/abstract_models.py:142 django_futils/abstract_models.py:375
+#: django_futils/abstract_models.py:142 django_futils/abstract_models.py:340
 msgid "is primary"
 msgstr "principale"
 
@@ -123,181 +123,193 @@ msgstr "ha telegram"
 msgid "primary"
 msgstr "principale"
 
-#: django_futils/abstract_models.py:181
-msgid "person's telephone"
-msgstr "telefono di una persona"
+#: django_futils/abstract_models.py:175
+msgid "person telephone"
+msgstr "telefono persona"
 
-#: django_futils/abstract_models.py:182
-msgid "peoples' telephone"
-msgstr "telefoni di una persona"
+#: django_futils/abstract_models.py:176
+msgid "person telephones"
+msgstr "telefoni persona"
 
-#: django_futils/abstract_models.py:191
+#: django_futils/abstract_models.py:185
 msgid "cannot assign a primary telephone to a different person once it is set"
-msgstr "non si può assegnare un telefono principale ad un'altra persona una volta che è impostato"
+msgstr ""
+"non si può assegnare un telefono principale ad un'altra persona una volta "
+"che è impostato"
+
+#: django_futils/abstract_models.py:197
+msgid "company telephone"
+msgstr "telefono azienda"
+
+#: django_futils/abstract_models.py:198
+msgid "company telephones"
+msgstr "telefoni aziende"
 
 #: django_futils/abstract_models.py:207
-msgid "company's telephone"
-msgstr "telefono dell'azienda"
-
-#: django_futils/abstract_models.py:208
-msgid "companies' telephone"
-msgstr "telefoni dell'azienda"
-
-#: django_futils/abstract_models.py:217
 msgid "cannot assign a primary telephone to a different company once it is set"
-msgstr "non si può assegnare un telefono principale ad un'altra azienda una volta che è impostato"
+msgstr ""
+"non si può assegnare un telefono principale ad un'altra azienda una volta "
+"che è impostato"
 
-#: django_futils/abstract_models.py:221
+#: django_futils/abstract_models.py:211
 msgid "email"
 msgstr "email"
 
-#: django_futils/abstract_models.py:244
-msgid "person's email"
-msgstr "email di una persona"
+#: django_futils/abstract_models.py:231
+msgid "person email"
+msgstr "email persona"
 
-#: django_futils/abstract_models.py:245
-msgid "peoples' email"
-msgstr "email delle persone"
+#: django_futils/abstract_models.py:232
+msgid "person emails"
+msgstr "email persona"
 
-#: django_futils/abstract_models.py:254
+#: django_futils/abstract_models.py:241
 msgid "cannot assign a primary email to a different person once it is set"
-msgstr "non si può assegnare una email principale ad un'altra persona una volta che è impostato"
+msgstr ""
+"non si può assegnare una email principale ad un'altra persona una volta che "
+"è impostato"
 
-#: django_futils/abstract_models.py:268
-msgid "company's email"
-msgstr "email dell'azienda"
+#: django_futils/abstract_models.py:252
+msgid "company email"
+msgstr "email azienda"
 
-#: django_futils/abstract_models.py:269
-msgid "companies' email"
-msgstr "email delle aziende"
+#: django_futils/abstract_models.py:253
+msgid "company emails"
+msgstr "email azienda"
 
-#: django_futils/abstract_models.py:278
+#: django_futils/abstract_models.py:262
 msgid "cannot assign a primary email to a different company once it is set"
-msgstr "non si può assegnare una email principale ad un'altra azienda una volta che è impostato"
+msgstr ""
+"non si può assegnare una email principale ad un'altra azienda una volta che "
+"è impostato"
 
-#: django_futils/abstract_models.py:282 django_futils/abstract_models.py:436
+#: django_futils/abstract_models.py:266 django_futils/abstract_models.py:401
 msgid "map"
 msgstr "mappa"
 
-#: django_futils/abstract_models.py:283
+#: django_futils/abstract_models.py:267
 msgid "street number"
 msgstr "numero civico"
 
-#: django_futils/abstract_models.py:286
+#: django_futils/abstract_models.py:270
 msgid "street"
 msgstr "via"
 
-#: django_futils/abstract_models.py:287
+#: django_futils/abstract_models.py:271
 msgid "city"
 msgstr "città"
 
-#: django_futils/abstract_models.py:288 django_futils/abstract_models.py:433
+#: django_futils/abstract_models.py:272 django_futils/abstract_models.py:398
 msgid "postal code"
 msgstr "CAP"
 
-#: django_futils/abstract_models.py:291
+#: django_futils/abstract_models.py:275
 msgid "auto fill"
 msgstr "riempimento automatico"
 
-#: django_futils/abstract_models.py:322
-msgid "person's address"
-msgstr "indirizzo di una persona"
+#: django_futils/abstract_models.py:303
+msgid "person address"
+msgstr "indirizzo persona"
 
-#: django_futils/abstract_models.py:323
-msgid "peoples' address"
-msgstr "indirizzi di una persona"
+#: django_futils/abstract_models.py:304
+msgid "person addresses"
+msgstr "indirizzi persona"
 
-#: django_futils/abstract_models.py:344
+#: django_futils/abstract_models.py:313
 msgid "cannot assign a primary address to a different person once it is set"
-msgstr "non si può assegnare un indirizzo principale ad un'altra persona una volta che è impostato"
+msgstr ""
+"non si può assegnare un indirizzo principale ad un'altra persona una volta "
+"che è impostato"
 
-#: django_futils/abstract_models.py:359
-msgid "company's address"
-msgstr "indirizzo di un'azienda"
+#: django_futils/abstract_models.py:324
+msgid "company address"
+msgstr "indirizzo azienda"
 
-#: django_futils/abstract_models.py:360
-msgid "companies' address"
-msgstr "indirizzi di un'azienda"
+#: django_futils/abstract_models.py:325
+msgid "company addresses"
+msgstr "indirizzo aziende"
 
-#: django_futils/abstract_models.py:369
+#: django_futils/abstract_models.py:334
 msgid "cannot assign a primary address to a different company once it is set"
-msgstr "non si può assegnare un indirizzo principale ad un'altra azienda una volta che è impostato"
+msgstr ""
+"non si può assegnare un indirizzo principale ad un'altra azienda una volta "
+"che è impostato"
 
-#: django_futils/abstract_models.py:374
+#: django_futils/abstract_models.py:339
 msgid "VAT"
 msgstr "partita IVA"
 
-#: django_futils/abstract_models.py:384 django_futils/models.py:78
-#: django_futils/models.py:108 django_futils/models.py:150
+#: django_futils/abstract_models.py:349 django_futils/models.py:79
+#: django_futils/models.py:109 django_futils/models.py:151
 msgid "company"
 msgstr "azienda"
 
-#: django_futils/abstract_models.py:385
+#: django_futils/abstract_models.py:350
 msgid "companies"
 msgstr "aziende"
 
-#: django_futils/abstract_models.py:396
+#: django_futils/abstract_models.py:361
 msgid "first name"
 msgstr "nome"
 
-#: django_futils/abstract_models.py:399
+#: django_futils/abstract_models.py:364
 msgid "last name"
 msgstr "cognome"
 
-#: django_futils/abstract_models.py:400
+#: django_futils/abstract_models.py:365
 msgid "date of birth"
 msgstr "data di nascita"
 
-#: django_futils/abstract_models.py:401
+#: django_futils/abstract_models.py:366
 msgid "city of birth"
 msgstr "città di nascita"
 
-#: django_futils/abstract_models.py:402
+#: django_futils/abstract_models.py:367
 msgid "fiscal code"
 msgstr "codice fiscale"
 
-#: django_futils/abstract_models.py:412 django_futils/models.py:63
-#: django_futils/models.py:93 django_futils/models.py:129
-#: django_futils/models.py:165 django_futils/models.py:180
+#: django_futils/abstract_models.py:377 django_futils/models.py:64
+#: django_futils/models.py:94 django_futils/models.py:130
+#: django_futils/models.py:166 django_futils/models.py:181
 msgid "person"
 msgstr "persona"
 
-#: django_futils/abstract_models.py:413
+#: django_futils/abstract_models.py:378
 msgid "people"
 msgstr "persone"
 
-#: django_futils/abstract_models.py:417
+#: django_futils/abstract_models.py:382
 msgid "file"
 msgstr "file"
 
-#: django_futils/abstract_models.py:423
+#: django_futils/abstract_models.py:388
 msgid "person attachment"
 msgstr "allegato persona"
 
-#: django_futils/abstract_models.py:424
+#: django_futils/abstract_models.py:389
 msgid "person attachments"
 msgstr "allegati persona"
 
-#: django_futils/abstract_models.py:432
+#: django_futils/abstract_models.py:397
 msgid "request url"
 msgstr "url richiesta"
 
-#: django_futils/abstract_models.py:437
+#: django_futils/abstract_models.py:402
 msgid "cache hits"
 msgstr "cache hits"
 
-#: django_futils/abstract_models.py:441
+#: django_futils/abstract_models.py:406
 msgid "Nominatim cache"
 msgstr "cache Nominatim"
 
-#: django_futils/abstract_models.py:442
+#: django_futils/abstract_models.py:407
 msgid "Nominatim caches"
 msgstr "cache Nominatim"
 
-#: django_futils/settings.py:48
+#: django_futils/settings.py:49
 msgid "Italian"
 msgstr "Italiano"
 
-#: django_futils/settings.py:49
+#: django_futils/settings.py:50
 msgid "English"
 msgstr "Inglese"

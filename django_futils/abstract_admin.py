@@ -549,15 +549,6 @@ class AbstractPersonAdmin(BaseAdmin):
         'last_name',
     )
 
-    def get_form(self, request, obj=None, **kwargs):
-        help_texts = {
-            'use_company_data':
-            _('if available use company data in invoices along with the registry data'
-              )
-        }
-        kwargs.update({'help_texts': help_texts})
-        return super().get_form(request, obj, **kwargs)
-
     def get_deleted_objects(self, objs, request):
         r"""
         See
