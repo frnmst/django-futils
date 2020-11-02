@@ -20,6 +20,7 @@
 #
 
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from .abstract_models import (AbstractAddressType, AbstractEmailType, AbstractTelephoneType, AbstractAttachmentType, AbstractMunicipality, AbstractPersonTelephone, AbstractCompanyTelephone, AbstractPersonEmail, AbstractCompanyEmail, AbstractPersonAddress, AbstractCompanyAddress, AbstractCompany, AbstractPerson, AbstractPersonAttachment, AbstractNominatimCache)
 
@@ -64,6 +65,13 @@ class PersonTelephone(AbstractPersonTelephone):
         verbose_name=_('person'),
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['number', 'type', 'person'],
+                name='persontelephone_constraint'),
+        ]
+
 
 class CompanyTelephone(AbstractCompanyTelephone):
     type = models.ForeignKey(
@@ -78,6 +86,13 @@ class CompanyTelephone(AbstractCompanyTelephone):
         on_delete=models.CASCADE,
         verbose_name=_('company'),
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['number', 'type', 'company'],
+                name='companytelephone_constraint'),
+        ]
 
 
 class PersonEmail(AbstractPersonEmail):
@@ -94,6 +109,13 @@ class PersonEmail(AbstractPersonEmail):
         verbose_name=_('person'),
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['email', 'type', 'person'],
+                name='personemail_constraint'),
+        ]
+
 
 class CompanyEmail(AbstractCompanyEmail):
     type = models.ForeignKey(
@@ -108,6 +130,13 @@ class CompanyEmail(AbstractCompanyEmail):
         on_delete=models.CASCADE,
         verbose_name=_('company'),
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['email', 'type', 'company'],
+                name='companyemail_constraint'),
+        ]
 
 
 class PersonAddress(AbstractPersonAddress):
@@ -130,6 +159,17 @@ class PersonAddress(AbstractPersonAddress):
         verbose_name=_('person'),
     )
 
+    class Meta:
+        constraints = [
+            # See
+            # https://stackoverflow.com/questions/55044802/django-admin-inline-unique-constraint-violation-on-edit
+            # https://stackoverflow.com/questions/40891574/how-can-i-set-a-table-constraint-deferrable-initially-deferred-in-django-model
+            # https://docs.djangoproject.com/en/3.1/ref/models/constraints/#deferrable
+            models.UniqueConstraint(
+                fields=['street_number', 'street', 'city', 'municipality', 'type', 'person'],
+                name='personaddress_constraint'),
+        ]
+
 
 class CompanyAddress(AbstractCompanyAddress):
     type = models.ForeignKey(
@@ -150,6 +190,13 @@ class CompanyAddress(AbstractCompanyAddress):
         on_delete=models.CASCADE,
         verbose_name=_('company'),
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
+                name='companyaddress_constraint'),
+        ]
 
 
 class PersonAttachment(AbstractPersonAttachment):
@@ -180,6 +227,13 @@ class Company(AbstractCompany):
         on_delete=models.CASCADE,
         verbose_name=_('person'),
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['person'],
+                                    condition=Q(is_primary=True),
+                                    name='is_primary_company_costraint')
+        ]
 
 
 class NominatimCache(AbstractNominatimCache):

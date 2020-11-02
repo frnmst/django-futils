@@ -26,7 +26,6 @@ from django.core.exceptions import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from phone_field import PhoneField
-from django.db.models import Q
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
@@ -167,11 +166,6 @@ class AbstractTelephoneCommon(AbstractHasPrimary):
 class AbstractPersonTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(
-                fields=['number', 'type', 'person'],
-                name='persontelephone_constraint'),
-        ]
         verbose_name = _('person telephone')
         verbose_name_plural = _('person telephones')
 
@@ -188,12 +182,6 @@ class AbstractPersonTelephone(AbstractTelephoneCommon):
 class AbstractCompanyTelephone(AbstractTelephoneCommon):
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(
-                fields=['number', 'type', 'company'],
-                name='companytelephone_constraint'),
-        ]
-
         verbose_name = _('company telephone')
         verbose_name_plural = _('company telephones')
 
@@ -223,11 +211,6 @@ class AbstractEmailCommon(AbstractHasPrimary):
 class AbstractPersonEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(
-                fields=['email', 'type', 'person'],
-                name='personemail_constraint'),
-        ]
         verbose_name = _('person email')
         verbose_name_plural = _('person emails')
 
@@ -244,11 +227,6 @@ class AbstractPersonEmail(AbstractEmailCommon):
 class AbstractCompanyEmail(AbstractEmailCommon):
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(
-                fields=['email', 'type', 'company'],
-                name='companyemail_constraint'),
-        ]
         verbose_name = _('company email')
         verbose_name_plural = _('company emails')
 
@@ -291,15 +269,6 @@ class AbstractAddressCommon(AbstractHasPrimary):
 class AbstractPersonAddress(AbstractAddressCommon):
     class Meta:
         abstract = True
-        constraints = [
-            # See
-            # https://stackoverflow.com/questions/55044802/django-admin-inline-unique-constraint-violation-on-edit
-            # https://stackoverflow.com/questions/40891574/how-can-i-set-a-table-constraint-deferrable-initially-deferred-in-django-model
-            # https://docs.djangoproject.com/en/3.1/ref/models/constraints/#deferrable
-            models.UniqueConstraint(
-                fields=['street_number', 'street', 'city', 'municipality', 'type', 'person'],
-                name='personaddress_constraint'),
-        ]
         verbose_name = _('person address')
         verbose_name_plural = _('person addresses')
 
@@ -316,11 +285,6 @@ class AbstractPersonAddress(AbstractAddressCommon):
 class AbstractCompanyAddress(AbstractAddressCommon):
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(
-                fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
-                name='companyaddress_constraint'),
-        ]
         verbose_name = _('company address')
         verbose_name_plural = _('company addresses')
 
@@ -341,11 +305,6 @@ class AbstractCompany(AbstractRecordTimestamps):
 
     class Meta:
         abstract = True
-        constraints = [
-            models.UniqueConstraint(fields=['person'],
-                                    condition=Q(is_primary=True),
-                                    name='is_primary_company_costraint')
-        ]
         verbose_name = _('company')
         verbose_name_plural = _('companies')
 
