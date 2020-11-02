@@ -3,20 +3,20 @@
 #
 # Copyright (C) 2017-2020 frnmst (Franco Masotti) <franco.masotti@live.com>
 #
-# This file is part of md-toc.
+# This file is part of django-futils.
 #
-# md-toc is free software: you can redistribute it and/or modify
+# django-futils is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# md-toc is distributed in the hope that it will be useful,
+# django-futils is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with md-toc.  If not, see <http://www.gnu.org/licenses/>.
+# along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 from setuptools import setup, find_packages
@@ -26,7 +26,7 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['*tests*']),
     license='GPL',
-    description='Common Django patterns.',
+    description='A set of models, an admin and utilities for frequently used patterns.',
     long_description=open('README.rst').read(),
     long_description_content_type='text/x-rst',
     package_data={
@@ -41,10 +41,13 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Utilities',
-        'Intended Audience :: End Users/Desktop',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Intended Audience :: Developers',
         'Environment :: Console',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Programming Language :: Python :: 3',
+        'Framework :: Django',
+        'Framework :: Django :: 3.1',
     ],
     install_requires=[
         'Django==3.1.1',
