@@ -9,6 +9,16 @@ First of copy these files and then edit them if needed:
 - copy ``./SECRET_SETTINGS.dist.py`` into ``./SECRET_SETTINGS.py``
 - copy ``./env.dist`` into ``./.env``
 
+.. important:: Generate a new secret key and replace the once in the ``./SECRET_SETTINGS.py`` file. Run:
+
+
+  ::
+
+
+      pipenv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
+
+
 Have a look at the bottom of ``./SECRET_SETTINGS.py``. You will see the database settings
 both for Docker and to be able to run the the app on *bare metal*.
 By default the Docker credential are enabled so . Change them if needed.
