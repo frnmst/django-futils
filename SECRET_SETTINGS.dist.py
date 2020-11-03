@@ -78,8 +78,13 @@ SIMPLE_HISTORY_REVERT_DISABLED = True
 # DB_PORT = '5432'
 
 # Docker.
-
-DB_NAME = 'postgres'
+if 'DJANGO_ENV' in os.environ:
+    if os.environ['DJANGO_ENV'] == 'development':
+        DB_NAME = 'postgres_dev'
+    else:
+        DB_NAME = 'postgres_prod'
+else:
+    DB_NAME = 'postgres_dev'
 DB_USER = 'postgres'
 DB_PASSWORD = 'postgres'
 DB_HOST = 'db'

@@ -57,3 +57,14 @@ Docker related make targets have this name format:
 
 
 If you want to have a quick look run ``make docker.up.dev.debug.volume.serve``
+
+Tests
+`````
+
+To run the tests you need to build the image and initialize it, then:
+
+
+::
+
+
+    make docker.up.dev.debug.volume.test

@@ -45,9 +45,11 @@ docker.rm:
 # Development #
 ###############
 ## Build the image.
-docker.build.dev:
+gen-requirements:
 	. ${CURDIR}/.env; pipenv lock --requirements > requirements.txt
 	. ${CURDIR}/.env; pipenv lock --requirements --dev >> requirements.txt
+
+docker.build.dev: gen-requirements
 	docker-compose build --build-arg DJANGO_ENV=development
 
 ## Initialization.
