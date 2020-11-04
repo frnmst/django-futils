@@ -56,7 +56,7 @@ setup(
         'django-phone-field>=1.8,<1.9',
         'django-vies>=5.0,<5.1',
         'django-simple-history>=2.12,<2.13',
-        'django-cleanup>=5.1,<5,2',
+        'django-cleanup>=5.1,<5.2',
         'psycopg2-binary>=2.8,<2.9',
         'django-extensions>=3.0,<3.1',
         'django-autocomplete-light>=3.8,<3.9',
