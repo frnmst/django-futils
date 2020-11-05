@@ -34,12 +34,10 @@ django-cleanup = "~=5.1"
 #'psycopg2-binary' package instead.
 psycopg2-binary = "~=2.8"
 
-
 # Tools.
 django-extensions = "~=3.0"
 ## Autocomplete fields.
 django-autocomplete-light = "~=3.8"
-
 
 [requires]
 python_version = "3.8"

@@ -69,7 +69,7 @@ class PersonTelephone(AbstractPersonTelephone):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'person'],
-                name='persontelephone_constraint'),
+                name='dfu_persontelephone_constraint'),
         ]
 
 
@@ -91,7 +91,7 @@ class CompanyTelephone(AbstractCompanyTelephone):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'company'],
-                name='companytelephone_constraint'),
+                name='dfu_companytelephone_constraint'),
         ]
 
 
@@ -113,7 +113,7 @@ class PersonEmail(AbstractPersonEmail):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'person'],
-                name='personemail_constraint'),
+                name='dfu_personemail_constraint'),
         ]
 
 
@@ -135,7 +135,7 @@ class CompanyEmail(AbstractCompanyEmail):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'company'],
-                name='companyemail_constraint'),
+                name='dfu_companyemail_constraint'),
         ]
 
 
@@ -167,7 +167,7 @@ class PersonAddress(AbstractPersonAddress):
             # https://docs.djangoproject.com/en/3.1/ref/models/constraints/#deferrable
             models.UniqueConstraint(
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'person'],
-                name='personaddress_constraint'),
+                name='dfu_personaddress_constraint'),
         ]
 
 
@@ -195,7 +195,7 @@ class CompanyAddress(AbstractCompanyAddress):
         constraints = [
             models.UniqueConstraint(
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
-                name='companyaddress_constraint'),
+                name='dfu_companyaddress_constraint'),
         ]
 
 
@@ -232,7 +232,7 @@ class Company(AbstractCompany):
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),
-                                    name='is_primary_company_costraint')
+                                    name='dfu_is_primary_company_costraint')
         ]
 
 
