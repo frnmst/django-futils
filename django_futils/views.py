@@ -19,9 +19,6 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.shortcuts import render, get_object_or_404
-from django.views import generic
-from django.http import HttpResponse
 from dal import autocomplete
 from django.db.models import Q
 
