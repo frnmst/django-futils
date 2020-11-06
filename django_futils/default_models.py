@@ -65,7 +65,7 @@ class PersonTelephone(AbstractPersonTelephone):
         verbose_name=_('person'),
     )
 
-    class Meta:
+    class Meta(AbstractPersonTelephone.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'person'],
@@ -87,7 +87,7 @@ class CompanyTelephone(AbstractCompanyTelephone):
         verbose_name=_('company'),
     )
 
-    class Meta:
+    class Meta(AbstractCompanyTelephone.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'company'],
@@ -109,7 +109,7 @@ class PersonEmail(AbstractPersonEmail):
         verbose_name=_('person'),
     )
 
-    class Meta:
+    class Meta(AbstractPersonEmail.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'person'],
@@ -131,7 +131,7 @@ class CompanyEmail(AbstractCompanyEmail):
         verbose_name=_('company'),
     )
 
-    class Meta:
+    class Meta(AbstractCompanyEmail.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'company'],
@@ -159,7 +159,7 @@ class PersonAddress(AbstractPersonAddress):
         verbose_name=_('person'),
     )
 
-    class Meta:
+    class Meta(AbstractPersonAddress.Meta):
         constraints = [
             # See
             # https://stackoverflow.com/questions/55044802/django-admin-inline-unique-constraint-violation-on-edit
@@ -191,7 +191,7 @@ class CompanyAddress(AbstractCompanyAddress):
         verbose_name=_('company'),
     )
 
-    class Meta:
+    class Meta(AbstractCompanyAddress.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
@@ -228,7 +228,7 @@ class Company(AbstractCompany):
         verbose_name=_('person'),
     )
 
-    class Meta:
+    class Meta(AbstractCompany.Meta):
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),

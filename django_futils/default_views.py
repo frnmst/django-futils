@@ -22,7 +22,7 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from .models import AddressType, EmailType, TelephoneType, AttachmentType, Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
+from .default_models import AddressType, EmailType, TelephoneType, AttachmentType, Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
 
 ################
 # Autocomplete #

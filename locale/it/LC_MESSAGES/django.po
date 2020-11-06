@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 19:51+0100\n"
+"POT-Creation-Date: 2020-11-06 19:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,10 +38,10 @@ msgstr "codice"
 msgid "description"
 msgstr "descrizione"
 
-#: django_futils/abstract_models.py:60 django_futils/models.py:59
-#: django_futils/models.py:81 django_futils/models.py:103
-#: django_futils/models.py:125 django_futils/models.py:147
-#: django_futils/models.py:179
+#: django_futils/abstract_models.py:60 django_futils/default_models.py:59
+#: django_futils/default_models.py:81 django_futils/default_models.py:103
+#: django_futils/default_models.py:125 django_futils/default_models.py:147
+#: django_futils/default_models.py:179
 msgid "type"
 msgstr "tipo"
 
@@ -69,9 +69,9 @@ msgstr "tipo di telefono"
 msgid "telephone types"
 msgstr "tipi di telefono"
 
-#: django_futils/abstract_models.py:95 django_futils/models.py:207
+#: django_futils/abstract_models.py:95 django_futils/default_models.py:207
 msgid "attachment type"
-msgstr "tipo di email"
+msgstr "tipo di allegato"
 
 #: django_futils/abstract_models.py:96
 msgid "attachment types"
@@ -86,8 +86,8 @@ msgstr "nome"
 msgid "country"
 msgstr "stato"
 
-#: django_futils/abstract_models.py:122 django_futils/models.py:153
-#: django_futils/models.py:185
+#: django_futils/abstract_models.py:122 django_futils/default_models.py:153
+#: django_futils/default_models.py:185
 msgid "municipality"
 msgstr "comune"
 
@@ -239,8 +239,8 @@ msgstr ""
 msgid "VAT"
 msgstr "partita IVA"
 
-#: django_futils/abstract_models.py:308 django_futils/models.py:87
-#: django_futils/models.py:131 django_futils/models.py:191
+#: django_futils/abstract_models.py:308 django_futils/default_models.py:87
+#: django_futils/default_models.py:131 django_futils/default_models.py:191
 msgid "company"
 msgstr "azienda"
 
@@ -268,9 +268,9 @@ msgstr "città di nascita"
 msgid "fiscal code"
 msgstr "codice fiscale"
 
-#: django_futils/abstract_models.py:336 django_futils/models.py:65
-#: django_futils/models.py:109 django_futils/models.py:159
-#: django_futils/models.py:213 django_futils/models.py:228
+#: django_futils/abstract_models.py:336 django_futils/default_models.py:65
+#: django_futils/default_models.py:109 django_futils/default_models.py:159
+#: django_futils/default_models.py:213 django_futils/default_models.py:228
 msgid "person"
 msgstr "persona"
 

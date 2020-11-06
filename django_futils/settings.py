@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'django_extensions',
     'django_futils.apps.DjangoFutilsConfig',
-    'django.contrib.admin',
+    'django_futils.apps.DjangoFutilsDefaultAdminConfig',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',

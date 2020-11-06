@@ -20,7 +20,7 @@
 #
 
 from django.test import TestCase, TransactionTestCase
-from .models import PersonTelephone, NominatimCache
+from .default_models import PersonTelephone, NominatimCache
 from model_bakery import baker
 import decimal
 from django.core.exceptions import ValidationError

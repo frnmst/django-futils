@@ -22,7 +22,7 @@
 
 export PACKAGE_NAME=django_futils
 export APP_NAME=django_futils
-export MODELS=models.py
+export MODELS=default_models.py
 
 # Detect a Docker environment.
 export DOCKER_ENV_FILE=/.dockerenv

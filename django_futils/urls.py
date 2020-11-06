@@ -25,11 +25,13 @@ from django.urls import path, re_path, reverse_lazy, include
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from . import default_views as views
+
+from .default_admin import admin_site
 
 # See https://stackoverflow.com/a/55723121
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin_site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

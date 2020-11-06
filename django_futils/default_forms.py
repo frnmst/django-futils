@@ -19,7 +19,7 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .models import Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
+from .default_models import Municipality, PersonTelephone, CompanyTelephone, PersonEmail, CompanyEmail, PersonAddress, CompanyAddress, PersonAttachment, Person, Company
 from django import forms
 from dal import autocomplete
 

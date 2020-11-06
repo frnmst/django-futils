@@ -253,7 +253,8 @@ class AbstractPersonEmailAdminInline(BaseAdminInline):
         'is_primary',
     )
     list_display = ('id', )
-    raw_id_fields = ('type', )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('type', )
 
 
 class AbstractCompanyEmailAdminInline(BaseAdminInline):
@@ -533,7 +534,9 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
     )
     list_display = ('id', 'person', 'file', 'added', 'updated')
     list_select_related = ('person', )
-    raw_id_fields = ('person', 'type')
+
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = ('person', 'type')
 
 
 class AbstractPersonAdmin(BaseAdmin):

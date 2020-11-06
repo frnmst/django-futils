@@ -120,7 +120,7 @@ def get_address_data(country: str, city: str, street_number: str,
             + city + '&street=' + street_number + ', ' + street + '&country=' + country.lower(), safe='?&=/'))
 
         # Defer  to avoid cirular imports.
-        from .models import NominatimCache
+        from .default_models import NominatimCache
         try:
             cache = NominatimCache.objects.get(request_url=osm_request_url)
             if (timezone.now() - cache.updated).seconds >= settings.NOMINATIM_CACHE_TTL_SECONDS:
