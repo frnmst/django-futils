@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-06 19:20+0100\n"
+"POT-Creation-Date: 2020-11-11 11:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: django_futils/abstract_admin.py:115 django_futils/abstract_admin.py:243
+#: django_futils/abstract_admin.py:115 django_futils/abstract_admin.py:260
 msgid "fill the postal code and the map data automatically"
 msgstr "riempi automaticamente il CAP e la mappa"
 
@@ -227,7 +227,7 @@ msgstr "indirizzo azienda"
 
 #: django_futils/abstract_models.py:289
 msgid "company addresses"
-msgstr "indirizzo aziende"
+msgstr "indirizzi azienda"
 
 #: django_futils/abstract_models.py:298
 msgid "cannot assign a primary address to a different company once it is set"

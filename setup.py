@@ -59,6 +59,5 @@ setup(
         'django-cleanup>=5.1,<5.2',
         'psycopg2-binary>=2.8,<2.9',
         'django-extensions>=3.0,<3.1',
-        'django-autocomplete-light>=3.8,<3.9',
     ],
 )

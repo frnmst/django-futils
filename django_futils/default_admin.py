@@ -22,13 +22,13 @@
 from django.contrib import admin
 from .default_models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, NominatimCache
 from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractNominatimCacheAdmin, AbstractCompanyAdminInline
-from .default_forms import CompanyForm, CompanyAddressForm, CompanyTelephoneForm, CompanyEmailForm, PersonAddressForm, PersonTelephoneForm, PersonEmailForm, PersonAttachmentForm
 from django.conf import settings
 from . import constants as const
 
 
 # Specific stuff for this example.
 # See
+# https://stackoverflow.com/a/51503032
 # https://docs.djangoproject.com/en/3.1/ref/contrib/admin/#customizing-the-adminsite-class
 class MyAdminSite(admin.AdminSite):
     pass
@@ -38,38 +38,31 @@ admin_site = MyAdminSite(name='admin')
 
 
 class CompanyAddressAdmin(AbstractCompanyAddressAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyAddressForm
+    pass
 
 
 class CompanyTelephoneAdmin(AbstractCompanyTelephoneAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyTelephoneForm
+    pass
 
 
 class CompanyEmailAdmin(AbstractCompanyEmailAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyEmailForm
+    pass
 
 
 class PersonAddressAdmin(AbstractPersonAddressAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonAddressForm
+    pass
 
 
 class PersonTelephoneAdmin(AbstractPersonTelephoneAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonTelephoneForm
+    pass
 
 
 class PersonEmailAdmin(AbstractPersonEmailAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonEmailForm
+    pass
 
 
 class PersonAttachmentAdmin(AbstractPersonAttachmentAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonAttachmentForm
+    pass
 
 
 class CompanyAdminInline(AbstractCompanyAdminInline):
@@ -78,51 +71,33 @@ class CompanyAdminInline(AbstractCompanyAdminInline):
 
 class CompanyAddressAdminInline(AbstractCompanyAddressAdminInline):
     model = CompanyAddress
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyAddressForm
 
 
 class CompanyEmailAdminInline(AbstractCompanyEmailAdminInline):
     model = CompanyEmail
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyEmailForm
 
 
 class CompanyTelephoneAdminInline(AbstractCompanyTelephoneAdminInline):
     model = CompanyTelephone
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyAddressForm
 
 
 class PersonAddressAdminInline(AbstractPersonAddressAdminInline):
     model = PersonAddress
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonAddressForm
 
 
 class PersonEmailAdminInline(AbstractPersonEmailAdminInline):
     model = PersonEmail
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonEmailForm
 
 
 class PersonTelephoneAdminInline(AbstractPersonTelephoneAdminInline):
     model = PersonTelephone
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonTelephoneForm
 
 
 class PersonAttachmentAdminInline(AbstractPersonAttachmentAdminInline):
     model = PersonAttachment
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = PersonAttachmentForm
 
 
-@admin.register(Company)
 class CompanyAdmin(AbstractCompanyAdmin):
-    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
-        form = CompanyForm
-
     inlines = [
         CompanyAddressAdminInline,
         CompanyTelephoneAdminInline,
@@ -130,7 +105,6 @@ class CompanyAdmin(AbstractCompanyAdmin):
     ]
 
 
-@admin.register(Person)
 class PersonAdmin(AbstractPersonAdmin):
     inlines = [
         PersonAddressAdminInline,
@@ -142,6 +116,8 @@ class PersonAdmin(AbstractPersonAdmin):
 
 
 admin_site.register(AddressType, AbstractAddressTypeAdmin)
+
+
 admin_site.register(EmailType, AbstractEmailTypeAdmin)
 admin_site.register(TelephoneType, AbstractTelephoneTypeAdmin)
 admin_site.register(AttachmentType, AbstractAttachmentTypeAdmin)
@@ -155,4 +131,4 @@ admin_site.register(CompanyTelephone, CompanyTelephoneAdmin)
 admin_site.register(CompanyEmail, CompanyEmailAdmin)
 admin_site.register(Company, CompanyAdmin)
 admin_site.register(Person, PersonAdmin)
-admin.site.register(NominatimCache, AbstractNominatimCacheAdmin)
+admin_site.register(NominatimCache, AbstractNominatimCacheAdmin)

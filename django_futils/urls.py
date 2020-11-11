@@ -25,7 +25,6 @@ from django.urls import path, re_path, reverse_lazy, include
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from . import default_views as views
 
 from .default_admin import admin_site
 
@@ -35,41 +34,3 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns += [
-    re_path(
-        r'^company-fk-autocomplete/$',
-        views.CompanyFKAutocomplete.as_view(),
-        name='company-fk-autocomplete',
-    ),
-    re_path(
-        r'^addresstype-fk-autocomplete/$',
-        views.AddressTypeFKAutocomplete.as_view(),
-        name='addresstype-fk-autocomplete',
-    ),
-    re_path(
-        r'^telephonetype-fk-autocomplete/$',
-        views.TelephoneTypeFKAutocomplete.as_view(),
-        name='telephonetype-fk-autocomplete',
-    ),
-    re_path(
-        r'^emailtype-fk-autocomplete/$',
-        views.EmailTypeFKAutocomplete.as_view(),
-        name='emailtype-fk-autocomplete',
-    ),
-    re_path(
-        r'^person-fk-autocomplete/$',
-        views.PersonFKAutocomplete.as_view(),
-        name='person-fk-autocomplete',
-    ),
-    re_path(
-        r'^municipality-fk-autocomplete/$',
-        views.MunicipalityFKAutocomplete.as_view(),
-        name='municipality-fk-autocomplete',
-    ),
-    re_path(
-        r'^attachmenttype-fk-autocomplete/$',
-        views.AttachmentTypeFKAutocomplete.as_view(),
-        name='attachmenttype-fk-autocomplete',
-    ),
-]

@@ -3,4 +3,7 @@ version: '3.8'
 services:
     db:
         environment:
+            # Kartoza.
             - POSTGRES_DBNAME=postgres_dev
+
+            - POSTGRES_DB=postgres_dev

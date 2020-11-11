@@ -191,7 +191,7 @@ class AbstractCompanyTelephone(AbstractTelephoneCommon):
 
     def clean(self):
         if self.pk and self.is_primary:
-            if type(self).objects.get(pk=self.pk).person != self.person:
+            if type(self).objects.get(pk=self.pk).company != self.company:
                 raise ValidationError(_('cannot assign a primary telephone to a different company once it is set'))
 
 
@@ -256,7 +256,7 @@ class AbstractAddressCommon(AbstractHasPrimary):
         abstract = True
 
     def save(self, *args, **kwargs):
-        self.point, self.postal_code = get_address_data(
+        self.map, self.postal_code = get_address_data(
             self.municipality.country.code, self.city, self.street_number,
             self.street, self.postal_code, self.auto_fill)
 

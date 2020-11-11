@@ -54,10 +54,10 @@ docker.build.dev: gen-requirements
 
 ## Initialization.
 docker.up.dev.debug.no-volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up
 
 docker.up.dev.debug.volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up
 
 ## Server.
 docker.up.dev.debug.volume.serve:
@@ -90,7 +90,7 @@ docker.build.prod:
 
 ## Initialization.
 docker.up.prod.no-debug.no-volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --abort-on-container-exit
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up
 
 ## Server.
 docker.up.prod.no-debug.no-volume.serve:

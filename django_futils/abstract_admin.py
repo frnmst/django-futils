@@ -44,10 +44,11 @@ from . import constants as const
 class BaseAdmin(SimpleHistoryAdmin):
     list_per_page = 10
     readonly_fields = ('id',)
+    ordering = ('id',)
 
 
 class TypeBaseAdmin(BaseAdmin):
-    actions = ['delete_selected']
+    actions = ('delete_selected',)
     readonly_fields = ('id', )
     list_display = (
         'id',
@@ -56,7 +57,7 @@ class TypeBaseAdmin(BaseAdmin):
 
 
 class NameBaseAdmin(BaseAdmin):
-    actions = ['delete_selected']
+    actions = ('delete_selected',)
     readonly_fields = ('id', )
     list_display = (
         'id',
@@ -145,6 +146,12 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
             'type',
             'municipality',
         )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'company',
+            'type',
+            'municipality',
+        )
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
@@ -169,23 +176,23 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
 
 
 class AbstractAddressTypeAdmin(TypeBaseAdmin):
-    pass
+    search_fields = ('type',)
 
 
 class AbstractEmailTypeAdmin(TypeBaseAdmin):
-    pass
+    search_fields = ('type',)
 
 
 class AbstractTelephoneTypeAdmin(TypeBaseAdmin):
-    pass
+    search_fields = ('type',)
 
 
 class AbstractAttachmentTypeAdmin(TypeBaseAdmin):
-    pass
+    search_fields = ('type',)
 
 
 class AbstractMunicipalityAdmin(NameBaseAdmin):
-    pass
+    search_fields = ('name',)
 
 
 class AbstractNominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
@@ -216,6 +223,12 @@ class AbstractCompanyAddressAdminInline(BaseOneElementMandatoryAdminInline):
             'type',
             'municipality',
         )
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'company',
+            'type',
+            'municipality',
+        )
     exclude = ('map', )
 
 
@@ -232,6 +245,11 @@ class AbstractPersonAddressAdminInline(BaseOneElementMandatoryAdminInline):
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
+            'type',
+            'municipality',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
             'type',
             'municipality',
         )
@@ -255,6 +273,8 @@ class AbstractPersonEmailAdminInline(BaseAdminInline):
     list_display = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = ('type', )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = ('type', )
 
 
 class AbstractCompanyEmailAdminInline(BaseAdminInline):
@@ -266,6 +286,8 @@ class AbstractCompanyEmailAdminInline(BaseAdminInline):
     list_display = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = ('type', )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = ('type', )
 
 
 class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
@@ -277,6 +299,8 @@ class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     list_display = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = ('type', )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = ('type', )
 
 
 class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
@@ -288,6 +312,8 @@ class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     list_display = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = ('type', )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = ('type', )
 
 
 class PersonAdminInline(BaseAdminInline):
@@ -300,7 +326,13 @@ class PersonAdminInline(BaseAdminInline):
 class AbstractPersonAttachmentAdminInline(BaseAdminInline):
     readonly_fields = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
-        raw_id_fields = ('type', )
+        raw_id_fields = (
+            'type',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'type',
+        )
 
 
 ########
@@ -327,7 +359,17 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
         'municipality',
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
-        raw_id_fields = ('person', 'type', 'municipality')
+        raw_id_fields = (
+            'person',
+            'type',
+            'municipality',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'person',
+            'type',
+            'municipality',
+        )
     search_fields = (
         'id',
         'street_number',
@@ -371,6 +413,11 @@ class AbstractPersonEmailAdmin(BaseAdmin):
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
+            'person',
+            'type',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
             'person',
             'type',
         )
@@ -418,6 +465,11 @@ class AbstractCompanyEmailAdmin(BaseAdmin):
             'company',
             'type',
         )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'company',
+            'type',
+        )
     search_fields = (
         'id',
         'email',
@@ -458,6 +510,11 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
+            'person',
+            'type',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
             'person',
             'type',
         )
@@ -505,6 +562,11 @@ class AbstractCompanyTelephoneAdmin(BaseAdmin):
             'company',
             'type',
         )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'company',
+            'type',
+        )
     search_fields = (
         'id',
         'number',
@@ -536,7 +598,15 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
     list_select_related = ('person', )
 
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
-        raw_id_fields = ('person', 'type')
+        raw_id_fields = (
+            'person',
+            'type',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'person',
+            'type',
+        )
 
 
 class AbstractPersonAdmin(BaseAdmin):
@@ -545,11 +615,11 @@ class AbstractPersonAdmin(BaseAdmin):
         'added',
         'updated',
     )
-    list_display = ('id', 'first_name', 'last_name')
+    list_display = ('id', 'first_name', 'last_name', 'fiscal_code',)
     search_fields = (
-        'id',
         'first_name',
         'last_name',
+        'fiscal_code',
     )
 
     def get_deleted_objects(self, objs, request):
@@ -573,4 +643,4 @@ class AbstractCompanyAdmin(BaseAdmin):
     )
     list_display = ('id', )
 
-    search_fields = ('id', )
+    search_fields = ('name', )
