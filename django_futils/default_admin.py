@@ -37,34 +37,6 @@ class MyAdminSite(admin.AdminSite):
 admin_site = MyAdminSite(name='admin')
 
 
-class CompanyAddressAdmin(AbstractCompanyAddressAdmin):
-    pass
-
-
-class CompanyTelephoneAdmin(AbstractCompanyTelephoneAdmin):
-    pass
-
-
-class CompanyEmailAdmin(AbstractCompanyEmailAdmin):
-    pass
-
-
-class PersonAddressAdmin(AbstractPersonAddressAdmin):
-    pass
-
-
-class PersonTelephoneAdmin(AbstractPersonTelephoneAdmin):
-    pass
-
-
-class PersonEmailAdmin(AbstractPersonEmailAdmin):
-    pass
-
-
-class PersonAttachmentAdmin(AbstractPersonAttachmentAdmin):
-    pass
-
-
 class CompanyAdminInline(AbstractCompanyAdminInline):
     model = Company
 
@@ -116,19 +88,17 @@ class PersonAdmin(AbstractPersonAdmin):
 
 
 admin_site.register(AddressType, AbstractAddressTypeAdmin)
-
-
 admin_site.register(EmailType, AbstractEmailTypeAdmin)
 admin_site.register(TelephoneType, AbstractTelephoneTypeAdmin)
 admin_site.register(AttachmentType, AbstractAttachmentTypeAdmin)
 admin_site.register(Municipality, AbstractMunicipalityAdmin)
-admin_site.register(PersonAddress, PersonAddressAdmin)
-admin_site.register(PersonTelephone, PersonTelephoneAdmin)
-admin_site.register(PersonAttachment, PersonAttachmentAdmin)
-admin_site.register(PersonEmail, PersonEmailAdmin)
-admin_site.register(CompanyAddress, CompanyAddressAdmin)
-admin_site.register(CompanyTelephone, CompanyTelephoneAdmin)
-admin_site.register(CompanyEmail, CompanyEmailAdmin)
+admin_site.register(PersonAddress, AbstractPersonAddressAdmin)
+admin_site.register(PersonTelephone, AbstractPersonTelephoneAdmin)
+admin_site.register(PersonAttachment, AbstractPersonAttachmentAdmin)
+admin_site.register(PersonEmail, AbstractPersonEmailAdmin)
+admin_site.register(CompanyAddress, AbstractCompanyAddressAdmin)
+admin_site.register(CompanyTelephone, AbstractCompanyTelephoneAdmin)
+admin_site.register(CompanyEmail, AbstractCompanyEmailAdmin)
 admin_site.register(Company, CompanyAdmin)
 admin_site.register(Person, PersonAdmin)
 admin_site.register(NominatimCache, AbstractNominatimCacheAdmin)
