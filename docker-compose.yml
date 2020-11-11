@@ -51,7 +51,7 @@ services:
         ports:
             - "127.0.0.1:${POSTGRES_EXPOSED_PORT}:${POSTGRES_GUEST_PORT}"
 
-    web:
+    web_build:
         image: futils_web
         build:
             context: .
@@ -59,4 +59,10 @@ services:
         restart: on-failure
         depends_on:
             - dependencies
+            - db
+
+    web:
+        image: futils_web
+        restart: on-failure
+        depends_on:
             - db

@@ -54,14 +54,14 @@ docker.build.dev: gen-requirements
 
 ## Initialization.
 docker.up.dev.debug.no-volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
 
 docker.up.dev.debug.volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
 
 ## Server.
 docker.up.dev.debug.volume.serve:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up web
 
 ## Stop.
 docker.down.dev.debug.volume:
@@ -90,11 +90,11 @@ docker.build.prod:
 
 ## Initialization.
 docker.up.prod.no-debug.no-volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --abort-on-container-exit web
 
 ## Server.
 docker.up.prod.no-debug.no-volume.serve:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.serve_prod.yml --file docker/docker-compose.db_name_prod.yml up
+	docker-compose --file docker-compose.yml --file docker/docker-compose.prod.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.serve_prod.yml --file docker/docker-compose.db_name_prod.yml up web
 
 ## Stop.
 docker.down.prod.no-debug.no-volume.serve:

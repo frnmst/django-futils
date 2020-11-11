@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 11:59+0100\n"
+"POT-Creation-Date: 2020-11-11 23:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: django_futils/abstract_admin.py:115 django_futils/abstract_admin.py:260
+#: django_futils/abstract_admin.py:116 django_futils/abstract_admin.py:261
 msgid "fill the postal code and the map data automatically"
 msgstr "riempi automaticamente il CAP e la mappa"
 
