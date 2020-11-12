@@ -39,7 +39,7 @@ default: doc
 ##########
 docker.rm:
     # Remove stopped containers.
-	docker-compose rm --stop
+	docker-compose rm --stop web
 
 
 # Development #
@@ -53,8 +53,8 @@ docker.build.dev: gen-requirements
 	docker-compose build --build-arg DJANGO_ENV=development
 
 ## Initialization.
-docker.up.dev.debug.no-volume.init:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
+docker.up.dev.debug.no-volume.init: docker.rm
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up  --renew-anon-volumes --abort-on-container-exit web
 
 docker.up.dev.debug.volume.init:
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
@@ -62,6 +62,9 @@ docker.up.dev.debug.volume.init:
 ## Server.
 docker.up.dev.debug.volume.serve:
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up web
+
+docker.up.dev.debug.no-volume.serve:
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up --renew-anon-volumes web
 
 ## Stop.
 docker.down.dev.debug.volume:

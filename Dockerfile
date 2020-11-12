@@ -28,7 +28,8 @@ ARG DJANGO_ENV
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code
-COPY ./Makefile ./manage.py ./docs ./SECRET_SETTINGS.py ./poll_postgres.sh ./requirements.txt /code/
+COPY ./Makefile ./manage.py ./SECRET_SETTINGS.py ./poll_postgres.sh ./requirements.txt /code/
+COPY ./docs/ /code/docs/
 COPY ./django_futils /code/django_futils/
 
 RUN pip3 install --no-cache-dir --requirement requirements.txt
