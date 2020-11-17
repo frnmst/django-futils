@@ -24,6 +24,14 @@ import django_futils.constants as const
 
 # Set variables if the user did not set them.
 try:
+    settings.NOMINATIM_MODEL_NAME
+except AttributeError:
+    settings.NOMINATIM_MODEL_NAME = 'NominatimCache'
+try:
+    settings.NOMINATIM_MODEL_APP
+except AttributeError:
+    settings.NOMINATIM_MODEL_APP = 'django_futils'
+try:
     settings.NOMINATIM_URL
 except AttributeError:
     settings.NOMINATIM_URL = 'https://nominatim.openstreetmap.org'

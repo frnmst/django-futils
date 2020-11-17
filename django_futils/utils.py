@@ -29,6 +29,7 @@ import requests
 import uuid
 import urllib.parse
 import django_futils.set_defaults
+import django.apps
 
 
 def save_primary(self, field_name: str, field_value: str):
@@ -119,10 +120,9 @@ def get_address_data(country: str, city: str, street_number: str,
         osm_request_url = (settings.NOMINATIM_URL + '/' + urllib.parse.quote('search?format=geojson&limit=1&addressdetails=1&city=' \
             + city + '&street=' + street_number + ', ' + street + '&country=' + country.lower(), safe='?&=/'))
 
-        # Defer  to avoid cirular imports.
-        from .default_models import NominatimCache
+        nominatim_model = django.apps.apps.get_model(settings.NOMINATIM_MODEL_APP, settings.NOMINATIM_MODEL_NAME)
         try:
-            cache = NominatimCache.objects.get(request_url=osm_request_url)
+            cache = nominatim_model.objects.get(request_url=osm_request_url)
             if (timezone.now() - cache.updated).seconds >= settings.NOMINATIM_CACHE_TTL_SECONDS:
                 # Update the cache once it expires.
                 point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
@@ -139,12 +139,12 @@ def get_address_data(country: str, city: str, street_number: str,
 
                 # Since we are not changing neither the map nor the postal_code values,
                 # replace the updated field with its original value.
-                NominatimCache.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
+                nominatim_model.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
 
         except ObjectDoesNotExist:
             # Create the cache.
             point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
-            cache = NominatimCache(request_url=osm_request_url, map=point, postal_code=postcode)
+            cache = nominatim_model(request_url=osm_request_url, map=point, postal_code=postcode)
             cache.save()
 
     return point, postcode
