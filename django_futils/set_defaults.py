@@ -58,6 +58,10 @@ except AttributeError:
     settings.SIMPLE_HISTORY_REVERT_DISABLE = False
 
 # Validate the custom secret settings.
+if not isinstance(settings.NOMINATIM_MODEL_NAME, str):
+    raise TypeError
+if not isinstance(settings.NOMINATIM_MODEL_APP, str):
+    raise TypeError
 if not isinstance(settings.NOMINATIM_URL, str):
     raise TypeError
 if not isinstance(settings.NOMINATIM_CACHE_TTL_SECONDS, int):
@@ -65,6 +69,8 @@ if not isinstance(settings.NOMINATIM_CACHE_TTL_SECONDS, int):
 if not isinstance(settings.OPENLAYERS_URL, str):
     raise TypeError
 if not isinstance(settings.FOREIGN_KEY_FIELDS, int):
+    raise TypeError
+if not isinstance(settings.SIMPLE_HISTORY_REVERT_DISABLE, bool):
     raise TypeError
 if settings.NOMINATIM_CACHE_TTL_SECONDS <= 0:
     raise ValueError
