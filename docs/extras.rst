@@ -1,6 +1,24 @@
 Extras
 ======
 
+Translations
+------------
+
+By default translations are not automatically imported in other projects.
+I have not found a *clean* way to do so, so this is what I came up with
+in a project's root Makefile that uses django-futils:
+
+::
+
+
+    export DJANGO_FUTILS_PO_IT_URL=https://raw.githubusercontent.com/frnmst/django-futils/dev/locale/it/LC_MESSAGES/django.po
+
+    compile-translations:
+        $(COMMAND_PREFIX) mkdir -p ./django_futils/locale/it/LC_MESSAGES
+        $(COMMAND_PREFIX) curl -o ./django_futils/locale/it/LC_MESSAGES/django.po $(DJANGO_FUTILS_PO_IT_URL)
+        $(COMMAND_PREFIX) python3 manage.py compilemessages
+
+
 Continuous integration
 ----------------------
 
