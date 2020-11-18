@@ -19,6 +19,8 @@ in a project's root Makefile that uses django-futils:
         $(COMMAND_PREFIX) python3 manage.py compilemessages
 
 
+.. important:: Don't forget to add ``/django_futils/`` to ``.gitignore``.
+
 Continuous integration
 ----------------------
 
