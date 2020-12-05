@@ -1,6 +1,12 @@
 django-futils
 =============
 
+|buymeacoffee|
+
+.. |buymeacoffee| image:: assets/buy_me_a_coffee.svg
+                   :alt: Buy me a coffee
+                   :target: https://buymeacoff.ee/frnmst
+
 A set of models, an admin and utilities for frequently used patterns.
 
 Description
@@ -37,7 +43,7 @@ the primary address and then execute a deletion.
 Documentation
 -------------
 
-See the documentation in ``./docs``
+http://frnmst.github.io/django-futils
 
 License
 -------
