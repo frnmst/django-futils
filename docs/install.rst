@@ -23,6 +23,18 @@ Have a look at the bottom of ``./SECRET_SETTINGS.py``. You will see the database
 both for Docker and to be able to run the the app on *bare metal*.
 By default the Docker credential are enabled so . Change them if needed.
 
+Installation in another project
+-------------------------------
+
+You can run this command, where ``${VERSION} corresponds to a git tag or branch,
+such as ``0.0.3``.
+
+::
+
+
+    pip3 install git+https://github.com/frnmst/django-futils.git@${VERSION}
+
+
 Bare metal
 ----------
 

@@ -51,7 +51,7 @@ setup(
     ],
     install_requires=[
         'Django>=3.1,<3.2',
-        'requests>=2.24,<2.25',
+        'requests>=2.25,<2.26',
         'django-countries>=6.1,<6.2',
         'django-phone-field>=1.8,<1.9',
         'django-vies>=5.0,<5.1',

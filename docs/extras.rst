@@ -5,8 +5,9 @@ Translations
 ------------
 
 By default translations are not automatically imported in other projects.
-I have not found a *clean* way to do so, so this is what I came up with
-in a project's root Makefile that uses django-futils:
+I have not found a *clean* way to do so, so here is what I came up with.
+Add this to a project's root Makefile that uses django-futils:
+
 
 ::
 

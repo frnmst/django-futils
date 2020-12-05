@@ -44,6 +44,7 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, LOCALE_DIR_SUFFIX)]
+print(LOCALE_PATHS)
 
 LANGUAGES = [
     ('it', _('Italian')),
