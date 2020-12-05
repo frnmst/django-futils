@@ -8,12 +8,12 @@ verify_ssl = true
 model_bakery = "~=1.2"
 
 # Documentation.
-Sphinx = "~=3.2"
+Sphinx = "~=3.3"
 sphinx-rtd-theme = "~=0.5"
 
 # Tools.
 pygraphviz = "~=1.6"
-pre-commit = "~=2.8"
+pre-commit = "~=2.9"
 
 [packages]
 # Base.
