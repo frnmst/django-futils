@@ -34,10 +34,9 @@ setup(
     },
     author='Franco Masotti',
     author_email='franco.masotti@live.com',
-    keywords='django',
+    keywords='django utilities',
     url='https://github.com/frnmst/django-futils',
     python_requires='>=3.8, <4',
-    test_suite='tests',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Utilities',
@@ -52,12 +51,12 @@ setup(
     install_requires=[
         'Django>=3.1,<3.2',
         'requests>=2.25,<2.26',
-        'django-countries>=6.1,<6.2',
+        'django-countries>=7.0,<7.1',
         'django-phone-field>=1.8,<1.9',
         'django-vies>=5.0,<5.1',
         'django-simple-history>=2.12,<2.13',
         'django-cleanup>=5.1,<5.2',
         'psycopg2-binary>=2.8,<2.9',
-        'django-extensions>=3.0,<3.1',
+        'django-extensions>=3.1,<3.2',
     ],
 )

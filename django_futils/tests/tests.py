@@ -20,14 +20,14 @@
 #
 
 from django.test import TestCase, TransactionTestCase
-from .default_models import PersonTelephone, NominatimCache
+from ..default_models import PersonTelephone, NominatimCache
 from model_bakery import baker
 import decimal
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from unittest import mock
 from django.utils import timezone
-from .utils import get_address_data, run_nominatim_request
+from ..utils import get_address_data, run_nominatim_request
 from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
 
