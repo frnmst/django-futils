@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+
+<script>
+{% comment %}Change the decimal separator to always using the default dot ('.') so that it can be parsed as a float.{% endcomment %}
+function map_init_basic (map, options) {
+    marker = L.marker([{{ y|unlocalize }}, {{ x|unlocalize }}]).addTo(map);
+    marker.setOpacity(0.8);
+    map.setView([parseFloat({{ y|unlocalize }}), parseFloat({{ x|unlocalize }})], 16);
+}
+</script>

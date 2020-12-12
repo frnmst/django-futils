@@ -11,3 +11,8 @@ td, th {
 .money {
     text-align: right;
 }
+
+.leaflet-container {  /* all maps */
+    width:  250px;
+    height: 250px;
+}

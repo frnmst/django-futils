@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Municipality" %} {{ municipality.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_municipality_change' municipality.id %}">{% translate 'Admin' %}</a>
+
+<h1>{% translate "Municipality" %} {{ municipality.id }}</h1>
+
+<h2>{% translate "Municipality data" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Code" %}</th>
+        <th>{% translate "Description" %}</th>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "County" %}</th>
+    </tr>
+    <tr>
+        <td>{{ municipality.code }}</td>
+        <td>{{ municipality.description }}</td>
+        <td>{{ municipality.name }}</td>
+        <td>{{ municipality.country.code }} ({{ municipality.country.name }})</td>
+    </tr>
+</table>

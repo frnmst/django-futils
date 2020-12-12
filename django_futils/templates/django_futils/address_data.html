@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+
+<table>
+    <tr>
+        <th>{% translate "Street number" %}</th>
+        <th>{% translate "Street" %}</th>
+        <th>{% translate "City" %}</th>
+        <th>{% translate "Postal code" %}</th>
+        <th>{% translate "Auto fill" %}</th>
+    </tr>
+    <tr>
+        <td>{{ address.street_number }}</td>
+        <td>{{ address.street }}</td>
+        <td>{{ address.city }}</td>
+        <td>{{ address.postal_code|default:"?" }}</td>
+        <td>{{ address.auto_fill|yesno:"✔,✘" }}</td>
+    </tr>
+</table>

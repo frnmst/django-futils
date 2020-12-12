@@ -27,6 +27,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .default_admin import admin_site
+from . import views
 
 # See https://stackoverflow.com/a/55723121
 urlpatterns = [
@@ -34,3 +35,18 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Views.
+urlpatterns += [
+    path('data/person/<int:pk>/', views.PersonView.as_view(), name='person'),
+    path('data/personaddress/<int:pk>/', views.PersonAddressView.as_view(), name='personaddress'),
+    path('data/municipality/<int:pk>/', views.MunicipalityView.as_view(), name='municipality'),
+    path('data/company/<int:pk>/',
+         views.CompanyView.as_view(),
+         name='company'),
+]
+
+# Type views.
+urlpatterns += [
+    path('data/addresstype/<int:pk>/', views.AddressTypeView.as_view(), name='addresstype'),
+]

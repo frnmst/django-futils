@@ -1,0 +1,51 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Person" %} {{ person.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_person_change' person.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Person" %} {{ person.id }}</h1>
+
+<h2>{% translate "Registry" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "First name" %}</th>
+        <th>{% translate "Last name" %}</th>
+        <th>{% translate "Date of birth" %}</th>
+        <th>{% translate "City of birth" %}</th>
+        <th>{% translate "Fiscal code" %}</th>
+    </tr>
+    <tr>
+        <td>{{ person.first_name }}</td>
+        <td>{{ person.last_name }}</td>
+        <td>{{ person.date_of_birth }}</td>
+        <td>{{ person.city_of_birth }}</td>
+        <td>{{ person.fiscal_code }}</td>
+    </tr>
+</table>
+
+<h2>{% translate "Primary contacts" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Address" %}</th>
+        <th>{% translate "Telephone" %}</th>
+        <th>{% translate "Email" %}</th>
+    </tr>
+        {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}
+        <td><a href="{% url 'personaddress' address.id %}">{{ address }}</a> ({{ address.municipality.code }})</td>
+        {% endwith %}
+        {% with telephone=person.persontelephone_of_this_person.all|filter_primary:person.persontelephone_of_this_person.all %}
+        <td>{{ telephone }}</td>
+        {% endwith %}
+        {% with email=person.personemail_of_this_person.all|filter_primary:person.personemail_of_this_person.all %}
+        <td>{{ email|default:"?"|urlize }}</td>
+        {% endwith %}
+    </tr>
+</table>

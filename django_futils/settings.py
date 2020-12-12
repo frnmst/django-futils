@@ -56,6 +56,7 @@ LANGUAGES = [
 # Application definition
 
 INSTALLED_APPS = [
+    'leaflet',
     'django.contrib.contenttypes',
     'simple_history',
     'vies',
@@ -150,6 +151,13 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.app_directories.Loader',
     )),
 )
+
+LEAFLET_CONFIG = {
+    'RESET_VIEW': False,
+    # 'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    'SCALE': 'metric',
+    # 'ATTRIBUTION_PREFIX': 'django-leaflet. Maps OpenStreetMap contributors',
+}
 
 # Unit tests.
 if 'test' in sys.argv:

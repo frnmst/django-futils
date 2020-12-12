@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "addresstype" %} {{ addresstype.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_addresstype_change' addresstype.id %}">{% translate 'Admin' %}</a>
+
+<h1>{% translate "Address type" %} {{ addresstype.id }}</h1>
+
+<h2>{% translate "Address type data" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Code" %}</th>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "Description" %}</th>
+    </tr>
+    <tr>
+        <td>{{ addresstype.code }}</td>
+        <td>{{ addresstype.type }}</td>
+        <td>{{ addresstype.description }}</td>
+    </tr>
+</table>
