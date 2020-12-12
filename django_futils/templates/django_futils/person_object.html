@@ -39,7 +39,7 @@
         <th>{% translate "Email" %}</th>
     </tr>
         {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}
-        <td><a href="{% url 'personaddress' address.id %}">{{ address }}</a> ({{ address.municipality.code }})</td>
+        <td><a href="{% url 'personaddress' address.id %}">{{ address }}</a></td>
         {% endwith %}
         {% with telephone=person.persontelephone_of_this_person.all|filter_primary:person.persontelephone_of_this_person.all %}
         <td>{{ telephone }}</td>
