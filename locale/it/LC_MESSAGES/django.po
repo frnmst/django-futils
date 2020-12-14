@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 18:20+0100\n"
+"POT-Creation-Date: 2020-12-10 20:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -313,3 +313,9 @@ msgstr "Italiano"
 #: django_futils/settings.py:50
 msgid "English"
 msgstr "Inglese"
+
+#: django_futils/templates/django_futils/invoice_object.html:6
+#, fuzzy
+#| msgid "person"
+msgid "Person"
+msgstr "persona"

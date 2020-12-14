@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+
+<table>
+    <tr>
+        <th>{% translate "Code" %}</th>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "Description" %}</th>
+    </tr>
+    <tr>
+        <td>{{ type.code }}</td>
+        <td>{{ type.type }}</td>
+        <td>{{ type.description }}</td>
+    </tr>
+</table>

@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load leaflet_tags %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Telephone" %} {{ persontelephone.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+<a href="{% url 'admin:django_futils_persontelephone_change' persontelephone.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Telephone" %} {{ personaddress.id }}</h1>
+
+<h2>{% translate "Telephone data" %}</h2>
+
+{% include "django_futils/common/telephone_data.html" with telephone=persontelephone %}
+
+<h2>{% translate "Other" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "Person" %}</th>
+    </tr>
+    <tr>
+        <td><a href="{% url 'telephonetype' persontelephone.type.id %}">{{ persontelephone.type }}</a></td>
+        <td><a href="{% url 'person' persontelephone.person.id %}">{{ persontelephone.person }}</a></td>
+    </tr>
+</table>
+</body>

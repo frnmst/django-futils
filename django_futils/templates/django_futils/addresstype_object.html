@@ -3,7 +3,7 @@
 {% load static %}
 {% load generic_filters %}
 <head>
-    <title>{% translate "addresstype" %} {{ addresstype.id }}</title>
+    <title>{% translate "Address type" %} {{ addresstype.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 
@@ -13,15 +13,4 @@
 
 <h2>{% translate "Address type data" %}</h2>
 
-<table>
-    <tr>
-        <th>{% translate "Code" %}</th>
-        <th>{% translate "Type" %}</th>
-        <th>{% translate "Description" %}</th>
-    </tr>
-    <tr>
-        <td>{{ addresstype.code }}</td>
-        <td>{{ addresstype.type }}</td>
-        <td>{{ addresstype.description }}</td>
-    </tr>
-</table>
+{% include "django_futils/common/type_data.html" with type=addresstype %}

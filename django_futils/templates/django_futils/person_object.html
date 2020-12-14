@@ -42,7 +42,7 @@
         <td><a href="{% url 'personaddress' address.id %}">{{ address }}</a></td>
         {% endwith %}
         {% with telephone=person.persontelephone_of_this_person.all|filter_primary:person.persontelephone_of_this_person.all %}
-        <td>{{ telephone }}</td>
+        <td><a href="{% url 'persontelephone' telephone.id %}">{{ telephone }}</a></td>
         {% endwith %}
         {% with email=person.personemail_of_this_person.all|filter_primary:person.personemail_of_this_person.all %}
         <td>{{ email|default:"?"|urlize }}</td>

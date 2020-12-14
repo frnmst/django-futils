@@ -316,7 +316,7 @@ class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
         autocomplete_fields = ('type', )
 
 
-class PersonAdminInline(BaseAdminInline):
+class AbstractPersonAdminInline(BaseAdminInline):
     readonly_fields = (
         'id',
     )
@@ -621,6 +621,18 @@ class AbstractPersonAdmin(BaseAdmin):
         'last_name',
         'fiscal_code',
     )
+
+    change_form_template = "django_futils/object_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('person',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
 
     def get_deleted_objects(self, objs, request):
         r"""

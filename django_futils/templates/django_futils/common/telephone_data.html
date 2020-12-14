@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+
+<table>
+    <tr>
+        <th>{% translate "Number" %}</th>
+        <th>{% translate "Has Whatsapp" %}</th>
+        <th>{% translate "Has Telegram" %}</th>
+        <th>{% translate "Is primary" %}</th>
+    </tr>
+    <tr>
+        <td>{{ telephone.number }}</td>
+        <td>{{ telephone.has_whatsapp|yesno:"✔,✘" }}</td>
+        <td>{{ telephone.has_telegram|yesno:"✔,✘" }}</td>
+        <td>{{ telephone.is_primary|yesno:"✔,✘" }}</td>
+    </tr>
+</table>

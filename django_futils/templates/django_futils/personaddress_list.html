@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+     <title>{% translate "Addresses" %}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+List of addresses for person {{ person }}
+
+<ul>
+{% for address in object_list %}
+    <li><a href="{% url 'personaddress' address.id %}">{{ address }}</a></li>
+{% endfor %}
+</ul>
+
+</body>

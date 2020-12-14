@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Telephone type" %} {{ telephonetype.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_telephonetype_change' telephonetype.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Telephone type" %} {{ telephonetype.id }}</h1>
+
+<h2>{% translate "Telephone type data" %}</h2>
+
+{% include "django_futils/common/type_data.html" with type=telephonetype %}

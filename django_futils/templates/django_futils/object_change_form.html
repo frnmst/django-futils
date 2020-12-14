@@ -1,0 +1,12 @@
+{% extends 'admin/change_form.html' %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    {% comment %}Check that the object exists{% endcomment %}
+    {% if original.pk %}
+    <div class="submit-row">
+            <input type="submit" value="{% translate "Printable" %}" name="_printable">
+    </div>
+    {% endif %}
+{% endblock %}
