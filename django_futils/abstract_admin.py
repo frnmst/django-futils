@@ -380,6 +380,18 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
     )
     list_filter = ('is_primary', )
 
+    change_form_template = "django_futils/object_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('personaddress-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
+
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             if obj.is_primary:
@@ -428,6 +440,16 @@ class AbstractPersonEmailAdmin(BaseAdmin):
         'person__last_name',
     )
     list_filter = ('is_primary', )
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('personemail-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
@@ -525,6 +547,18 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
         'person__last_name',
     )
     list_filter = ('is_primary', )
+
+    change_form_template = "django_futils/object_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('persontelephone-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
@@ -629,7 +663,7 @@ class AbstractPersonAdmin(BaseAdmin):
         if "_printable" in request.POST:
             self.hide_message = True
             return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('person',
+                request.build_absolute_uri(reverse('person-detail',
                                                    args=(obj.pk, ))))
         else:
             return res

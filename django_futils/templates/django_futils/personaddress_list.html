@@ -9,12 +9,12 @@
 </head>
 <body>
 
-List of addresses for person {{ person }}
+<p>{% translate 'List of addresses for person' %} <a href="{% url 'personaddress-detail' person.id %}">{{ person }}</a></p>
 
 <ul>
 {% for address in object_list %}
     <li><a href="{% url 'personaddress-detail' address.id %}">{{ address }}</a></li>
 {% endfor %}
 </ul>
-
+{% include 'django_futils/common/pagination.html' with page_obj=page_obj %}
 </body>

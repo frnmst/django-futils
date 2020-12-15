@@ -64,12 +64,14 @@ class MunicipalityDetailView(BasePermissions, generic.DetailView):
 class PersonAddressListView(BasePermissions, generic.ListView):
     model = PersonAddress
     template_name = 'django_futils/personaddress_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
-        queryset = PersonAddress.objects.filter(person=self.kwargs['pk'])[:10]
+        queryset = PersonAddress.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):
+        r"""Pass the person object."""
         context = super().get_context_data(**kwargs)
         context['person'] = Person.objects.get(id=self.kwargs['pk'])
         return context

@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load generic_filters %}
+
+{% comment %}See https://stackoverflow.com/a/1689788{% endcomment %}
+<p>{% translate 'Showing' %} {{ page_obj.start_index }}-{{ page_obj.end_index }} {% translate 'of' %} {{ page_obj.paginator.count }}</p>
+
+{% comment %}See https://docs.djangoproject.com/en/3.1/topics/pagination/#paginating-a-listview{% endcomment %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; {% translate 'first' %}</a>
+            <a href="?page={{ page_obj.previous_page_number }}">{% translate 'previous' %}</a>
+        {% endif %}
+
+        <span class="current">
+            {% translate 'Page' %} {{ page_obj.number }} {% translate 'of' %} {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">{% translate 'next' %}</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">{% translate 'last' %} &raquo;</a>
+        {% endif %}
+    </span>
+</div>
