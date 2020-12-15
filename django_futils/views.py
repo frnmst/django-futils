@@ -60,7 +60,9 @@ class MunicipalityDetailView(BasePermissions, generic.DetailView):
     template_name = 'django_futils/municipality_object.html'
 
 
-# List views.
+##############
+# List views #
+##############
 class PersonAddressListView(BasePermissions, generic.ListView):
     model = PersonAddress
     template_name = 'django_futils/personaddress_list.html'
@@ -68,6 +70,22 @@ class PersonAddressListView(BasePermissions, generic.ListView):
 
     def get_queryset(self):
         queryset = PersonAddress.objects.filter(person=self.kwargs['pk'])
+        return get_list_or_404(queryset)
+
+    def get_context_data(self, **kwargs):
+        r"""Pass the person object."""
+        context = super().get_context_data(**kwargs)
+        context['person'] = Person.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class PersonTelephoneListView(generic.ListView):
+    model = PersonAddress
+    template_name = 'django_futils/persontelephone_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = PersonTelephone.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):

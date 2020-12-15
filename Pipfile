@@ -37,6 +37,7 @@ psycopg2-binary = "~=2.8"
 # Tools.
 django-extensions = "~=3.1"
 django-leaflet = "~=0.27"
+django-htmlmin = "~=0.11"
 
 [requires]
 python_version = "3.9"

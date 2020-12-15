@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+     <title>{% translate "Telephones" %}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+<p>{% translate 'List of telephones for person' %} <a href="{% url 'person-detail' person.id %}">{{ person }}</a></p>
+
+<ul>
+{% for telephone in object_list %}
+    <li><a href="{% url 'persontelephone-detail' telephone.id %}">{{ telephone }}</a></li>
+{% endfor %}
+</ul>
+{% include 'django_futils/common/pagination.html' with page_obj=page_obj %}
+</body>

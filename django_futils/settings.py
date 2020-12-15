@@ -74,6 +74,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -158,6 +160,8 @@ LEAFLET_CONFIG = {
     'SCALE': 'metric',
     # 'ATTRIBUTION_PREFIX': 'django-leaflet. Maps OpenStreetMap contributors',
 }
+
+HTML_MINIFY = True
 
 # Unit tests.
 if 'test' in sys.argv:

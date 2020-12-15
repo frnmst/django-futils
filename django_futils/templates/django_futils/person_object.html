@@ -35,7 +35,7 @@
 <table>
     <tr>
         <th><a href="{% url 'personaddress-list' person.id %}">{% translate "Address" %}</a></th>
-        <th>{% translate "Telephone" %}</th>
+        <th><a href="{% url 'persontelephone-list' person.id %}">{% translate "Telephone" %}</a></th>
         <th>{% translate "Email" %}</th>
     </tr>
         {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}

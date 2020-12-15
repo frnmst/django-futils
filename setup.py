@@ -58,5 +58,7 @@ setup(
         'django-cleanup>=5.1,<5.2',
         'psycopg2-binary>=2.8,<2.9',
         'django-extensions>=3.1,<3.2',
+        'django-leaflet>=0.27,<0.28',
+        'django-htmlmin>=0.11,<0.12',
     ],
 )

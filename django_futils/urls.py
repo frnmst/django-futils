@@ -60,4 +60,5 @@ urlpatterns += [
 ##############
 urlpatterns += [
     path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name='personaddress-list'),
+    path('data/persontelephone/person/<int:pk>/', views.PersonTelephoneListView.as_view(), name='persontelephone-list'),
 ]
