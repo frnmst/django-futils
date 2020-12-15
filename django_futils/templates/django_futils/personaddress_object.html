@@ -35,9 +35,9 @@
         <th>{% translate "Person" %}</th>
     </tr>
     <tr>
-        <td><a href="{% url 'addresstype' personaddress.type.id %}">{{ personaddress.type }}</a></td>
-        <td><a href="{% url 'municipality' personaddress.municipality.id %}">{{ personaddress.municipality }}</a></td>
-        <td><a href="{% url 'person' personaddress.person.id %}">{{ personaddress.person }}</a></td>
+        <td><a href="{% url 'addresstype-detail' personaddress.type.id %}">{{ personaddress.type }}</a></td>
+        <td><a href="{% url 'municipality-detail' personaddress.municipality.id %}">{{ personaddress.municipality }}</a></td>
+        <td><a href="{% url 'person-detail' personaddress.person.id %}">{{ personaddress.person }}</a></td>
     </tr>
 </table>
 

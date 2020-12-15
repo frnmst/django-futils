@@ -13,7 +13,7 @@ List of addresses for person {{ person }}
 
 <ul>
 {% for address in object_list %}
-    <li><a href="{% url 'personaddress' address.id %}">{{ address }}</a></li>
+    <li><a href="{% url 'personaddress-detail' address.id %}">{{ address }}</a></li>
 {% endfor %}
 </ul>
 

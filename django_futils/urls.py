@@ -36,24 +36,28 @@ urlpatterns = [
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# Detail views.
+################
+# Detail views #
+################
 urlpatterns += [
-    path('data/person/<int:pk>/', views.PersonView.as_view(), name='person'),
-    path('data/personaddress/<int:pk>/', views.PersonAddressView.as_view(), name='personaddress'),
-    path('data/persontelephone/<int:pk>/', views.PersonTelephoneView.as_view(), name='persontelephone'),
-    path('data/personemail/<int:pk>/', views.PersonEmailView.as_view(), name='personemail'),
-    path('data/municipality/<int:pk>/', views.MunicipalityView.as_view(), name='municipality'),
+    path('data/person/<int:pk>/', views.PersonDetailView.as_view(), name='person-detail'),
+    path('data/personaddress/<int:pk>/', views.PersonAddressDetailView.as_view(), name='personaddress-detail'),
+    path('data/persontelephone/<int:pk>/', views.PersonTelephoneDetailView.as_view(), name='persontelephone-detail'),
+    path('data/personemail/<int:pk>/', views.PersonEmailDetailView.as_view(), name='personemail-detail'),
+    path('data/municipality/<int:pk>/', views.MunicipalityDetailView.as_view(), name='municipality-detail'),
     path('data/company/<int:pk>/',
-         views.CompanyView.as_view(),
+         views.CompanyDetailView.as_view(),
          name='company'),
 ]
 # Type views.
 urlpatterns += [
-    path('data/addresstype/<int:pk>/', views.AddressTypeView.as_view(), name='addresstype'),
-    path('data/telephonetype/<int:pk>/', views.TelephoneTypeView.as_view(), name='telephonetype'),
+    path('data/addresstype/<int:pk>/', views.AddressTypeDetailView.as_view(), name='addresstype-detail'),
+    path('data/telephonetype/<int:pk>/', views.TelephoneTypeDetailView.as_view(), name='telephonetype-detail'),
 ]
 
-# List views.
+##############
+# List views #
+##############
 urlpatterns += [
     path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name='personaddress-list'),
 ]

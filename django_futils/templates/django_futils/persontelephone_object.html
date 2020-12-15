@@ -26,8 +26,8 @@
         <th>{% translate "Person" %}</th>
     </tr>
     <tr>
-        <td><a href="{% url 'telephonetype' persontelephone.type.id %}">{{ persontelephone.type }}</a></td>
-        <td><a href="{% url 'person' persontelephone.person.id %}">{{ persontelephone.person }}</a></td>
+        <td><a href="{% url 'telephonetype-detail' persontelephone.type.id %}">{{ persontelephone.type }}</a></td>
+        <td><a href="{% url 'person-detail' persontelephone.person.id %}">{{ persontelephone.person }}</a></td>
     </tr>
 </table>
 </body>
