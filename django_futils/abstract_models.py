@@ -348,15 +348,20 @@ class AbstractPersonAttachment(AbstractCommonAttachment):
         verbose_name_plural = _('person attachments')
 
 
-class AbstractNominatimCache(AbstractRecordTimestamps):
+class AbstractGeocoderCache(AbstractRecordTimestamps):
     r"""As required by the terms of use, Nominatim results must be cached.
         See
         https://operations.osmfoundation.org/policies/nominatim/
     """
-    request_url = models.URLField(_('request url'), max_length=16384, db_index=True)
+    street_number = models.CharField(_('street number'),
+                                     max_length=const.GENERIC_CHAR_FIELD_LENGTH,
+                                     db_index=True)
+    street = models.CharField(_('street'), max_length=const.GENERIC_CHAR_FIELD_LENGTH, db_index=True)
+    city = models.CharField(_('city'), max_length=const.GENERIC_CHAR_FIELD_LENGTH, db_index=True)
+    country_code = models.CharField(_('contry code'), max_length=const.GENERIC_CHAR_FIELD_LENGTH, db_index=True)
     postal_code = models.CharField(_('postal code'),
                                    max_length=const.GENERIC_CHAR_FIELD_LENGTH,
-                                   blank=True)
+                                   blank=True, null=True)
     map = gis_models.PointField(_('map'), blank=True, null=True)
     cache_hits = models.IntegerField(_('cache hits'), default=0)
 

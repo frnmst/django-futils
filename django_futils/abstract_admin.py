@@ -195,7 +195,7 @@ class AbstractMunicipalityAdmin(NameBaseAdmin):
     search_fields = ('name',)
 
 
-class AbstractNominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
+class AbstractGeocoderCacheAdmin(OSMGeoAdmin, BaseAdmin):
     actions = ['delete_selected']
     readonly_fields = (
         'id',
@@ -205,7 +205,10 @@ class AbstractNominatimCacheAdmin(OSMGeoAdmin, BaseAdmin):
     )
     list_display = (
         'id',
-        'request_url',
+        'street_number',
+        'street',
+        'city',
+        'country_code',
     )
 
 

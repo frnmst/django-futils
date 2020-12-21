@@ -50,10 +50,14 @@ TIME_ZONE = 'Europe/Rome'
 ###############
 # Other stuff #
 ###############
-NOMINATIM_URL = 'https://nominatim.openstreetmap.org'
+# Geocoders
+
+GEOCODER_SCHEME = 'https'
+GEOCODER_DOMAIN = 'nominatim.openstreetmap.org'
+GEOCODER_USER_AGENT = 'my-app'
 
 # 6 months = 60 * 60 * 24 * 30 * 6
-NOMINATIM_CACHE_TTL_SECONDS = 15552000
+GEOCODER_CACHE_TTL_SECONDS = 15552000
 
 OPENLAYERS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js'
 

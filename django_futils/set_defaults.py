@@ -24,22 +24,34 @@ import django_futils.constants as const
 
 # Set variables if the user did not set them.
 try:
-    settings.NOMINATIM_MODEL_NAME
+    settings.GEOCODER_MODEL_NAME
 except AttributeError:
-    settings.NOMINATIM_MODEL_NAME = 'NominatimCache'
+    settings.GEOCODER_MODEL_NAME = 'GeocoderCache'
 try:
-    settings.NOMINATIM_MODEL_APP
+    settings.GEOCODER_MODEL_APP
 except AttributeError:
-    settings.NOMINATIM_MODEL_APP = 'django_futils'
+    settings.GEOCODER_MODEL_APP = 'django_futils'
+try:
+    settings.GEOCODER_SCHEME
+except AttributeError:
+    settings.GEOCODER_SCHEME = 'https'
+try:
+    settings.GEOCODER_DOMAIN
+except AttributeError:
+    settings.GEOCODER_DOMAIN = 'nominatim.openstreetmap.org'
+try:
+    settings.GEOCODER_USER_AGENT
+except AttributeError:
+    settings.GEOCODER_USER_AGENT = 'dfu-agent'
 try:
     settings.NOMINATIM_URL
 except AttributeError:
     settings.NOMINATIM_URL = 'https://nominatim.openstreetmap.org'
 try:
-    settings.NOMINATIM_CACHE_TTL_SECONDS
+    settings.GEOCODER_CACHE_TTL_SECONDS
 except AttributeError:
     # 6 months = 60 * 60 * 24 * 30 * 6
-    settings.NOMINATIM_CACHE_TTL_SECONDS = 15552000
+    settings.GEOCODER_CACHE_TTL_SECONDS = 15552000
 try:
     settings.OPENLAYERS_URL
 except AttributeError:
@@ -58,13 +70,13 @@ except AttributeError:
     settings.SIMPLE_HISTORY_REVERT_DISABLE = False
 
 # Validate the custom secret settings.
-if not isinstance(settings.NOMINATIM_MODEL_NAME, str):
+if not isinstance(settings.GEOCODER_MODEL_NAME, str):
     raise TypeError
-if not isinstance(settings.NOMINATIM_MODEL_APP, str):
+if not isinstance(settings.GEOCODER_MODEL_APP, str):
     raise TypeError
 if not isinstance(settings.NOMINATIM_URL, str):
     raise TypeError
-if not isinstance(settings.NOMINATIM_CACHE_TTL_SECONDS, int):
+if not isinstance(settings.GEOCODER_CACHE_TTL_SECONDS, int):
     raise TypeError
 if not isinstance(settings.OPENLAYERS_URL, str):
     raise TypeError
@@ -72,7 +84,7 @@ if not isinstance(settings.FOREIGN_KEY_FIELDS, int):
     raise TypeError
 if not isinstance(settings.SIMPLE_HISTORY_REVERT_DISABLE, bool):
     raise TypeError
-if settings.NOMINATIM_CACHE_TTL_SECONDS <= 0:
+if settings.GEOCODER_CACHE_TTL_SECONDS <= 0:
     raise ValueError
 if settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_DEFAULT and settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_RAW and settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
     raise ValueError

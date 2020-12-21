@@ -21,11 +21,19 @@ from SECRET_SETTINGS import SECRET_KEY, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, 
 
 # Optional variables.
 try:
-    from SECRET_SETTINGS import NOMINATIM_URL
+    from SECRET_SETTINGS import GEOCODER_SCHEME
 except ImportError:
     pass
 try:
-    from SECRET_SETTINGS import NOMINATIM_CACHE_TTL_SECONDS
+    from SECRET_SETTINGS import GEOCODER_DOMAIN
+except ImportError:
+    pass
+try:
+    from SECRET_SETTINGS import GEOCODER_USER_AGENT
+except ImportError:
+    pass
+try:
+    from SECRET_SETTINGS import GEOCODER_CACHE_TTL_SECONDS
 except ImportError:
     pass
 try:

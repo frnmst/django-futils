@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 20:04+0100\n"
+"POT-Creation-Date: 2020-12-18 18:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,8 +314,274 @@ msgstr "Italiano"
 msgid "English"
 msgstr "Inglese"
 
-#: django_futils/templates/django_futils/invoice_object.html:6
+#: django_futils/templates/django_futils/addresstype_object.html:6
+#: django_futils/templates/django_futils/addresstype_object.html:12
+#, fuzzy
+#| msgid "address type"
+msgid "Address type"
+msgstr "tipo di indirizzo"
+
+#: django_futils/templates/django_futils/addresstype_object.html:10
+#: django_futils/templates/django_futils/municipality_object.html:10
+#: django_futils/templates/django_futils/person_object.html:10
+#: django_futils/templates/django_futils/personaddress_object.html:15
+#: django_futils/templates/django_futils/persontelephone_object.html:14
+#: django_futils/templates/django_futils/telephonetype_object.html:10
+msgid "Change"
+msgstr ""
+
+#: django_futils/templates/django_futils/addresstype_object.html:14
+#, fuzzy
+#| msgid "address type"
+msgid "Address type data"
+msgstr "tipo di indirizzo"
+
+#: django_futils/templates/django_futils/common/address_data.html:8
+#, fuzzy
+#| msgid "street number"
+msgid "Street number"
+msgstr "numero civico"
+
+#: django_futils/templates/django_futils/common/address_data.html:9
+#, fuzzy
+#| msgid "street"
+msgid "Street"
+msgstr "via"
+
+#: django_futils/templates/django_futils/common/address_data.html:10
+msgid "City"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/address_data.html:11
+#, fuzzy
+#| msgid "postal code"
+msgid "Postal code"
+msgstr "CAP"
+
+#: django_futils/templates/django_futils/common/address_data.html:12
+#, fuzzy
+#| msgid "auto fill"
+msgid "Auto fill"
+msgstr "riempimento automatico"
+
+#: django_futils/templates/django_futils/common/pagination.html:9
+msgid "Showing"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/pagination.html:9
+#: django_futils/templates/django_futils/common/pagination.html:21
+msgid "of"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/pagination.html:16
+#, fuzzy
+#| msgid "first name"
+msgid "first"
+msgstr "nome"
+
+#: django_futils/templates/django_futils/common/pagination.html:17
+msgid "previous"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/pagination.html:21
+msgid "Page"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/pagination.html:25
+msgid "next"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/pagination.html:26
+#, fuzzy
+#| msgid "last name"
+msgid "last"
+msgstr "cognome"
+
+#: django_futils/templates/django_futils/common/telephone_data.html:8
+#, fuzzy
+#| msgid "number"
+msgid "Number"
+msgstr "numero"
+
+#: django_futils/templates/django_futils/common/telephone_data.html:9
+#, fuzzy
+#| msgid "has whatsapp"
+msgid "Has Whatsapp"
+msgstr "ha whatsapp"
+
+#: django_futils/templates/django_futils/common/telephone_data.html:10
+#, fuzzy
+#| msgid "has telegram"
+msgid "Has Telegram"
+msgstr "ha telegram"
+
+#: django_futils/templates/django_futils/common/telephone_data.html:11
+#, fuzzy
+#| msgid "is primary"
+msgid "Is primary"
+msgstr "principale"
+
+#: django_futils/templates/django_futils/common/type_data.html:8
+#: django_futils/templates/django_futils/municipality_object.html:18
+msgid "Code"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/type_data.html:9
+#: django_futils/templates/django_futils/personaddress_object.html:33
+#: django_futils/templates/django_futils/persontelephone_object.html:26
+msgid "Type"
+msgstr ""
+
+#: django_futils/templates/django_futils/common/type_data.html:10
+#: django_futils/templates/django_futils/municipality_object.html:19
+#, fuzzy
+#| msgid "description"
+msgid "Description"
+msgstr "descrizione"
+
+#: django_futils/templates/django_futils/municipality_object.html:6
+#: django_futils/templates/django_futils/municipality_object.html:12
+#: django_futils/templates/django_futils/personaddress_object.html:34
+#, fuzzy
+#| msgid "municipality"
+msgid "Municipality"
+msgstr "comune"
+
+#: django_futils/templates/django_futils/municipality_object.html:14
+#, fuzzy
+#| msgid "municipality"
+msgid "Municipality data"
+msgstr "comune"
+
+#: django_futils/templates/django_futils/municipality_object.html:20
+msgid "Name"
+msgstr ""
+
+#: django_futils/templates/django_futils/municipality_object.html:21
+#, fuzzy
+#| msgid "country"
+msgid "County"
+msgstr "stato"
+
+#: django_futils/templates/django_futils/object_change_form.html:10
+msgid "Printable"
+msgstr ""
+
+#: django_futils/templates/django_futils/person_object.html:6
+#: django_futils/templates/django_futils/person_object.html:12
+#: django_futils/templates/django_futils/personaddress_object.html:35
+#: django_futils/templates/django_futils/persontelephone_object.html:27
 #, fuzzy
 #| msgid "person"
 msgid "Person"
 msgstr "persona"
+
+#: django_futils/templates/django_futils/person_object.html:14
+msgid "Registry"
+msgstr ""
+
+#: django_futils/templates/django_futils/person_object.html:18
+#, fuzzy
+#| msgid "first name"
+msgid "First name"
+msgstr "nome"
+
+#: django_futils/templates/django_futils/person_object.html:19
+#, fuzzy
+#| msgid "last name"
+msgid "Last name"
+msgstr "cognome"
+
+#: django_futils/templates/django_futils/person_object.html:20
+#, fuzzy
+#| msgid "date of birth"
+msgid "Date of birth"
+msgstr "data di nascita"
+
+#: django_futils/templates/django_futils/person_object.html:21
+#, fuzzy
+#| msgid "city of birth"
+msgid "City of birth"
+msgstr "città di nascita"
+
+#: django_futils/templates/django_futils/person_object.html:22
+#, fuzzy
+#| msgid "fiscal code"
+msgid "Fiscal code"
+msgstr "codice fiscale"
+
+#: django_futils/templates/django_futils/person_object.html:33
+msgid "Contacts"
+msgstr ""
+
+#: django_futils/templates/django_futils/person_object.html:37
+#: django_futils/templates/django_futils/personaddress_object.html:8
+#: django_futils/templates/django_futils/personaddress_object.html:17
+#, fuzzy
+#| msgid "address type"
+msgid "Address"
+msgstr "tipo di indirizzo"
+
+#: django_futils/templates/django_futils/person_object.html:38
+#: django_futils/templates/django_futils/persontelephone_object.html:9
+#: django_futils/templates/django_futils/persontelephone_object.html:16
+#, fuzzy
+#| msgid "telephone type"
+msgid "Telephone"
+msgstr "tipo di telefono"
+
+#: django_futils/templates/django_futils/person_object.html:39
+#, fuzzy
+#| msgid "email"
+msgid "Email"
+msgstr "email"
+
+#: django_futils/templates/django_futils/personaddress_list.html:7
+#, fuzzy
+#| msgid "address types"
+msgid "Addresses"
+msgstr "tipi di indirizzo"
+
+#: django_futils/templates/django_futils/personaddress_list.html:12
+msgid "List of addresses for person"
+msgstr ""
+
+#: django_futils/templates/django_futils/personaddress_object.html:19
+#, fuzzy
+#| msgid "address type"
+msgid "Address data"
+msgstr "tipo di indirizzo"
+
+#: django_futils/templates/django_futils/personaddress_object.html:29
+#: django_futils/templates/django_futils/persontelephone_object.html:22
+msgid "Other"
+msgstr ""
+
+#: django_futils/templates/django_futils/persontelephone_list.html:7
+#, fuzzy
+#| msgid "telephone types"
+msgid "Telephones"
+msgstr "tipi di telefono"
+
+#: django_futils/templates/django_futils/persontelephone_list.html:12
+msgid "List of telephones for person"
+msgstr ""
+
+#: django_futils/templates/django_futils/persontelephone_object.html:18
+#, fuzzy
+#| msgid "telephone type"
+msgid "Telephone data"
+msgstr "tipo di telefono"
+
+#: django_futils/templates/django_futils/telephonetype_object.html:6
+#: django_futils/templates/django_futils/telephonetype_object.html:12
+#, fuzzy
+#| msgid "telephone type"
+msgid "Telephone type"
+msgstr "tipo di telefono"
+
+#: django_futils/templates/django_futils/telephonetype_object.html:14
+#, fuzzy
+#| msgid "telephone type"
+msgid "Telephone type data"
+msgstr "tipo di telefono"

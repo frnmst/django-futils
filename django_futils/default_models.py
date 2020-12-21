@@ -22,7 +22,7 @@
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from .abstract_models import (AbstractAddressType, AbstractEmailType, AbstractTelephoneType, AbstractAttachmentType, AbstractMunicipality, AbstractPersonTelephone, AbstractCompanyTelephone, AbstractPersonEmail, AbstractCompanyEmail, AbstractPersonAddress, AbstractCompanyAddress, AbstractCompany, AbstractPerson, AbstractPersonAttachment, AbstractNominatimCache)
+from .abstract_models import (AbstractAddressType, AbstractEmailType, AbstractTelephoneType, AbstractAttachmentType, AbstractMunicipality, AbstractPersonTelephone, AbstractCompanyTelephone, AbstractPersonEmail, AbstractCompanyEmail, AbstractPersonAddress, AbstractCompanyAddress, AbstractCompany, AbstractPerson, AbstractPersonAttachment, AbstractGeocoderCache)
 
 
 ################
@@ -236,5 +236,5 @@ class Company(AbstractCompany):
         ]
 
 
-class NominatimCache(AbstractNominatimCache):
+class GeocoderCache(AbstractGeocoderCache):
     pass

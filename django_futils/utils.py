@@ -30,13 +30,14 @@ import uuid
 import urllib.parse
 import django_futils.set_defaults
 import django.apps
+import geopy
 
 
 def save_primary(self, field_name: str, field_value: str):
     r"""One object must always be primary.
 
         This function avoids the need of implementing this constraint which has
-        been remove after commit d67dc41. If neended call the save_primary
+        been remove after commit d67dc41. If needed call the save_primary
         function manually.
 
         constraints = [
@@ -64,37 +65,62 @@ def personattachment_directory_path(instance, filename: str) -> str:
     return 'personattachments/' + str(uuid.uuid4()) + '/' + filename
 
 
-def run_nominatim_request(request_url: str, postal_code: str) -> tuple:
-    # Do not get the database dirty if there is a problem reaching Nominatims' servers.
-    try:
-        r = requests.get(request_url)
-        j = r.json()
+def run_geocoder_request(street_number: str, street: str, city: str, country_code: str, postal_code: str = str(), provider: str = 'Nominatim') -> tuple:
+    r"""See
+        https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#geosgeometry
+        https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#creating-a-geometry
+        https://tools.ietf.org/html/rfc7946#section-9
+        https://en.wikipedia.org/wiki/World_Geodetic_System
 
-        if 'features' not in j:
-            raise ValueError
-        data = j['features']
-        if len(data) > 0:
-            if 'geometry' in data[0]:
-                pnt = str(data[0]['geometry'])
-                # See
-                # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#geosgeometry
-                # https://docs.djangoproject.com/en/3.1/ref/contrib/gis/geos/#creating-a-geometry
-                # https://tools.ietf.org/html/rfc7946#section-9
-                # https://en.wikipedia.org/wiki/World_Geodetic_System
-                point = GEOSGeometry(pnt, srid=4326)
-            else:
-                point = None
+        Do not get the database dirty if there is a problem reaching the geocoders' servers.
+    """
+    error = False
+    postcode = None
+    if provider == 'Nominatim':
+        try:
+            query_string = {
+                'street': street_number + ' ' + street,
+                'city': city,
+                'country': country_code,
+            }
+            result = geopy.geocoders.Nominatim(
+                timeout=30,
+                scheme=settings.GEOCODER_SCHEME,
+                domain=settings.GEOCODER_DOMAIN,
+                user_agent=settings.GEOCODER_USER_AGENT,
+            ).geocode(query=query_string, exactly_one=True, country_codes=country_code, addressdetails=True, geometry='geojson')
 
-            if 'properties' in data[0] and 'address' in data[0]['properties'] and 'postcode' in data[0]['properties']['address']:
-                postcode = str(j['features'][0]['properties']['address']['postcode'])
+            if result is None:
+                # No results found.
+                # Case 6.
+                error = True
             else:
-                postcode = str()
-        else:
-            raise ValueError
-    except (requests.RequestException, ValueError):
+                if 'geojson' in result.raw:
+                    # Case 0
+                    point = GEOSGeometry(str(result.raw['geojson']), srid=4326)
+                else:
+                    # Case 2
+                    error = True
+
+                if 'address' in result.raw and 'postcode' in result.raw['address']:
+                    # Case 0
+                    postcode = result.raw['address']['postcode']
+                else:
+                    # case 1
+                    postcode = None
+
+        except geopy.exc.GeopyError as e:
+            # Case 5.
+            print(e)
+            error = True
+
+    if error:
         point = None
+    if postcode is None:
         if postal_code is None:
+            # Case 3.
             postal_code = str()
+        # Case 4.
         postcode = postal_code
 
     return point, postcode
@@ -116,16 +142,13 @@ def get_address_data(country: str, city: str, street_number: str,
             postal_code = str()
         postcode = postal_code
     else:
-        # Escape variables and special characters of the url so that it can be validated as a URLField.
-        osm_request_url = (settings.NOMINATIM_URL + '/' + urllib.parse.quote('search?format=geojson&limit=1&addressdetails=1&city=' \
-            + city + '&street=' + street_number + ', ' + street + '&country=' + country.lower(), safe='?&=/'))
-
-        nominatim_model = django.apps.apps.get_model(settings.NOMINATIM_MODEL_APP, settings.NOMINATIM_MODEL_NAME)
+        country_code = country.lower()
+        geocoder_model = django.apps.apps.get_model(settings.GEOCODER_MODEL_APP, settings.GEOCODER_MODEL_NAME)
         try:
-            cache = nominatim_model.objects.get(request_url=osm_request_url)
-            if (timezone.now() - cache.updated).seconds >= settings.NOMINATIM_CACHE_TTL_SECONDS:
+            cache = geocoder_model.objects.get(city=city, street_number=street_number, street=street, country_code=country_code)
+            if (timezone.now() - cache.updated).seconds >= settings.GEOCODER_CACHE_TTL_SECONDS:
                 # Update the cache once it expires.
-                point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
+                point, postcode = run_geocoder_request(street_number, street, city, country_code, postal_code)
                 cache.map = point
                 cache.postal_code = postcode
                 cache.cache_hits = 0
@@ -139,12 +162,12 @@ def get_address_data(country: str, city: str, street_number: str,
 
                 # Since we are not changing neither the map nor the postal_code values,
                 # replace the updated field with its original value.
-                nominatim_model.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
+                geocoder_model.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
 
         except ObjectDoesNotExist:
             # Create the cache.
-            point, postcode = run_nominatim_request(request_url=osm_request_url, postal_code=postal_code)
-            cache = nominatim_model(request_url=osm_request_url, map=point, postal_code=postcode)
+            point, postcode = run_geocoder_request(street_number, street, city, country_code, postal_code)
+            cache = geocoder_model(city=city, street_number=street_number, street=street, country_code=country_code, map=point, postal_code=postcode)
             cache.save()
 
     return point, postcode
