@@ -211,8 +211,6 @@ class PersonAttachment(AbstractPersonAttachment):
         related_name='personattachment_of_this_person',
         on_delete=models.CASCADE,
         verbose_name=_('person'),
-        null=True,
-        blank=True,
     )
 
 
