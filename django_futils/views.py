@@ -2,7 +2,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_list_or_404
 
-from .default_models import AddressType, TelephoneType, EmailType, Person, PersonAddress, PersonTelephone, PersonEmail, Company, Municipality
+from .default_models import AddressType, TelephoneType, EmailType, Person, PersonAddress, PersonTelephone, PersonEmail, PersonAttachment, Company, Municipality
 
 
 class BasePermissions(LoginRequiredMixin):
@@ -16,8 +16,6 @@ class BasePermissions(LoginRequiredMixin):
 ################
 # Detail Views #
 ################
-
-
 # Type views.
 class AddressTypeDetailView(BasePermissions, generic.DetailView):
     model = AddressType
@@ -55,6 +53,11 @@ class PersonEmailDetailView(BasePermissions, generic.DetailView):
     template_name = 'django_futils/personemail_detail.html'
 
 
+class PersonAttachmentDetailView(BasePermissions, generic.DetailView):
+    model = PersonAttachment
+    template_name = 'django_futils/personattachment_detail.html'
+
+
 class CompanyDetailView(BasePermissions, generic.DetailView):
     model = Company
     template_name = 'django_futils/company_detail.html'
@@ -74,7 +77,7 @@ class PersonAddressListView(BasePermissions, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = PersonAddress.objects.filter(person=self.kwargs['pk'])
+        queryset = self.model.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):
@@ -90,7 +93,7 @@ class PersonTelephoneListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = PersonTelephone.objects.filter(person=self.kwargs['pk'])
+        queryset = self.model.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):
@@ -106,7 +109,7 @@ class PersonEmailListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = PersonEmail.objects.filter(person=self.kwargs['pk'])
+        queryset = self.model.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):

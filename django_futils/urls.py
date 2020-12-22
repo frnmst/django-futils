@@ -44,10 +44,9 @@ urlpatterns += [
     path('data/personaddress/<int:pk>/', views.PersonAddressDetailView.as_view(), name='personaddress-detail'),
     path('data/persontelephone/<int:pk>/', views.PersonTelephoneDetailView.as_view(), name='persontelephone-detail'),
     path('data/personemail/<int:pk>/', views.PersonEmailDetailView.as_view(), name='personemail-detail'),
+    path('data/personattachment/<int:pk>/', views.PersonAttachmentDetailView.as_view(), name='personattachment-detail'),
     path('data/municipality/<int:pk>/', views.MunicipalityDetailView.as_view(), name='municipality-detail'),
-    path('data/company/<int:pk>/',
-         views.CompanyDetailView.as_view(),
-         name='company'),
+    path('data/company/<int:pk>/', views.CompanyDetailView.as_view(), name='company-detail'),
 ]
 # Type views.
 urlpatterns += [

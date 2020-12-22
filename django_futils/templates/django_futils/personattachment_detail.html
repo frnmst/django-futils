@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Attachment" %} {{ personattachment.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+<a href="{% url 'admin:django_futils_personattachment_change' personattachment.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Attachment" %} {{ personattachment.id }}</h1>
+
+<h2>{% translate "Attachment data" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "Notes" %}</th>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "File" %}</th>
+    </tr>
+    <tr>
+        <td>{{ personattachment.name }}</td>
+        <td>{{ personattachment.notes }}</td>
+        <td>{{ personattachment.type }}</td>
+        <td><a href="{% get_media_prefix %}{{ personattachment.file.name }}">{{ personattachment.file.name|filter_url_last_path_component:personattachment.file.name }}</a></td>
+    </tr>
+</table>
+</body>
