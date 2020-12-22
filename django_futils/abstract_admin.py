@@ -383,7 +383,7 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
     )
     list_filter = ('is_primary', )
 
-    change_form_template = "django_futils/object_change_form.html"
+    change_form_template = "django_futils/detail_change_form.html"
 
     def response_change(self, request, obj):
         res = super().response_change(request, obj)
@@ -551,7 +551,7 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
     )
     list_filter = ('is_primary', )
 
-    change_form_template = "django_futils/object_change_form.html"
+    change_form_template = "django_futils/detail_change_form.html"
 
     def response_change(self, request, obj):
         res = super().response_change(request, obj)
@@ -611,6 +611,18 @@ class AbstractCompanyTelephoneAdmin(BaseAdmin):
     )
     list_filter = ('is_primary', )
 
+    change_form_template = "django_futils/detail_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('companytelephone-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
+
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             if obj.is_primary:
@@ -645,6 +657,18 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
             'type',
         )
 
+    change_form_template = "django_futils/detail_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('personattachment-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
+
 
 class AbstractPersonAdmin(BaseAdmin):
     readonly_fields = (
@@ -659,7 +683,7 @@ class AbstractPersonAdmin(BaseAdmin):
         'fiscal_code',
     )
 
-    change_form_template = "django_futils/object_change_form.html"
+    change_form_template = "django_futils/detail_change_form.html"
 
     def response_change(self, request, obj):
         res = super().response_change(request, obj)

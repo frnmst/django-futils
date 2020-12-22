@@ -24,7 +24,7 @@
 
 <br />
 
-{% include "django_futils/common/address_data.html" with address=personaddress %}
+{% include "django_futils/includes/address_data.html" with address=personaddress %}
 
 <h2>{% translate "Other" %}</h2>
 
@@ -41,6 +41,6 @@
     </tr>
 </table>
 
-{% include "django_futils/address_map.html" with x=personaddress.map.x y=personaddress.map.y %}
+{% include "django_futils/includes/address_map.html" with x=personaddress.map.x y=personaddress.map.y %}
 
 </body>
