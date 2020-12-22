@@ -4,16 +4,16 @@
 {% load static %}
 {% load generic_filters %}
 <head>
-     <title>{% translate "Emails" %}</title>
+     <title>{% translate "Telephones" %}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 <body>
 
-<p>{% translate 'List of emails for person' %} <a href="{% url 'person-detail' person.id %}">{{ person }}</a></p>
+<p>{% translate 'List of telephones for person' %} <a href="{% url 'person-detail' person.id %}">{{ person }}</a></p>
 
 <ul>
 {% for telephone in object_list %}
-    <li><a href="{% url 'personemail_detail' email.id %}">{{ telephone }}</a></li>
+    <li><a href="{% url 'persontelephone-detail' telephone.id %}">{{ telephone }}</a></li>
 {% endfor %}
 </ul>
 {% include "django_futils/includes/pagination.html" with page_obj=page_obj %}
