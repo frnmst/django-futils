@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Email type" %} {{ emailtype.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_emailtype_change' emailtype.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Email type" %} {{ emailtype.id }}</h1>
+
+<h2>{% translate "Email type data" %}</h2>
+
+{% include "django_futils/includes/type_data.html" with type=emailtype %}

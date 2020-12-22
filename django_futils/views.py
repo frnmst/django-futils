@@ -2,7 +2,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_list_or_404
 
-from .default_models import AddressType, TelephoneType, Person, PersonAddress, PersonTelephone, PersonEmail, Company, Municipality
+from .default_models import AddressType, TelephoneType, EmailType, Person, PersonAddress, PersonTelephone, PersonEmail, Company, Municipality
 
 
 class BasePermissions(LoginRequiredMixin):
@@ -27,6 +27,11 @@ class AddressTypeDetailView(BasePermissions, generic.DetailView):
 class TelephoneTypeDetailView(BasePermissions, generic.DetailView):
     model = TelephoneType
     template_name = 'django_futils/telephonetype_detail.html'
+
+
+class EmailTypeDetailView(BasePermissions, generic.DetailView):
+    model = EmailType
+    template_name = 'django_futils/emailtype_detail.html'
 
 
 # Normal views.
@@ -80,12 +85,28 @@ class PersonAddressListView(BasePermissions, generic.ListView):
 
 
 class PersonTelephoneListView(generic.ListView):
-    model = PersonAddress
+    model = PersonTelephone
     template_name = 'django_futils/persontelephone_list.html'
     paginate_by = 10
 
     def get_queryset(self):
         queryset = PersonTelephone.objects.filter(person=self.kwargs['pk'])
+        return get_list_or_404(queryset)
+
+    def get_context_data(self, **kwargs):
+        r"""Pass the person object."""
+        context = super().get_context_data(**kwargs)
+        context['person'] = Person.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class PersonEmailListView(generic.ListView):
+    model = PersonEmail
+    template_name = 'django_futils/personemail_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = PersonEmail.objects.filter(person=self.kwargs['pk'])
         return get_list_or_404(queryset)
 
     def get_context_data(self, **kwargs):

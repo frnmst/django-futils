@@ -53,6 +53,7 @@ urlpatterns += [
 urlpatterns += [
     path('data/addresstype/<int:pk>/', views.AddressTypeDetailView.as_view(), name='addresstype-detail'),
     path('data/telephonetype/<int:pk>/', views.TelephoneTypeDetailView.as_view(), name='telephonetype-detail'),
+    path('data/emailtype/<int:pk>/', views.EmailTypeDetailView.as_view(), name='emailtype-detail'),
 ]
 
 ##############
@@ -61,4 +62,5 @@ urlpatterns += [
 urlpatterns += [
     path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name='personaddress-list'),
     path('data/persontelephone/person/<int:pk>/', views.PersonTelephoneListView.as_view(), name='persontelephone-list'),
+    path('data/personemail/person/<int:pk>/', views.PersonEmailListView.as_view(), name='personemail-list'),
 ]

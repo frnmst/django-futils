@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load l10n %}
+
+<!doctype html>
+<html>
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Email" %} {{ personemail.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+<a href="{% url 'admin:django_futils_personemail_change' personemail.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Email" %} {{ personemail.id }}</h1>
+
+<h2>{% translate "Email data" %}</h2>
+
+{% include "django_futils/includes/email_data.html" with email=personemail %}
+
+<h2>{% translate "Other" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "Person" %}</th>
+    </tr>
+    <tr>
+        <td><a href="{% url 'emailtype-detail' personemail.type.id %}">{{ personemail.type }}</a></td>
+        <td><a href="{% url 'person-detail' personemail.person.id %}">{{ personemail.person }}</a></td>
+    </tr>
+</table>
+</body>
+</html>

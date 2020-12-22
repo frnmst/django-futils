@@ -178,13 +178,49 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
 class AbstractAddressTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
 
+    change_form_template = "django_futils/detail_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('addresstype-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
+
 
 class AbstractEmailTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
 
+    change_form_template = "django_futils/detail_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('emailtype-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
+
 
 class AbstractTelephoneTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
+
+    change_form_template = "django_futils/detail_change_form.html"
+
+    def response_change(self, request, obj):
+        res = super().response_change(request, obj)
+        if "_printable" in request.POST:
+            self.hide_message = True
+            return HttpResponseRedirect(
+                request.build_absolute_uri(reverse('telephonetype-detail',
+                                                   args=(obj.pk, ))))
+        else:
+            return res
 
 
 class AbstractAttachmentTypeAdmin(TypeBaseAdmin):
@@ -443,6 +479,8 @@ class AbstractPersonEmailAdmin(BaseAdmin):
         'person__last_name',
     )
     list_filter = ('is_primary', )
+
+    change_form_template = "django_futils/detail_change_form.html"
 
     def response_change(self, request, obj):
         res = super().response_change(request, obj)

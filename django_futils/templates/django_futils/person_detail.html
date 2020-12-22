@@ -36,7 +36,7 @@
     <tr>
         <th><a href="{% url 'personaddress-list' person.id %}">{% translate "Address" %}</a></th>
         <th><a href="{% url 'persontelephone-list' person.id %}">{% translate "Telephone" %}</a></th>
-        <th>{% translate "Email" %}</th>
+        <th><a href="{% url 'personemail-list' person.id %}">{% translate "Email" %}</a></th>
     </tr>
         {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}
         <td><a href="{% url 'personaddress-detail' address.id %}">{{ address }}</a></td>
@@ -45,7 +45,11 @@
         <td><a href="{% url 'persontelephone-detail' telephone.id %}">{{ telephone }}</a></td>
         {% endwith %}
         {% with email=person.personemail_of_this_person.all|filter_primary:person.personemail_of_this_person.all %}
-        <td>{{ email|default:"?"|urlize }}</td>
+            {% if email %}
+                <td><a href="{% url 'personemail-detail' email.id %}">{{ email }}</a></td>
+            {% else %}
+                <td>?</td>
+            {% endif %}
         {% endwith %}
     </tr>
 </table>

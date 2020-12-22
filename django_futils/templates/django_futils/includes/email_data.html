@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+
+<table>
+    <tr>
+        <th>{% translate "Email" %}</th>
+        <th>{% translate "Is primary" %}</th>
+    </tr>
+    <tr>
+        <td>{{ email.email }}</td>
+        <td>{{ email.is_primary|yesno:"✔,✘" }}</td>
+    </tr>
+</table>
