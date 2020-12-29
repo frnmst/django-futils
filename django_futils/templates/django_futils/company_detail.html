@@ -1,0 +1,54 @@
+{% load i18n %}
+
+{% load static %}
+{% load generic_filters %}
+<!doctype html>
+<html>
+<head>
+    <title>{% translate "Company" %} {{ company.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+
+<a href="{% url 'admin:django_futils_company_change' company.id %}">{% translate 'Change' %}</a>
+
+<h1>{% translate "Company" %} {{ company.id }}</h1>
+
+<h2>{% translate "Registry" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "VAT" %}</th>
+        <th>{% translate "Is primary" %}</th>
+    </tr>
+    <tr>
+        <td>{{ company.name }}</td>
+        <td>{{ company.vat }}</td>
+        <td>{{ company.is_primary }}</td>
+    </tr>
+</table>
+
+<h2>{% translate "Contacts" %}</h2>
+
+<table>
+    <tr>
+        <th><a href="{% url 'companyaddress-list' company.id %}">{% translate "Address" %}</a></th>
+        <th><a href="{% url 'companytelephone-list' company.id %}">{% translate "Telephone" %}</a></th>
+        <th><a href="{% url 'companyemail-list' company.id %}">{% translate "Email" %}</a></th>
+    </tr>
+        {% with address=company.companyaddress_of_this_company.all|filter_primary:company.companyaddress_of_this_company.all %}
+        <td><a href="{% url 'companyaddress-detail' address.id %}">{{ address }}</a></td>
+        {% endwith %}
+        {% with telephone=company.companytelephone_of_this_company.all|filter_primary:company.companytelephone_of_this_company.all %}
+        <td><a href="{% url 'companytelephone-detail' telephone.id %}">{{ telephone }}</a></td>
+        {% endwith %}
+        {% with email=company.companyemail_of_this_company.all|filter_primary:company.companyemail_of_this_company.all %}
+            {% if email %}
+                <td><a href="{% url 'companyemail-detail' email.id %}">{{ email }}</a></td>
+            {% else %}
+                <td>?</td>
+            {% endif %}
+        {% endwith %}
+    </tr>
+</table>
+</html>

@@ -67,4 +67,8 @@ urlpatterns += [
     path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name='personaddress-list'),
     path('data/persontelephone/person/<int:pk>/', views.PersonTelephoneListView.as_view(), name='persontelephone-list'),
     path('data/personemail/person/<int:pk>/', views.PersonEmailListView.as_view(), name='personemail-list'),
+
+    path('data/companyaddress/company/<int:pk>/', views.CompanyAddressListView.as_view(), name='companyaddress-list'),
+    path('data/companytelephone/company/<int:pk>/', views.CompanyTelephoneListView.as_view(), name='companytelephone-list'),
+    path('data/companyemail/company/<int:pk>/', views.CompanyEmailListView.as_view(), name='companyemail-list'),
 ]

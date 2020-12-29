@@ -132,3 +132,51 @@ class PersonEmailListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['person'] = Person.objects.get(id=self.kwargs['pk'])
         return context
+
+
+class CompanyAddressListView(BasePermissions, generic.ListView):
+    model = CompanyAddress
+    template_name = 'django_futils/companyaddress_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(company=self.kwargs['pk'])
+        return get_list_or_404(queryset)
+
+    def get_context_data(self, **kwargs):
+        r"""Pass the company object."""
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class CompanyTelephoneListView(generic.ListView):
+    model = CompanyTelephone
+    template_name = 'django_futils/companytelephone_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(company=self.kwargs['pk'])
+        return get_list_or_404(queryset)
+
+    def get_context_data(self, **kwargs):
+        r"""Pass the company object."""
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class CompanyEmailListView(generic.ListView):
+    model = CompanyEmail
+    template_name = 'django_futils/companyemail_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(company=self.kwargs['pk'])
+        return get_list_or_404(queryset)
+
+    def get_context_data(self, **kwargs):
+        r"""Pass the company object."""
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.get(id=self.kwargs['pk'])
+        return context
