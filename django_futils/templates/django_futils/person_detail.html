@@ -2,6 +2,8 @@
 
 {% load static %}
 {% load generic_filters %}
+<!doctype html>
+<html>
 <head>
     <title>{% translate "Person" %} {{ person.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
@@ -53,3 +55,4 @@
         {% endwith %}
     </tr>
 </table>
+</html>

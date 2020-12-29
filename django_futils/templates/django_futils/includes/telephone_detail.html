@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load l10n %}
+
+<!doctype html>
+<html>
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Telephone" %} {{ telephone.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+{% if type == 'person' %}
+    <a href="{% url 'admin:django_futils_persontelephone_change' telephone.id %}">{% translate 'Change' %}</a>
+{% elif type == 'company' %}
+    <a href="{% url 'admin:django_futils_companytelephone_change' telephone.id %}">{% translate 'Change' %}</a>
+{% endif %}
+
+<h1>{% translate "Telephone" %} {{ telephone.id }}</h1>
+
+<h2>{% translate "Telephone data" %}</h2>
+
+{% include "django_futils/includes/telephone_data.html" with telephone=telephone %}
+
+<h2>{% translate "Other" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Type" %}</th>
+        {% if type == 'person' %}
+            <th>{% translate "Person" %}</th>
+        {% elif type == 'company' %}
+            <th>{% translate "Company" %}</th>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><a href="{% url 'telephonetype-detail' telephone.type.id %}">{{ telephone.type }}</a></td>
+        {% if type == 'person' %}
+            <td><a href="{% url 'person-detail' telephone.person.id %}">{{ telephone.person }}</a></td>
+        {% elif type == 'company' %}
+            <td><a href="{% url 'company-detail' telephone.company.id %}">{{ telephone.company }}</a></td>
+        {% endif %}
+    </tr>
+</table>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 {% load static %}
 {% load generic_filters %}
+<!doctype html>
+<html>
 <head>
     <title>{% translate "Municipality" %} {{ municipality.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
@@ -27,3 +29,4 @@
         <td>{{ municipality.country.code }} ({{ municipality.country.name }})</td>
     </tr>
 </table>
+</html>

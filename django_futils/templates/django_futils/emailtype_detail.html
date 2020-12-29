@@ -2,6 +2,8 @@
 
 {% load static %}
 {% load generic_filters %}
+<!doctype html>
+<html>
 <head>
     <title>{% translate "Email type" %} {{ emailtype.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
@@ -14,3 +16,4 @@
 <h2>{% translate "Email type data" %}</h2>
 
 {% include "django_futils/includes/type_data.html" with type=emailtype %}
+</html>

@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load l10n %}
+
+<!doctype html>
+<html>
+{% load static %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Email" %} {{ email.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+{% if type == 'person' %}
+    <a href="{% url 'admin:django_futils_personemail_change' email.id %}">{% translate 'Change' %}</a>
+{% elif type == 'company' %}
+    <a href="{% url 'admin:django_futils_companyemail_change' email.id %}">{% translate 'Change' %}</a>
+{% endif %}
+
+<h1>{% translate "Email" %} {{ email.id }}</h1>
+
+<h2>{% translate "Email data" %}</h2>
+
+{% include "django_futils/includes/email_data.html" with email=email %}
+
+<h2>{% translate "Other" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Type" %}</th>
+        {% if type == 'person' %}
+            <th>{% translate "Person" %}</th>
+        {% elif type == 'company' %}
+            <th>{% translate "Company" %}</th>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><a href="{% url 'emailtype-detail' email.type.id %}">{{ email.type }}</a></td>
+        {% if type == 'person' %}
+            <td><a href="{% url 'person-detail' email.person.id %}">{{ email.person }}</a></td>
+        {% elif type == 'company' %}
+            <td><a href="{% url 'company-detail' email.company.id %}">{{ email.company }}</a></td>
+        {% endif %}
+    </tr>
+</table>
+</body>
+</html>

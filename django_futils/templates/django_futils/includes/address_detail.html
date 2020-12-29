@@ -4,6 +4,8 @@
 {% load static %}
 {% load leaflet_tags %}
 {% load generic_filters %}
+<!doctype html>
+<html>
 <head>
     <title>{% translate "Address" %} {{ address.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
@@ -56,3 +58,4 @@
 {% include "django_futils/includes/address_map.html" with x=address.map.x y=address.map.y %}
 
 </body>
+</html>
