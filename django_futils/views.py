@@ -2,7 +2,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_list_or_404
 
-from .default_models import AddressType, TelephoneType, EmailType, Person, PersonAddress, PersonTelephone, PersonEmail, PersonAttachment, Company, Municipality
+from .default_models import AddressType, TelephoneType, EmailType, Person, PersonAddress, PersonTelephone, PersonEmail, PersonAttachment, Company, CompanyAddress, CompanyTelephone, CompanyEmail, Municipality
 
 
 class BasePermissions(LoginRequiredMixin):
@@ -61,6 +61,21 @@ class PersonAttachmentDetailView(BasePermissions, generic.DetailView):
 class CompanyDetailView(BasePermissions, generic.DetailView):
     model = Company
     template_name = 'django_futils/company_detail.html'
+
+
+class CompanyAddressDetailView(BasePermissions, generic.DetailView):
+    model = CompanyAddress
+    template_name = 'django_futils/companyaddress_detail.html'
+
+
+class CompanyTelephoneDetailView(BasePermissions, generic.DetailView):
+    model = CompanyTelephone
+    template_name = 'django_futils/companytelephone_detail.html'
+
+
+class CompanyEmailDetailView(BasePermissions, generic.DetailView):
+    model = CompanyEmail
+    template_name = 'django_futils/companyemail_detail.html'
 
 
 class MunicipalityDetailView(BasePermissions, generic.DetailView):

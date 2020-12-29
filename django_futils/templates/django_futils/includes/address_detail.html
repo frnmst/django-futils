@@ -1,0 +1,58 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load leaflet_tags %}
+{% load generic_filters %}
+<head>
+    <title>{% translate "Address" %} {{ address.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+    {% leaflet_js %}
+    {% leaflet_css %}
+</head>
+<body>
+
+{% if type == 'person' %}
+    <a href="{% url 'admin:django_futils_personaddress_change' address.id %}">{% translate 'Change' %}</a>
+{% elif type == 'company' %}
+    <a href="{% url 'admin:django_futils_companyaddress_change' address.id %}">{% translate 'Change' %}</a>
+{% endif %}
+
+<h1>{% translate "Address" %} {{ address.id }}</h1>
+
+<h2>{% translate "Address data" %}</h2>
+
+{% if address.map %}
+    {% leaflet_map "map" callback="window.map_init_basic" %}
+{% endif %}
+
+<br />
+
+{% include "django_futils/includes/address_data.html" with address=address %}
+
+<h2>{% translate "Other" %}</h2>
+
+<table>
+    <tr>
+        <th>{% translate "Type" %}</th>
+        <th>{% translate "Municipality" %}</th>
+        {% if type == 'person' %}
+            <th>{% translate "Person" %}</th>
+        {% elif type == 'company' %}
+            <th>{% translate "Company" %}</th>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><a href="{% url 'addresstype-detail' address.type.id %}">{{ address.type }}</a></td>
+        <td><a href="{% url 'municipality-detail' address.municipality.id %}">{{ address.municipality }}</a></td>
+        {% if type == 'person' %}
+            <td><a href="{% url 'person-detail' address.person.id %}">{{ address.person }}</a></td>
+        {% elif type == 'company' %}
+            <td><a href="{% url 'company-detail' address.company.id %}">{{ address.company }}</a></td>
+        {% endif %}
+    </tr>
+</table>
+
+{% include "django_futils/includes/address_map.html" with x=address.map.x y=address.map.y %}
+
+</body>
