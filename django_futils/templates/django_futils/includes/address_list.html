@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load l10n %}
+
+{% load static %}
+{% load generic_filters %}
+<!doctype html>
+<html>
+<head>
+     <title>{% translate "Addresses" %}</title>
+    <link rel="stylesheet" href="{% static 'css/export.css' %}">
+</head>
+<body>
+
+{% if type == 'person' %}
+    <p>{% translate 'List of addresses for person' %} <a href="{% url 'personaddress-detail' person.id %}">{{ person }}</a></p>
+{% elif type == 'company' %}
+    <p>{% translate 'List of addresses for company' %} <a href="{% url 'companyaddress-detail' company.id %}">{{ company }}</a></p>
+{% endif %}
+
+<ul>
+{% for address in object_list %}
+    {% if type == 'person' %}
+        <li><a href="{% url 'personaddress-detail' address.id %}">{{ address }}</a></li>
+    {% elif type == 'company' %}
+        <li><a href="{% url 'companyaddress-detail' address.id %}">{{ address }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% include "django_futils/includes/pagination.html" with page_obj=page_obj %}
+</body>
+</html>

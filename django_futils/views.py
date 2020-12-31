@@ -16,7 +16,8 @@ class BasePermissions(LoginRequiredMixin):
 ################
 # Detail Views #
 ################
-# Type views.
+# Type views #
+##############
 class AddressTypeDetailView(BasePermissions, generic.DetailView):
     model = AddressType
     template_name = 'django_futils/addresstype_detail.html'
@@ -32,7 +33,9 @@ class EmailTypeDetailView(BasePermissions, generic.DetailView):
     template_name = 'django_futils/emailtype_detail.html'
 
 
-# Normal views.
+# Normal views #
+################
+# Person.
 class PersonDetailView(BasePermissions, generic.DetailView):
     model = Person
     template_name = 'django_futils/person_detail.html'
@@ -58,6 +61,7 @@ class PersonAttachmentDetailView(BasePermissions, generic.DetailView):
     template_name = 'django_futils/personattachment_detail.html'
 
 
+# Company.
 class CompanyDetailView(BasePermissions, generic.DetailView):
     model = Company
     template_name = 'django_futils/company_detail.html'
@@ -86,6 +90,7 @@ class MunicipalityDetailView(BasePermissions, generic.DetailView):
 ##############
 # List views #
 ##############
+# Person.
 class PersonAddressListView(BasePermissions, generic.ListView):
     model = PersonAddress
     template_name = 'django_futils/personaddress_list.html'
@@ -150,6 +155,7 @@ class CompanyAddressListView(BasePermissions, generic.ListView):
         return context
 
 
+# Company.
 class CompanyTelephoneListView(generic.ListView):
     model = CompanyTelephone
     template_name = 'django_futils/companytelephone_list.html'
