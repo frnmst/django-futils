@@ -12,9 +12,9 @@
 <body>
 
 {% if type == 'person' %}
-    <p>{% translate 'List of addresses for person' %} <a href="{% url 'personaddress-detail' person.id %}">{{ person }}</a></p>
+    <p>{% translate 'List of addresses for person' %} <a href="{% url 'person-detail' person.id %}">{{ person }}</a></p>
 {% elif type == 'company' %}
-    <p>{% translate 'List of addresses for company' %} <a href="{% url 'companyaddress-detail' company.id %}">{{ company }}</a></p>
+    <p>{% translate 'List of addresses for company' %} <a href="{% url 'company-detail' company.id %}">{{ company }}</a></p>
 {% endif %}
 
 <ul>
