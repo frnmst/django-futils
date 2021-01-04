@@ -39,36 +39,37 @@ urlpatterns = [
 ################
 # Detail views #
 ################
-urlpatterns += [
-    path('data/person/<int:pk>/', views.PersonDetailView.as_view(), name='person-detail'),
-    path('data/personaddress/<int:pk>/', views.PersonAddressDetailView.as_view(), name='personaddress-detail'),
-    path('data/persontelephone/<int:pk>/', views.PersonTelephoneDetailView.as_view(), name='persontelephone-detail'),
-    path('data/personemail/<int:pk>/', views.PersonEmailDetailView.as_view(), name='personemail-detail'),
-    path('data/personattachment/<int:pk>/', views.PersonAttachmentDetailView.as_view(), name='personattachment-detail'),
-
-    path('data/company/<int:pk>/', views.CompanyDetailView.as_view(), name='company-detail'),
-    path('data/companyaddress/<int:pk>/', views.CompanyAddressDetailView.as_view(), name='companyaddress-detail'),
-    path('data/companytelephone/<int:pk>/', views.CompanyTelephoneDetailView.as_view(), name='companytelephone-detail'),
-    path('data/companyemail/<int:pk>/', views.CompanyEmailDetailView.as_view(), name='companyemail-detail'),
-
-    path('data/municipality/<int:pk>/', views.MunicipalityDetailView.as_view(), name='municipality-detail'),
-]
 # Type views.
 urlpatterns += [
-    path('data/addresstype/<int:pk>/', views.AddressTypeDetailView.as_view(), name='addresstype-detail'),
-    path('data/telephonetype/<int:pk>/', views.TelephoneTypeDetailView.as_view(), name='telephonetype-detail'),
-    path('data/emailtype/<int:pk>/', views.EmailTypeDetailView.as_view(), name='emailtype-detail'),
+    path('data/addresstype/<int:pk>/', views.AddressTypeDetailView.as_view(), name=settings.reverse_urls['AddressTypeDetailView']),
+    path('data/telephonetype/<int:pk>/', views.TelephoneTypeDetailView.as_view(), name=settings.reverse_urls['TelephoneTypeDetailView']),
+    path('data/emailtype/<int:pk>/', views.EmailTypeDetailView.as_view(), name=settings.reverse_urls['EmailTypeDetailView']),
+]
+# Normal views.
+urlpatterns += [
+    path('data/person/<int:pk>/', views.PersonDetailView.as_view(), name=settings.reverse_urls['PersonDetailView']),
+    path('data/personaddress/<int:pk>/', views.PersonAddressDetailView.as_view(), name=settings.reverse_urls['PersonAddressDetailView']),
+    path('data/persontelephone/<int:pk>/', views.PersonTelephoneDetailView.as_view(), name=settings.reverse_urls['PersonTelephoneDetailView']),
+    path('data/personemail/<int:pk>/', views.PersonEmailDetailView.as_view(), name=settings.reverse_urls['PersonEmailDetailView']),
+    path('data/personattachment/<int:pk>/', views.PersonAttachmentDetailView.as_view(), name=settings.reverse_urls['PersonAttachmentDetailView']),
+
+    path('data/company/<int:pk>/', views.CompanyDetailView.as_view(), name=settings.reverse_urls['CompanyDetailView']),
+    path('data/companyaddress/<int:pk>/', views.CompanyAddressDetailView.as_view(), name=settings.reverse_urls['CompanyAddressDetailView']),
+    path('data/companytelephone/<int:pk>/', views.CompanyTelephoneDetailView.as_view(), name=settings.reverse_urls['CompanyTelephoneDetailView']),
+    path('data/companyemail/<int:pk>/', views.CompanyEmailDetailView.as_view(), name=settings.reverse_urls['CompanyEmailDetailView']),
+
+    path('data/municipality/<int:pk>/', views.MunicipalityDetailView.as_view(), name=settings.reverse_urls['MunicipalityDetailView']),
 ]
 
 ##############
 # List views #
 ##############
 urlpatterns += [
-    path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name='personaddress-list'),
-    path('data/persontelephone/person/<int:pk>/', views.PersonTelephoneListView.as_view(), name='persontelephone-list'),
-    path('data/personemail/person/<int:pk>/', views.PersonEmailListView.as_view(), name='personemail-list'),
+    path('data/personaddress/person/<int:pk>/', views.PersonAddressListView.as_view(), name=settings.reverse_urls['PersonAddressListView']),
+    path('data/persontelephone/person/<int:pk>/', views.PersonTelephoneListView.as_view(), name=settings.reverse_urls['PersonTelephoneListView']),
+    path('data/personemail/person/<int:pk>/', views.PersonEmailListView.as_view(), name=settings.reverse_urls['PersonEmailListView']),
 
-    path('data/companyaddress/company/<int:pk>/', views.CompanyAddressListView.as_view(), name='companyaddress-list'),
-    path('data/companytelephone/company/<int:pk>/', views.CompanyTelephoneListView.as_view(), name='companytelephone-list'),
-    path('data/companyemail/company/<int:pk>/', views.CompanyEmailListView.as_view(), name='companyemail-list'),
+    path('data/companyaddress/company/<int:pk>/', views.CompanyAddressListView.as_view(), name=settings.reverse_urls['CompanyAddressListView']),
+    path('data/companytelephone/company/<int:pk>/', views.CompanyTelephoneListView.as_view(), name=settings.reverse_urls['CompanyTelephoneListView']),
+    path('data/companyemail/company/<int:pk>/', views.CompanyEmailListView.as_view(), name=settings.reverse_urls['CompanyEmailListView']),
 ]

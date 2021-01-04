@@ -88,3 +88,25 @@ if settings.GEOCODER_CACHE_TTL_SECONDS <= 0:
     raise ValueError
 if settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_DEFAULT and settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_RAW and settings.FOREIGN_KEY_FIELDS != const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
     raise ValueError
+
+settings.reverse_urls = dict()
+settings.reverse_urls['PersonDetailView'] = 'person-detail'
+settings.reverse_urls['PersonAddressDetailView'] = 'personaddress-detail'
+settings.reverse_urls['PersonTelephoneDetailView'] = 'persontelephone-detail'
+settings.reverse_urls['PersonEmailDetailView'] = 'personemail-detail'
+settings.reverse_urls['PersonAttachmentDetailView'] = 'personattachment-detail'
+settings.reverse_urls['CompanyDetailView'] = 'company-detail'
+settings.reverse_urls['CompanyAddressDetailView'] = 'companyaddress-detail'
+settings.reverse_urls['CompanyTelephoneDetailView'] = 'companytelephone-detail'
+settings.reverse_urls['CompanyEmailDetailView'] = 'companyemail-detail'
+settings.reverse_urls['MunicipalityDetailView'] = 'municipality-detail'
+settings.reverse_urls['AddressTypeDetailView'] = 'addresstype-detail'
+settings.reverse_urls['TelephoneTypeDetailView'] = 'telephonetype-detail'
+settings.reverse_urls['EmailTypeDetailView'] = 'emailtype-detail'
+
+settings.reverse_urls['PersonAddressListView'] = 'personaddress-list'
+settings.reverse_urls['PersonTelephoneListView'] = 'persontelephone-list'
+settings.reverse_urls['PersonEmailListView'] = 'personemail-list'
+settings.reverse_urls['CompanyAddressListView'] = 'companyaddress-list'
+settings.reverse_urls['CompanyTelephoneListView'] = 'companytelephone-list'
+settings.reverse_urls['CompanyEmailListView'] = 'companyemail-list'

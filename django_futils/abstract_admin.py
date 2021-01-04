@@ -45,6 +45,7 @@ class BaseAdmin(SimpleHistoryAdmin):
     list_per_page = 10
     readonly_fields = ('id',)
     ordering = ('id',)
+    change_form_template = "django_futils/detail_change_form.html"
 
 
 class TypeBaseAdmin(BaseAdmin):
@@ -178,49 +179,13 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
 class AbstractAddressTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('addresstype-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
 
 class AbstractEmailTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('emailtype-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
 
 class AbstractTelephoneTypeAdmin(TypeBaseAdmin):
     search_fields = ('type',)
-
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('telephonetype-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
 
 
 class AbstractAttachmentTypeAdmin(TypeBaseAdmin):
@@ -419,18 +384,6 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
     )
     list_filter = ('is_primary', )
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('personaddress-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             if obj.is_primary:
@@ -479,18 +432,6 @@ class AbstractPersonEmailAdmin(BaseAdmin):
         'person__last_name',
     )
     list_filter = ('is_primary', )
-
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('personemail-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
@@ -589,18 +530,6 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
     )
     list_filter = ('is_primary', )
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('persontelephone-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             if obj.is_primary:
@@ -649,18 +578,6 @@ class AbstractCompanyTelephoneAdmin(BaseAdmin):
     )
     list_filter = ('is_primary', )
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('companytelephone-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             if obj.is_primary:
@@ -695,18 +612,6 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
             'type',
         )
 
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('personattachment-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
-
 
 class AbstractPersonAdmin(BaseAdmin):
     readonly_fields = (
@@ -720,18 +625,6 @@ class AbstractPersonAdmin(BaseAdmin):
         'last_name',
         'fiscal_code',
     )
-
-    change_form_template = "django_futils/detail_change_form.html"
-
-    def response_change(self, request, obj):
-        res = super().response_change(request, obj)
-        if "_printable" in request.POST:
-            self.hide_message = True
-            return HttpResponseRedirect(
-                request.build_absolute_uri(reverse('person-detail',
-                                                   args=(obj.pk, ))))
-        else:
-            return res
 
     def get_deleted_objects(self, objs, request):
         r"""
