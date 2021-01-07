@@ -1,8 +1,4 @@
-{% load i18n %}
-{% load l10n %}
-
-{% load static %}
-{% load generic_filters %}
+{% load i18n l10n static generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
@@ -11,7 +7,7 @@
 </head>
 <body>
 
-<a href="{% url 'admin:django_futils_personattachment_change' personattachment.id %}">{% translate 'Change' %}</a>
+<a href="{% url opts|admin_urlname_as_dict:'change' personattachment.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Attachment" %} {{ personattachment.id }}</h1>
 
@@ -27,7 +23,7 @@
     <tr>
         <td>{{ personattachment.name }}</td>
         <td>{{ personattachment.notes }}</td>
-        <td>{{ personattachment.type }}</td>
+        <td><a href="{% url attachmenttype_detail_view_reverse_url personattachment.type.id %}">{{ personattachment.type }}</a></td>
         <td><a href="{% get_media_prefix %}{{ personattachment.file.name }}">{{ personattachment.file.name|filter_url_last_path_component:personattachment.file.name }}</a></td>
     </tr>
 </table>

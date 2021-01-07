@@ -103,6 +103,7 @@ settings.reverse_urls['MunicipalityDetailView'] = 'municipality-detail'
 settings.reverse_urls['AddressTypeDetailView'] = 'addresstype-detail'
 settings.reverse_urls['TelephoneTypeDetailView'] = 'telephonetype-detail'
 settings.reverse_urls['EmailTypeDetailView'] = 'emailtype-detail'
+settings.reverse_urls['AttachmentTypeDetailView'] = 'attachmenttype-detail'
 
 settings.reverse_urls['PersonAddressListView'] = 'personaddress-list'
 settings.reverse_urls['PersonTelephoneListView'] = 'persontelephone-list'

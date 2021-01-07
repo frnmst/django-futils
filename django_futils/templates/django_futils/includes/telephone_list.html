@@ -1,8 +1,4 @@
-{% load i18n %}
-{% load l10n %}
-
-{% load static %}
-{% load generic_filters %}
+{% load i18n l10n static generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
@@ -12,17 +8,17 @@
 <body>
 
 {% if type == 'person' %}
-    <p>{% translate 'List of telephones for person' %} <a href="{% url 'person-detail' person.id %}">{{ person }}</a></p>
+    <p>{% translate 'List of telephones for person' %} <a href="{% url person_detail_view_reverse_url person.id %}">{{ person }}</a></p>
 {% elif type == 'company' %}
-    <p>{% translate 'List of telephones for company' %} <a href="{% url 'company-detail' company.id %}">{{ company }}</a></p>
+    <p>{% translate 'List of telephones for company' %} <a href="{% url company_detail_view_reverse_url company.id %}">{{ company }}</a></p>
 {% endif %}
 
 <ul>
 {% for telephone in object_list %}
     {% if type == 'person' %}
-        <li><a href="{% url 'persontelephone-detail' telephone.id %}">{{ telephone }}</a></li>
+        <li><a href="{% url person_telephone_detail_view_reverse_url telephone.id %}">{{ telephone }}</a></li>
     {% elif type == 'company' %}
-        <li><a href="{% url 'companytelephone-detail' telephone.id %}">{{ telephone }}</a></li>
+        <li><a href="{% url company_telephone_detail_view_reverse_url telephone.id %}">{{ telephone }}</a></li>
     {% endif %}
 {% endfor %}
 </ul>

@@ -1,21 +1,13 @@
-{% load i18n %}
-{% load l10n %}
-
+{% load i18n l10n static generic_filters admin_urls %}
 <!doctype html>
 <html>
-{% load static %}
-{% load generic_filters %}
 <head>
     <title>{% translate "Telephone" %} {{ telephone.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 <body>
 
-{% if type == 'person' %}
-    <a href="{% url 'admin:django_futils_persontelephone_change' telephone.id %}">{% translate 'Change' %}</a>
-{% elif type == 'company' %}
-    <a href="{% url 'admin:django_futils_companytelephone_change' telephone.id %}">{% translate 'Change' %}</a>
-{% endif %}
+<a href="{% url opts|admin_urlname_as_dict:'change' telephone.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Telephone" %} {{ telephone.id }}</h1>
 
@@ -35,11 +27,11 @@
         {% endif %}
     </tr>
     <tr>
-        <td><a href="{% url 'telephonetype-detail' telephone.type.id %}">{{ telephone.type }}</a></td>
+        <td><a href="{% url telephonetype_detail_view_reverse_url telephone.type.id %}">{{ telephone.type }}</a></td>
         {% if type == 'person' %}
-            <td><a href="{% url 'person-detail' telephone.person.id %}">{{ telephone.person }}</a></td>
+            <td><a href="{% url person_detail_view_reverse_url telephone.person.id %}">{{ telephone.person }}</a></td>
         {% elif type == 'company' %}
-            <td><a href="{% url 'company-detail' telephone.company.id %}">{{ telephone.company }}</a></td>
+            <td><a href="{% url company_detail_view_reverse_url telephone.company.id %}">{{ telephone.company }}</a></td>
         {% endif %}
     </tr>
 </table>

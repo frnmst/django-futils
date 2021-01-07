@@ -1,9 +1,4 @@
-{% load i18n %}
-{% load l10n %}
-
-{% load static %}
-{% load leaflet_tags %}
-{% load generic_filters %}
+{% load i18n l10n static leaflet_tags generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
@@ -14,11 +9,7 @@
 </head>
 <body>
 
-{% if type == 'person' %}
-    <a href="{% url 'admin:django_futils_personaddress_change' address.id %}">{% translate 'Change' %}</a>
-{% elif type == 'company' %}
-    <a href="{% url 'admin:django_futils_companyaddress_change' address.id %}">{% translate 'Change' %}</a>
-{% endif %}
+<a href="{% url opts|admin_urlname_as_dict:'change' address.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Address" %} {{ address.id }}</h1>
 
@@ -45,12 +36,12 @@
         {% endif %}
     </tr>
     <tr>
-        <td><a href="{% url 'addresstype-detail' address.type.id %}">{{ address.type }}</a></td>
-        <td><a href="{% url 'municipality-detail' address.municipality.id %}">{{ address.municipality }}</a></td>
+        <td><a href="{% url addresstype_detail_view_reverse_url address.type.id %}">{{ address.type }}</a></td>
+        <td><a href="{% url municipality_detail_view_reverse_url address.municipality.id %}">{{ address.municipality }}</a></td>
         {% if type == 'person' %}
-            <td><a href="{% url 'person-detail' address.person.id %}">{{ address.person }}</a></td>
+            <td><a href="{% url person_detail_view_reverse_url address.person.id %}">{{ address.person }}</a></td>
         {% elif type == 'company' %}
-            <td><a href="{% url 'company-detail' address.company.id %}">{{ address.company }}</a></td>
+            <td><a href="{% url company_detail_view_reverse_url address.company.id %}">{{ address.company }}</a></td>
         {% endif %}
     </tr>
 </table>

@@ -1,7 +1,4 @@
-{% load i18n %}
-
-{% load static %}
-{% load generic_filters %}
+{% load i18n static generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
@@ -9,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 
-<a href="{% url 'admin:django_futils_company_change' company.id %}">{% translate 'Change' %}</a>
+<a href="{% url opts|admin_urlname_as_dict:'change' company.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Company" %} {{ company.id }}</h1>
 
@@ -32,19 +29,19 @@
 
 <table>
     <tr>
-        <th><a href="{% url 'companyaddress-list' company.id %}">{% translate "Address" %}</a></th>
-        <th><a href="{% url 'companytelephone-list' company.id %}">{% translate "Telephone" %}</a></th>
-        <th><a href="{% url 'companyemail-list' company.id %}">{% translate "Email" %}</a></th>
+        <th><a href="{% url company_address_list_view_reverse_url company.id %}">{% translate "Address" %}</a></th>
+        <th><a href="{% url company_telephone_list_view_reverse_url company.id %}">{% translate "Telephone" %}</a></th>
+        <th><a href="{% url company_email_list_view_reverse_url company.id %}">{% translate "Email" %}</a></th>
     </tr>
         {% with address=company.companyaddress_of_this_company.all|filter_primary:company.companyaddress_of_this_company.all %}
-        <td><a href="{% url 'companyaddress-detail' address.id %}">{{ address }}</a></td>
+        <td><a href="{% url company_address_detail_view_reverse_url address.id %}">{{ address }}</a></td>
         {% endwith %}
         {% with telephone=company.companytelephone_of_this_company.all|filter_primary:company.companytelephone_of_this_company.all %}
-        <td><a href="{% url 'companytelephone-detail' telephone.id %}">{{ telephone }}</a></td>
+        <td><a href="{% url company_telephone_detail_view_reverse_url telephone.id %}">{{ telephone }}</a></td>
         {% endwith %}
         {% with email=company.companyemail_of_this_company.all|filter_primary:company.companyemail_of_this_company.all %}
             {% if email %}
-                <td><a href="{% url 'companyemail-detail' email.id %}">{{ email }}</a></td>
+                <td><a href="{% url company_email_detail_view_reverse_url email.id %}">{{ email }}</a></td>
             {% else %}
                 <td>?</td>
             {% endif %}

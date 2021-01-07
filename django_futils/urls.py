@@ -44,6 +44,7 @@ urlpatterns += [
     path('data/addresstype/<int:pk>/', views.AddressTypeDetailView.as_view(), name=settings.reverse_urls['AddressTypeDetailView']),
     path('data/telephonetype/<int:pk>/', views.TelephoneTypeDetailView.as_view(), name=settings.reverse_urls['TelephoneTypeDetailView']),
     path('data/emailtype/<int:pk>/', views.EmailTypeDetailView.as_view(), name=settings.reverse_urls['EmailTypeDetailView']),
+    path('data/attachmenttype/<int:pk>/', views.AttachmentTypeDetailView.as_view(), name=settings.reverse_urls['AttachmentTypeDetailView']),
 ]
 # Normal views.
 urlpatterns += [

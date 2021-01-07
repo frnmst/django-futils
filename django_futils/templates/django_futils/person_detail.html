@@ -1,7 +1,4 @@
-{% load i18n %}
-
-{% load static %}
-{% load generic_filters %}
+{% load i18n static generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
@@ -9,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 
-<a href="{% url 'admin:django_futils_person_change' person.id %}">{% translate 'Change' %}</a>
+<a href="{% url opts|admin_urlname_as_dict:'change' person.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Person" %} {{ person.id }}</h1>
 
@@ -36,19 +33,19 @@
 
 <table>
     <tr>
-        <th><a href="{% url 'personaddress-list' person.id %}">{% translate "Address" %}</a></th>
-        <th><a href="{% url 'persontelephone-list' person.id %}">{% translate "Telephone" %}</a></th>
-        <th><a href="{% url 'personemail-list' person.id %}">{% translate "Email" %}</a></th>
+        <th><a href="{% url person_address_list_view_reverse_url person.id %}">{% translate "Address" %}</a></th>
+        <th><a href="{% url person_telephone_list_view_reverse_url person.id %}">{% translate "Telephone" %}</a></th>
+        <th><a href="{% url person_email_list_view_reverse_url person.id %}">{% translate "Email" %}</a></th>
     </tr>
         {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}
-        <td><a href="{% url 'personaddress-detail' address.id %}">{{ address }}</a></td>
+        <td><a href="{% url person_address_detail_view_reverse_url address.id %}">{{ address }}</a></td>
         {% endwith %}
         {% with telephone=person.persontelephone_of_this_person.all|filter_primary:person.persontelephone_of_this_person.all %}
-        <td><a href="{% url 'persontelephone-detail' telephone.id %}">{{ telephone }}</a></td>
+        <td><a href="{% url person_telephone_detail_view_reverse_url telephone.id %}">{{ telephone }}</a></td>
         {% endwith %}
         {% with email=person.personemail_of_this_person.all|filter_primary:person.personemail_of_this_person.all %}
             {% if email %}
-                <td><a href="{% url 'personemail-detail' email.id %}">{{ email }}</a></td>
+                <td><a href="{% url person_email_detail_view_reverse_url email.id %}">{{ email }}</a></td>
             {% else %}
                 <td>?</td>
             {% endif %}

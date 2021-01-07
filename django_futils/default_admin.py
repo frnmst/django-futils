@@ -129,7 +129,7 @@ class TelephoneTypeAdmin(AbstractTelephoneTypeAdmin):
 
 class AttachmentTypeAdmin(AbstractAttachmentTypeAdmin):
     def response_change(self, request, obj):
-        return abstract_response_change(self, request, obj, settings.reverse_urls['TelephoneTypeDetailView'])
+        return abstract_response_change(self, request, obj, settings.reverse_urls['AttachmentTypeDetailView'])
 
 
 class MunicipalityAdmin(AbstractMunicipalityAdmin):
@@ -180,7 +180,7 @@ class GeocoderCacheAdmin(AbstractGeocoderCacheAdmin):
 admin_site.register(AddressType, AddressTypeAdmin)
 admin_site.register(EmailType, EmailTypeAdmin)
 admin_site.register(TelephoneType, TelephoneTypeAdmin)
-admin_site.register(AttachmentType, AbstractAttachmentTypeAdmin)
+admin_site.register(AttachmentType, AttachmentTypeAdmin)
 admin_site.register(Municipality, MunicipalityAdmin)
 admin_site.register(PersonAddress, PersonAddressAdmin)
 admin_site.register(PersonTelephone, PersonTelephoneAdmin)

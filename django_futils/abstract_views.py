@@ -1,6 +1,5 @@
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_list_or_404
 
 
 class BasePermissions(LoginRequiredMixin):
@@ -26,6 +25,10 @@ class AbstractTelephoneTypeDetailView(BasePermissions, generic.DetailView):
 
 class AbstractEmailTypeDetailView(BasePermissions, generic.DetailView):
     template_name = 'django_futils/emailtype_detail.html'
+
+
+class AbstractAttachmentTypeDetailView(BasePermissions, generic.DetailView):
+    template_name = 'django_futils/attachmenttype_detail.html'
 
 
 class AbstractPersonDetailView(BasePermissions, generic.DetailView):
@@ -75,96 +78,30 @@ class AbstractMunicipalityDetailView(BasePermissions, generic.DetailView):
 # Person.
 class AbstractPersonAddressListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/personaddress_list.html'
-    extra_context_key = 'person'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(person=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        r"""Pass the person object."""
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        print(context)
-        return context
 
 
 class AbstractPersonTelephoneListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/persontelephone_list.html'
-    extra_context_key = 'person'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(person=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        r"""Pass the person object."""
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        return context
 
 
 class AbstractPersonEmailListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/personemail_list.html'
-    extra_context_key = 'person'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(person=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        return context
 
 
 # Company.
 class AbstractCompanyAddressListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/companyaddress_list.html'
-    extra_context_key = 'company'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(company=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        r"""Pass the company object."""
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        return context
 
 
 class AbstractCompanyTelephoneListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/companytelephone_list.html'
-    extra_context_key = 'company'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(company=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        r"""Pass the company object."""
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        return context
 
 
 class AbstractCompanyEmailListView(BasePermissions, generic.ListView):
     template_name = 'django_futils/companyemail_list.html'
-    extra_context_key = 'company'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset = self.model.objects.filter(company=self.kwargs['pk'])
-        return get_list_or_404(queryset)
-
-    def get_context_data(self, **kwargs):
-        r"""Pass the company object."""
-        context = super().get_context_data(**kwargs)
-        context[self.extra_context_key] = self.context_model.objects.get(id=self.kwargs['pk'])
-        return context
