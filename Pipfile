@@ -8,7 +8,7 @@ verify_ssl = true
 model_bakery = "~=1.2"
 
 # Documentation.
-Sphinx = "~=3.3"
+Sphinx = "~=3.4"
 sphinx-rtd-theme = "~=0.5"
 
 # Tools.
@@ -23,7 +23,7 @@ requests = "~=2.25"
 # Models.
 django-countries = "~=7.0"
 django-phone-field = "~=1.8"
-django-vies = "~=5.0"
+django-vies = "~=6.0"
 ## Model history.
 django-simple-history = "~=2.12"
 ## Remove dangling files.
@@ -38,7 +38,7 @@ psycopg2-binary = "~=2.8"
 django-extensions = "~=3.1"
 django-leaflet = "~=0.27"
 django-htmlmin = "~=0.11"
-geopy = "~=2.0"
+geopy = "~=2.1"
 
 [requires]
 python_version = "3.9"
