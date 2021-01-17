@@ -32,7 +32,7 @@ services:
         # https://github.com/frnmst/docker-debian-postgis-django/blob/master/README.md#database
 
         # https://github.com/postgis/docker-postgis
-        image: postgis/postgis:13-3.0
+        image: postgis/postgis:13-3.1
 
         # https://github.com/kartoza/docker-postgis
         # image: kartoza/postgis:12.1
