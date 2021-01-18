@@ -24,14 +24,12 @@ from setuptools import setup, find_packages
 setup(
     name='django_futils',
     version='0.1.0',
+    include_package_data=True,
     packages=find_packages(exclude=['*tests*']),
     license='GPL',
     description='A set of models, an admin and utilities for frequently used patterns.',
     long_description=open('README.rst').read(),
     long_description_content_type='text/x-rst',
-    package_data={
-        '': ['*.txt', '*.rst'],
-    },
     author='Franco Masotti',
     author_email='franco.masotti@live.com',
     keywords='django utilities',

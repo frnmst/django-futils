@@ -1,1 +1,8 @@
-include LICENSE.txt
+# See
+# https://docs.djangoproject.com/en/3.1/intro/reusable-apps/#packaging-your-app
+# and
+# https://setuptools.readthedocs.io/en/latest/userguide/datafiles.html
+include *.txt *.rst
+recursive-include django_futils/templates *
+recursive-include django_futils/static *
+prune django_futils/migrations
