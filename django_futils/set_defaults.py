@@ -1,7 +1,7 @@
 #
 # set_defaults.py
 #
-# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+# Copyright (C) 2020-2021 frnmst (Franco Masotti) <franco.masotti@live.com>
 #
 # This file is part of django-futils.
 #
@@ -44,10 +44,6 @@ try:
 except AttributeError:
     settings.GEOCODER_USER_AGENT = 'dfu-agent'
 try:
-    settings.NOMINATIM_URL
-except AttributeError:
-    settings.NOMINATIM_URL = 'https://nominatim.openstreetmap.org'
-try:
     settings.GEOCODER_CACHE_TTL_SECONDS
 except AttributeError:
     # 6 months = 60 * 60 * 24 * 30 * 6
@@ -68,13 +64,20 @@ try:
     settings.SIMPLE_HISTORY_REVERT_DISABLE
 except AttributeError:
     settings.SIMPLE_HISTORY_REVERT_DISABLE = False
+try:
+    settings.VIEWS_APP_LABEL
+except AttributeError:
+    settings.VIEWS_APP_LABEL = 'django_futils'
+
 
 # Validate the custom secret settings.
 if not isinstance(settings.GEOCODER_MODEL_NAME, str):
     raise TypeError
 if not isinstance(settings.GEOCODER_MODEL_APP, str):
     raise TypeError
-if not isinstance(settings.NOMINATIM_URL, str):
+if not isinstance(settings.GEOCODER_SCHEME, str):
+    raise TypeError
+if not isinstance(settings.GEOCODER_DOMAIN, str):
     raise TypeError
 if not isinstance(settings.GEOCODER_CACHE_TTL_SECONDS, int):
     raise TypeError
@@ -83,6 +86,8 @@ if not isinstance(settings.OPENLAYERS_URL, str):
 if not isinstance(settings.FOREIGN_KEY_FIELDS, int):
     raise TypeError
 if not isinstance(settings.SIMPLE_HISTORY_REVERT_DISABLE, bool):
+    raise TypeError
+if not isinstance(settings.VIEWS_APP_LABEL, str):
     raise TypeError
 if settings.GEOCODER_CACHE_TTL_SECONDS <= 0:
     raise ValueError

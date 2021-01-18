@@ -70,6 +70,9 @@ FOREIGN_KEY_FIELDS = 1
 # django-simple-history
 SIMPLE_HISTORY_REVERT_DISABLED = True
 
+# The app label used in the views.
+VIEWS_APP_LABEL = 'django_futils'
+
 ############
 # Database #
 ############

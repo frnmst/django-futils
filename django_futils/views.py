@@ -18,7 +18,7 @@ class AddressTypeDetailView(AbstractAddressTypeDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'addresstype'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'addresstype'},
         )
 
 
@@ -27,7 +27,7 @@ class TelephoneTypeDetailView(AbstractTelephoneTypeDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'telephonetype'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'telephonetype'},
         )
 
 
@@ -36,7 +36,7 @@ class EmailTypeDetailView(AbstractEmailTypeDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'emailtype'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'emailtype'},
         )
 
 
@@ -45,7 +45,7 @@ class AttachmentTypeDetailView(AbstractAttachmentTypeDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'attachmenttype'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'attachmenttype'},
         )
 
 
@@ -57,7 +57,7 @@ class PersonDetailView(AbstractPersonDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'person'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'person'},
             person_address_list_view_reverse_url=settings.reverse_urls['PersonAddressListView'],
             person_telephone_list_view_reverse_url=settings.reverse_urls['PersonTelephoneListView'],
             person_email_list_view_reverse_url=settings.reverse_urls['PersonEmailListView'],
@@ -72,7 +72,7 @@ class PersonAddressDetailView(AbstractPersonAddressDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'personaddress'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'personaddress'},
             addresstype_detail_view_reverse_url=settings.reverse_urls['AddressTypeDetailView'],
             municipality_detail_view_reverse_url=settings.reverse_urls['MunicipalityDetailView'],
             person_detail_view_reverse_url=settings.reverse_urls['PersonDetailView'],
@@ -84,7 +84,7 @@ class PersonTelephoneDetailView(AbstractPersonTelephoneDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'persontelephone'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'persontelephone'},
             telephonetype_detail_view_reverse_url=settings.reverse_urls['TelephoneTypeDetailView'],
             person_detail_view_reverse_url=settings.reverse_urls['PersonDetailView'],
         )
@@ -95,7 +95,7 @@ class PersonEmailDetailView(AbstractPersonEmailDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'personemail'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'personemail'},
             emailtype_detail_view_reverse_url=settings.reverse_urls['EmailTypeDetailView'],
             person_detail_view_reverse_url=settings.reverse_urls['PersonDetailView'],
         )
@@ -106,7 +106,7 @@ class PersonAttachmentDetailView(AbstractPersonAttachmentDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'personattachment'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'personattachment'},
             attachmenttype_detail_view_reverse_url=settings.reverse_urls['AttachmentTypeDetailView'],
             person_detail_view_reverse_url=settings.reverse_urls['PersonDetailView'],
         )
@@ -118,7 +118,7 @@ class CompanyDetailView(AbstractCompanyDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'company'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'company'},
             company_address_list_view_reverse_url=settings.reverse_urls['CompanyAddressListView'],
             company_telephone_list_view_reverse_url=settings.reverse_urls['CompanyTelephoneListView'],
             company_email_list_view_reverse_url=settings.reverse_urls['CompanyEmailListView'],
@@ -133,7 +133,7 @@ class CompanyAddressDetailView(AbstractCompanyAddressDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'companyaddress'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'companyaddress'},
             addresstype_detail_view_reverse_url=settings.reverse_urls['AddressTypeDetailView'],
             municipality_detail_view_reverse_url=settings.reverse_urls['MunicipalityDetailView'],
             company_detail_view_reverse_url=settings.reverse_urls['CompanyDetailView'],
@@ -145,7 +145,7 @@ class CompanyTelephoneDetailView(AbstractCompanyTelephoneDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'companytelephone'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'companytelephone'},
             telephonetype_detail_view_reverse_url=settings.reverse_urls['TelephoneTypeDetailView'],
             company_detail_view_reverse_url=settings.reverse_urls['CompanyDetailView'],
         )
@@ -156,7 +156,7 @@ class CompanyEmailDetailView(AbstractCompanyEmailDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'companyemail'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'companyemail'},
             emailtype_detail_view_reverse_url=settings.reverse_urls['EmailTypeDetailView'],
             company_detail_view_reverse_url=settings.reverse_urls['CompanyDetailView'],
         )
@@ -168,7 +168,7 @@ class MunicipalityDetailView(AbstractMunicipalityDetailView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            opts={'app_label': 'django_futils', 'model_name': 'municipality'},
+            opts={'app_label': settings.VIEWS_APP_LABEL, 'model_name': 'municipality'},
         )
 
 
