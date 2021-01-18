@@ -20,23 +20,11 @@
 #
 
 from django.contrib import admin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from .default_models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, GeocoderCache
 from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractGeocoderCacheAdmin, AbstractCompanyAdminInline
 from django.conf import settings
 from . import constants as const
-
-
-def abstract_response_change(self, request, obj, reverse_url):
-    res = super(type(self), self).response_change(request, obj)
-    if "_printable" in request.POST:
-        self.hide_message = True
-        return HttpResponseRedirect(
-            request.build_absolute_uri(reverse(reverse_url,
-                                               args=(obj.pk, ))))
-    else:
-        return res
+from .utils import abstract_response_change
 
 
 # Specific stuff for this example.
@@ -177,6 +165,8 @@ class GeocoderCacheAdmin(AbstractGeocoderCacheAdmin):
         return abstract_response_change(self, request, obj, settings.reverse_urls['GeocoderCacheDetailView'])
 
 
+# Register like this and not with the decorator because we are
+# not using the default admin: we are admin_site instead
 admin_site.register(AddressType, AddressTypeAdmin)
 admin_site.register(EmailType, EmailTypeAdmin)
 admin_site.register(TelephoneType, TelephoneTypeAdmin)

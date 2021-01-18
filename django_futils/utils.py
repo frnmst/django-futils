@@ -31,6 +31,20 @@ import urllib.parse
 import django_futils.set_defaults
 import django.apps
 import geopy
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+
+def abstract_response_change(self, request, obj, reverse_url):
+    r"""Create an admin button which opens a detail view of an object."""
+    res = super(type(self), self).response_change(request, obj)
+    if "_printable" in request.POST:
+        self.hide_message = True
+        return HttpResponseRedirect(
+            request.build_absolute_uri(reverse(reverse_url,
+                                               args=(obj.pk, ))))
+    else:
+        return res
 
 
 def save_primary(self, field_name: str, field_value: str):
