@@ -4,20 +4,19 @@ Extras
 Translations
 ------------
 
-By default translations are not automatically imported in other projects.
-I have not found a *clean* way to do so, so here is what I came up with.
-Add this to a project's root Makefile that uses django-futils:
+Add this to the settings file of your project that uses django-futils.
 
 
 ::
 
 
-    export DJANGO_FUTILS_PO_IT_URL=https://raw.githubusercontent.com/frnmst/django-futils/dev/locale/it/LC_MESSAGES/django.po
+    # Copy the locale files of django-futils.
+    import shutil
+    import django_futils
+    futils_path = os.path.dirname(django_futils.__file__)
+    shutil.copytree(os.path.join(futils_path, 'locale'), os.path.join(BASE_DIR, 'django_futils/locale'), dirs_exist_ok=True)
 
-    compile-translations:
-        $(COMMAND_PREFIX) mkdir -p ./django_futils/locale/it/LC_MESSAGES
-        $(COMMAND_PREFIX) curl -o ./django_futils/locale/it/LC_MESSAGES/django.po $(DJANGO_FUTILS_PO_IT_URL)
-        $(COMMAND_PREFIX) python3 manage.py compilemessages
+    LOCALE_PATHS.append(os.path.join(BASE_DIR, 'django_futils/locale'))
 
 
 .. important:: Don't forget to add ``/django_futils/`` to ``.gitignore``.
