@@ -8,7 +8,7 @@ django_futils/__pycache__
 /*/migrations
 /requirements.txt
 /db
-/locale/*/LC_MESSAGES/django.mo
+/django_futils/locale/*/LC_MESSAGES/django.mo
 /ci
 /get-pip.py
 
