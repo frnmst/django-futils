@@ -5,4 +5,5 @@
 include *.txt *.rst
 recursive-include django_futils/templates *
 recursive-include django_futils/static *
+recursive-include django_futils/locale *
 prune django_futils/migrations
