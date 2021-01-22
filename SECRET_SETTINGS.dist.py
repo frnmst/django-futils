@@ -18,7 +18,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT_SUFFIX = 'static/'
 STATICFILES_DIR_SUFFIX = 'django_futils/static'
 
-LOCALE_DIR_SUFFIX = 'locale/'
+LOCALE_DIR_SUFFIX = 'django_futils/locale'
 
 MEDIA_URL = '/media/'
 INTERNAL_IPS = ['127.0.0.1', 'myhost']
