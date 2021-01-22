@@ -12,6 +12,7 @@ Welcome to django-futils's documentation!
 
    install
    running
+   views
    extras
    database_schema
    references
