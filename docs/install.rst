@@ -26,7 +26,7 @@ By default the Docker credential are enabled so . Change them if needed.
 Installation in another project
 -------------------------------
 
-You can run this command, where ``${VERSION} corresponds to a git tag or branch,
+You can run this command, where ``${VERSION}`` corresponds to a git tag or branch,
 such as ``0.0.3``.
 
 ::
