@@ -2,7 +2,7 @@
 #
 # ci.sh
 #
-# Copyright (C) 2020 frnmst (Franco Masotti) <franco.masotti@live.com>
+# Copyright (C) 2020-2021 frnmst (Franco Masotti) <franco.masotti@live.com>
 #
 # This file is part of django-futils.
 #
@@ -32,6 +32,13 @@ set -euo pipefail
 
 [ -n "${ENV}" ]
 
+# Prepare executables.
+rm -f ~/.bin/docker
+rm -f ~/.bin/git
+mkdir -p ~/.bin
+ln -s /usr/bin/docker ~/.bin/docker
+ln -s /usr/bin/git ~/.bin/git
+
 CP=$(which cp)
 CURL=$(which curl)
 PYTHON3=$(which python3)
@@ -49,7 +56,7 @@ rm -rf "${BASE_CI_DIR}"
 rm -rf requirements.txt
 
 export SAVED_PATH=${PATH}
-export PATH=.
+export PATH=~/.bin:.
 
 ${CP} SECRET_SETTINGS.dist.py SECRET_SETTINGS.py
 ${CP} env.dist .env
@@ -68,12 +75,12 @@ if [ "${ENV}" = 'development' ]; then
     ${DOCKER_COMPOSE} build --force-rm --no-cache --memory=2GB --build-arg DJANGO_ENV=development
 
     # Do not enable named volumes and delete anonymous volumes when finished.
-    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit web
+    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit --exit-code-from web web
 else
     ${DOCKER_COMPOSE} build --force-rm --no-cache --memory=2GB --build-arg DJANGO_ENV=production
 
     # Do not enable named volumes and delete anonymous volumes when finished.
-    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit web
+    ${DOCKER_COMPOSE} --file docker-compose.yml --file docker/docker-compose.no_debug.yml --file docker/docker-compose.init_prod.yml --file docker/docker-compose.db_name_prod.yml up --always-recreate-deps --renew-anon-volumes --abort-on-container-exit --exit-code-from web web
 fi
 
 ${DOCKER_COMPOSE} down --volumes
