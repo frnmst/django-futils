@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_futils',
-    version='0.1.0',
+    version='1.0.0',
     include_package_data=True,
     packages=find_packages(exclude=['*tests*']),
     license='GPL',
