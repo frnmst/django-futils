@@ -15,7 +15,7 @@ Description
 This repository contains a fully functional Django app which is importable
 in another Django project or standalone. To import django-futils into your
 project you need to install it and add it to the ``INSTALLED_APPS``
-variable in the settings file.
+variable (among other apps) in the settings file. See below:
 
 
 ::
@@ -23,7 +23,11 @@ variable in the settings file.
 
     INSTALLED_APPS = [
        ...,
-       'django_futils',
+       'django_futils.apps.DjangoFutilsConfig',
+       'simple_history',
+       'vies',
+       'phone_field',
+       'leaflet',
        ...
     ]
 
