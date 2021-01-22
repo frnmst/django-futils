@@ -189,7 +189,7 @@ gen-superuser:
 init-doc:
 	$(COMMAND_PREFIX) python3 sphinx-quickstart docs
 
-doc: dbschema
+doc: clean dbschema
 	$(COMMAND_PREFIX) $(MAKE) -C docs html
 
 migrations:
@@ -212,7 +212,7 @@ check:
 	$(COMMAND_PREFIX) python3 manage.py check --fail-level INFO
 
 clean:
-	rm -rf build dist *.egg-info static __pycache__ requirements.txt locale/django.po requirements.txt
+	rm -rf build dist *.egg-info static __pycache__ requirements.txt */locale/*/LC_MESSAGES/django.mo requirements.txt
 	$(COMMAND_PREFIX) $(MAKE) -C docs clean
 
 .PHONY: default doc install uninstall install-dev uninstall-dev test clean
