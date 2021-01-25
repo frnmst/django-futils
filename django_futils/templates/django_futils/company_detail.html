@@ -1,17 +1,18 @@
-{% load i18n static generic_filters admin_urls %}
+% load i18n static generic_filters admin_urls %}
 <!doctype html>
 <html>
 <head>
     <title>{% translate "Company" %} {{ company.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
-
+<body>
 <a href="{% url opts|admin_urlname_as_dict:'change' company.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Company" %} {{ company.id }}</h1>
 
 <h2>{% translate "Registry" %}</h2>
 
+{% block registry_table %}
 <table>
     <tr>
         <th>{% translate "Name" %}</th>
@@ -24,9 +25,11 @@
         <td>{{ company.is_primary }}</td>
     </tr>
 </table>
+{% endblock %}
 
 <h2>{% translate "Contacts" %}</h2>
 
+{% block contacts_table %}
 <table>
     <tr>
         <th><a href="{% url company_address_list_view_reverse_url company.id %}">{% translate "Address" %}</a></th>
@@ -48,4 +51,6 @@
         {% endwith %}
     </tr>
 </table>
+{% endblock %}
+</body>
 </html>
