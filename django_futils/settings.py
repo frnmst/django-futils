@@ -134,13 +134,25 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
             ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
         },
     },
 ]
+
+# Disable caching for debug so we can test the templates without reloading
+# the server.
+if DEBUG:
+    TEMPLATES[0]['APP_DIRS'] = True
+else:
+    TEMPLATES[0]['APP_DIRS'] = False
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
+        (
+            'django.template.loaders.cached.Loader',
+            [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+        ),
+    ]
 
 WSGI_APPLICATION = 'django_futils.wsgi.application'
 
