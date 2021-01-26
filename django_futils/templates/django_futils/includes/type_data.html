@@ -1,4 +1,5 @@
 {% load i18n l10n static %}
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Code" %}</th>
@@ -11,3 +12,4 @@
         <td>{{ type.description }}</td>
     </tr>
 </table>
+{% endblock %}

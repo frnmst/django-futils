@@ -8,7 +8,6 @@
     {% leaflet_css %}
 </head>
 <body>
-
 <a href="{% url opts|admin_urlname_as_dict:'change' address.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Address" %} {{ address.id }}</h1>
@@ -25,6 +24,7 @@
 
 <h2>{% translate "Other" %}</h2>
 
+{% block other_table %}
 <table>
     <tr>
         <th>{% translate "Type" %}</th>
@@ -45,6 +45,7 @@
         {% endif %}
     </tr>
 </table>
+{% endblock %}
 
 {% include "django_futils/includes/address_map.html" with x=address.map.x y=address.map.y %}
 

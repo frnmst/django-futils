@@ -1,4 +1,5 @@
 {% load i18n l10n %}
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Number" %}</th>
@@ -13,3 +14,4 @@
         <td>{{ telephone.is_primary|yesno:"✔,✘" }}</td>
     </tr>
 </table>
+{% endblock %}

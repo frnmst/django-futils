@@ -1,4 +1,5 @@
 {% load i18n l10n static %}
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Email" %}</th>
@@ -9,3 +10,4 @@
         <td>{{ email.is_primary|yesno:"✔,✘" }}</td>
     </tr>
 </table>
+{% endblock %}

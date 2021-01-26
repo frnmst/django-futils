@@ -1,4 +1,5 @@
 {% load i18n l10n static %}
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Street number" %}</th>
@@ -15,3 +16,4 @@
         <td>{{ address.auto_fill|yesno:"✔,✘" }}</td>
     </tr>
 </table>
+{% endblock %}

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 <body>
-
 {% if type == 'person' %}
     <p>{% translate 'List of addresses for person' %} <a href="{% url person_detail_view_reverse_url person.id %}">{{ person }}</a></p>
 {% elif type == 'company' %}

@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
 <body>
-
 <a href="{% url opts|admin_urlname_as_dict:'change' personattachment.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Attachment" %} {{ personattachment.id }}</h1>
 
 <h2>{% translate "Attachment data" %}</h2>
 
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Name" %}</th>
@@ -27,5 +27,6 @@
         <td><a href="{% get_media_prefix %}{{ personattachment.file.name }}">{{ personattachment.file.name|filter_url_last_path_component:personattachment.file.name }}</a></td>
     </tr>
 </table>
+{% endblock %}
 </body>
 </html>

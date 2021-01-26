@@ -5,13 +5,14 @@
     <title>{% translate "Municipality" %} {{ municipality.id }}</title>
     <link rel="stylesheet" href="{% static 'css/export.css' %}">
 </head>
-
+<body>
 <a href="{% url opts|admin_urlname_as_dict:'change' municipality.id|admin_urlquote %}">{% translate 'Change' %}</a>
 
 <h1>{% translate "Municipality" %} {{ municipality.id }}</h1>
 
 <h2>{% translate "Municipality data" %}</h2>
 
+{% block data_table %}
 <table>
     <tr>
         <th>{% translate "Code" %}</th>
@@ -26,4 +27,6 @@
         <td>{{ municipality.country.code }} ({{ municipality.country.name }})</td>
     </tr>
 </table>
+{% endblock %}
+</body>
 </html>
