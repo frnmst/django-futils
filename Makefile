@@ -190,7 +190,7 @@ init-doc:
 	$(COMMAND_PREFIX) python3 sphinx-quickstart docs
 
 doc: clean dbschema
-	$(COMMAND_PREFIX) $(MAKE) -C docs html
+	mkdir docs/_static && $(COMMAND_PREFIX) $(MAKE) -C docs html
 
 migrations:
 	$(COMMAND_PREFIX) python3 manage.py makemigrations $(APP_NAME)
