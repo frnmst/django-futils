@@ -115,7 +115,7 @@ docker.up.prod.db:
 # Inside docker only #
 ######################
 # Development.
-docker.init.dev: remove-migrations migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations compile-translations test doc check
+docker.init.dev: remove-migrations migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations test doc compile-translations check
 
 docker.gen-superuser.dev:
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')" | python3 manage.py shell
@@ -190,7 +190,7 @@ init-doc:
 	$(COMMAND_PREFIX) python3 sphinx-quickstart docs
 
 doc: clean dbschema
-	mkdir docs/_static && $(COMMAND_PREFIX) $(MAKE) -C docs html
+	mkdir -p docs/_static && $(COMMAND_PREFIX) $(MAKE) -C docs html
 
 migrations:
 	$(COMMAND_PREFIX) python3 manage.py makemigrations $(APP_NAME)

@@ -28,8 +28,9 @@ ARG DJANGO_ENV
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code
-COPY ./Makefile ./manage.py ./SECRET_SETTINGS.py ./poll_postgres.sh ./requirements.txt /code/
+COPY ./Makefile ./manage.py ./SECRET_SETTINGS.py ./requirements.txt /code/
 COPY ./docs/ /code/docs/
 COPY ./django_futils /code/django_futils/
+COPY --from=docker_debian_postgis_django /code/utils /code/utils
 
 RUN pip3 install --no-cache-dir --requirement requirements.txt

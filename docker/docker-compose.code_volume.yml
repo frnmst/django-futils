@@ -3,4 +3,12 @@ version: '3.8'
 services:
   web:
     volumes:
-      - .:/code
+      - ./assets:/code/assets
+      - ./docs:/code/docs
+      - ./Makefile:/code/Makefile
+      - ./Pipfile:/code/Pipfile
+      - ./setup.py:/code/setup.py
+      - ./manage.py:/code/manage.py
+      - ./SECRET_SETTINGS.dist.py:/code/SECRET_SETTINGS.dist.py
+      - ./django_futils:/code/django_futils
+      - ./SECRET_SETTINGS.py:/code/SECRET_SETTINGS.py

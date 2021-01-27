@@ -25,20 +25,7 @@ Add this to the settings file of your project that uses django-futils.
 Continuous integration
 ----------------------
 
-The ``./ci.sh`` script is intendend to get reproducible build for development and production environments.
-
-Select one of the two environments:
-
-::
-
-    env --ignore-environment ENV="development" PATH=$PATH bash --noprofile --norc -c './ci.sh'
-    env --ignore-environment ENV="production" PATH=$PATH bash --noprofile --norc -c './ci.sh'
-
-You can use `Jenkins <https://jenkins.io>`_ for these tasks.
-
-.. warning: The ``SECRET_SETTINGS.py`` file is replaced by ``SECRET_SETTINGS.dist.py`` file once you run the script.
-
-See also https://stackoverflow.com/a/49669361
+See https://github.com/frnmst/docker-debian-postgis-django/tree/master#continuous-integration
 
 Connecting to the database and creatings backups
 ------------------------------------------------
