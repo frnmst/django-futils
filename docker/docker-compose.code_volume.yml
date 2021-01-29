@@ -3,12 +3,12 @@ version: '3.8'
 services:
   web:
     volumes:
-      - ./assets:/code/assets
-      - ./docs:/code/docs
-      - ./Makefile:/code/Makefile
-      - ./Pipfile:/code/Pipfile
-      - ./setup.py:/code/setup.py
-      - ./manage.py:/code/manage.py
-      - ./SECRET_SETTINGS.dist.py:/code/SECRET_SETTINGS.dist.py
-      - ./django_futils:/code/django_futils
-      - ./SECRET_SETTINGS.py:/code/SECRET_SETTINGS.py
+      - ./assets:/code/django/assets
+      - ./docs:/code/django/docs
+      - ./Makefile:/code/django/Makefile
+      - ./Pipfile:/code/django/Pipfile
+      - ./setup.py:/code/django/setup.py
+      - ./manage.py:/code/django/manage.py
+      - ./SECRET_SETTINGS.dist.py:/code/django/SECRET_SETTINGS.dist.py
+      - ./django_futils:/code/django/django_futils
+      - ./SECRET_SETTINGS.py:/code/django/SECRET_SETTINGS.py
