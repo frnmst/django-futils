@@ -143,7 +143,7 @@ To have permission to read the local PostgreSQL volume, run the following as ``r
     # chown postgis-docker ${volume}
 
 
-where volume corresponds by default to ``./db/dev/postgis-data/data``. You can
+where ``${volume}`` corresponds by default to ``./db/dev/postgis-data/data``. You can
 then use the ``postgis-docker`` user:
 
 
