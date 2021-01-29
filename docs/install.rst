@@ -139,8 +139,19 @@ To have permission to read the local PostgreSQL volume, run the following as ``r
 ::
 
 
-    # groupadd -g 102 postgis-docker
-    # usermod -aG postgis-docker ${your_user}
+    # useradd -s /bin/bash -u 999 -U postgis-docker
+    # chown postgis-docker ${volume}
+
+
+where volume corresponds by default to ``./db/dev/postgis-data/data``. You can
+then use the ``postgis-docker`` user:
+
+
+::
+
+
+    # sudo -i -u postgis-docker
+
 
 Docker
 ``````

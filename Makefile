@@ -23,6 +23,7 @@
 export PACKAGE_NAME=django_futils
 export APP_NAME=django_futils
 export MODELS=default_models.py
+export SERVE_DEV_PORT=3050
 
 # Detect a Docker environment.
 export DOCKER_ENV_FILE=/.dockerenv
@@ -50,7 +51,7 @@ gen-requirements:
 	. ${CURDIR}/.env; pipenv lock --requirements --dev >> requirements.txt
 
 docker.build.dev: gen-requirements
-	docker-compose build --build-arg DJANGO_ENV=development
+	docker-compose build --build-arg DJANGO_ENV=development --build-arg GID=$$(id -g) --build-arg UID=$$(id -u)
 
 ## Initialization.
 docker.up.dev.debug.no-volume.init: docker.rm
@@ -199,7 +200,7 @@ migrate:
 	$(COMMAND_PREFIX) python3 manage.py migrate
 
 serve-dev:
-	$(COMMAND_PREFIX) python3 manage.py runserver 0.0.0.0:3050
+	$(COMMAND_PREFIX) python3 manage.py runserver 0.0.0.0:$(SERVE_DEV_PORT)
 
 # TODO
 # Docker

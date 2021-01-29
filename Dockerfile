@@ -23,14 +23,23 @@ FROM docker_debian_postgis_django as builder
 
 # Pass the environment variable from the docker-compose file.
 ARG DJANGO_ENV
+# Pass the running user and group.
+ARG UID
+ARG GID
 
 # Unbuffered output.
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /code
-COPY ./Makefile ./manage.py ./SECRET_SETTINGS.py ./requirements.txt /code/
-COPY ./docs/ /code/docs/
-COPY ./django_futils /code/django_futils/
-COPY --from=docker_debian_postgis_django /code/utils /code/utils
+WORKDIR /code/django
+COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py ./requirements.txt /code/django/
+COPY --chown=django:django ./docs/ /code/django/docs/
+COPY --chown=django:django ./django_futils /code/django/django_futils/
+COPY --chown=django:django --from=docker_debian_postgis_django /code/django/utils /code/django/utils/
 
-RUN pip3 install --no-cache-dir --requirement requirements.txt
+USER root
+RUN chmod 700 /code && chown django:django /code && chown django:django /code/django
+USER django:django
+
+# Executable path for python binaries.
+ENV PATH "$PATH:/code/.local/bin"
+RUN pip3 install --user --no-cache-dir --requirement requirements.txt && rm requirements.txt
