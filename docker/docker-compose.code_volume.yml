@@ -12,3 +12,4 @@ services:
       - ./SECRET_SETTINGS.dist.py:/code/django/SECRET_SETTINGS.dist.py
       - ./django_futils:/code/django/django_futils
       - ./SECRET_SETTINGS.py:/code/django/SECRET_SETTINGS.py
+      - ./.env:/code/django/.env

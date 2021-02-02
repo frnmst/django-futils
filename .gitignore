@@ -1,3 +1,4 @@
+/Makefile
 /Pipfile.lock
 /django_futils/__pycache__/
 django_futils/__pycache__

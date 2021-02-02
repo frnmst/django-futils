@@ -23,6 +23,13 @@ Have a look at the bottom of ``./SECRET_SETTINGS.py``. You will see the database
 both for Docker and to be able to run the the app on *bare metal*.
 By default the Docker credential are enabled so . Change them if needed.
 
+Makefile
+--------
+
+Follow these instructions to download the makefile:
+
+- https://github.com/frnmst/docker-debian-postgis-django/tree/master#the-makefile
+
 Installation in another project
 -------------------------------
 
