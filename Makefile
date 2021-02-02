@@ -24,6 +24,7 @@ export PACKAGE_NAME=django_futils
 export APP_NAME=django_futils
 export MODELS=default_models.py
 export SERVE_DEV_PORT=3050
+export AUTH_MODULE=django.contrib.auth
 
 # Detect a Docker environment.
 export DOCKER_ENV_FILE=/.dockerenv
@@ -47,17 +48,23 @@ docker.rm:
 ###############
 ## Build the image.
 gen-requirements:
-	. ${CURDIR}/.env; pipenv lock --requirements > requirements.txt
-	. ${CURDIR}/.env; pipenv lock --requirements --dev >> requirements.txt
+	. ${CURDIR}/.env; pipenv lock --verbose --requirements > requirements.txt
+	. ${CURDIR}/.env; pipenv lock --verbose --requirements --dev >> requirements.txt
 
 docker.build.dev: gen-requirements
 	docker-compose build --build-arg DJANGO_ENV=development --build-arg GID=$$(id -g) --build-arg UID=$$(id -u)
 
 ## Initialization.
 docker.up.dev.debug.no-volume.init: docker.rm
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up  --renew-anon-volumes --abort-on-container-exit web
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
 
 docker.up.dev.debug.volume.init:
+	# Create this directory for the translations.
+ifeq ($(PACKAGE_NAME),django_futils)
+	true
+else
+	mkdir -p django_futils
+endif
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.init_dev.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml up --abort-on-container-exit web
 
 ## Server.
@@ -65,7 +72,7 @@ docker.up.dev.debug.volume.serve:
 	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.code_volume.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up web
 
 docker.up.dev.debug.no-volume.serve:
-	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up --renew-anon-volumes web
+	docker-compose --file docker-compose.yml --file docker/docker-compose.dev.yml --file docker/docker-compose.debug.yml --file docker/docker-compose.db_name_dev.yml --file docker/docker-compose.serve_dev.yml up web
 
 ## Stop.
 docker.down.dev.debug.volume:
@@ -119,12 +126,12 @@ docker.up.prod.db:
 docker.init.dev: remove-migrations migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations test doc compile-translations check
 
 docker.gen-superuser.dev:
-	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')" | python3 manage.py shell
+	echo "from $(AUTH_MODULE).models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')" | python3 manage.py shell
 
 docker.serve.dev: serve-dev
 
 # Production.
-docker.init.prod: migrations migrate collectstatic syncdb docker.gen-superuser.dev initialize-translations compile-translations check
+docker.init.prod: migrations migrate collectstatic docker.gen-superuser.dev syncdb initialize-translations compile-translations check
 
 docker.serve.prod: serve-production
 
@@ -207,7 +214,7 @@ serve-dev:
 # serve-production:
 #	DEBUG="False" uwsgi --chdir=${CURDIR} --module=$(PROJECT_NAME).wsgi:application --env DJANGO_SETTINGS_MODULE=$(PROJECT_NAME).settings --master --pidfile=/run/project-master.pid --processes=5 --harakiri=20 --max-requests=5000 --vacuum --http=0.0.0.0:3050 --check-static ${CURDIR}
 serve-production:
-	$(COMMAND_PREFIX) uwsgi --chdir=${CURDIR} --module=$(PROJECT_NAME).wsgi:application --env DJANGO_SETTINGS_MODULE=$(PROJECT_NAME).settings --master --pidfile=/tmp/project-master.pid --http=0.0.0.0:3050 --processes=5 --uid=1019 --gid=1019 --harakiri=20 --max-requests=5000 --vacuum --check-static ${CURDIR}
+	$(COMMAND_PREFIX) uwsgi --chdir=${CURDIR} --module=$(PACKAGE_NAME).wsgi:application --env DJANGO_SETTINGS_MODULE=$(PACKAGE_NAME).settings --master --pidfile=/tmp/project-master.pid --http=0.0.0.0:3050 --processes=5 --uid=1019 --gid=1019 --harakiri=20 --max-requests=5000 --vacuum --check-static ${CURDIR}
 
 check:
 	$(COMMAND_PREFIX) python3 manage.py check --fail-level INFO
