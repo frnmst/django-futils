@@ -30,16 +30,19 @@ ARG GID
 # Unbuffered output.
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /code/django
-COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py ./requirements.txt /code/django/
+COPY --chown=django:django ./requirements.txt /code/django/
+USER django:django
+# Executable path for python binaries.
+ENV PATH "$PATH:/code/.local/bin"
+RUN pip3 install --user --no-cache-dir --requirement requirements.txt && rm requirements.txt
+USER root
+
+COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py /code/django/
 COPY --chown=django:django ./docs/ /code/django/docs/
 COPY --chown=django:django ./django_futils /code/django/django_futils/
 COPY --chown=django:django --from=docker_debian_postgis_django /code/django/utils /code/django/utils/
 
-USER root
 RUN chmod 700 /code && chown django:django /code && chown django:django /code/django
-USER django:django
 
-# Executable path for python binaries.
-ENV PATH "$PATH:/code/.local/bin"
-RUN pip3 install --user --no-cache-dir --requirement requirements.txt && rm requirements.txt
+# This is necessry to avoid the root user.
+USER django:django
