@@ -34,7 +34,7 @@ COPY --chown=django:django ./requirements.txt /code/django/
 USER django:django
 # Executable path for python binaries.
 ENV PATH "$PATH:/code/.local/bin"
-RUN pip3 install --user --no-cache-dir --requirement requirements.txt && rm requirements.txt
+RUN pip3 install --user --no-cache-dir --requirement /code/django/requirements.txt && rm /code/django/requirements.txt
 USER root
 
 COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py /code/django/
@@ -44,5 +44,7 @@ COPY --chown=django:django --from=docker_debian_postgis_django /code/django/util
 
 RUN chmod 700 /code && chown django:django /code && chown django:django /code/django
 
-# This is necessry to avoid the root user.
+# This is necessary to avoid the root user.
 USER django:django
+
+WORKDIR /code/django

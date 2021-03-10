@@ -160,6 +160,15 @@ then use the ``postgis-docker`` user:
     # sudo -i -u postgis-docker
 
 
+If you have permission problems when running the program, execute this command
+
+
+::
+
+
+    # chown -R postgis-docker db/dev/postgis-data/data/
+
+
 Docker
 ``````
 
