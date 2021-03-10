@@ -47,7 +47,7 @@ the primary address and then execute a deletion.
 Documentation
 -------------
 
-http://frnmst.github.io/django-futils
+https://docs.franco.net.eu.org/django-futils/
 
 License
 -------
@@ -72,4 +72,4 @@ Trusted source
 
 You can check the authenticity of new releases using my public key.
 
-Instructions, sources and keys can be found at `frnmst.gitlab.io/software <https://frnmst.gitlab.io/software/>`_.
+Instructions, sources and keys can be found at `blog.franco.net.eu.org/software <https://blog.franco.net.eu.org/software/>`_.
