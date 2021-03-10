@@ -28,7 +28,7 @@ Makefile
 
 Follow these instructions to download the makefile:
 
-- https://github.com/frnmst/docker-debian-postgis-django/tree/master#the-makefile
+- https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django/src/branch/master#the-makefile
 
 Installation in another project
 -------------------------------
@@ -39,7 +39,7 @@ such as ``0.0.3``.
 ::
 
 
-    pip3 install git+https://github.com/frnmst/django-futils.git@${VERSION}
+    pip3 install git+https://software.franco.net.eu.org/frnmst/django-futils.git@${VERSION}
 
 
 Bare metal

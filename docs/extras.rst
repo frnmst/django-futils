@@ -25,7 +25,7 @@ Add this to the settings file of your project that uses django-futils.
 Continuous integration
 ----------------------
 
-See https://github.com/frnmst/docker-debian-postgis-django/tree/master#continuous-integration
+See https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django/src/branch/master#user-content-continuous-integration
 
 Connecting to the database and creatings backups
 ------------------------------------------------
