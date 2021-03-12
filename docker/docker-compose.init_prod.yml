@@ -2,4 +2,4 @@ version: '3.8'
 
 services:
     web:
-        command: sh -c './utils/poll_postgres.sh ${POSTGRES_USER} ${POSTGRES_PASS} ${POSTGRES_GUEST_PORT} &&  && export PYTHONDONTWRITEBYTECODE=1 && make docker.init.prod'
+        command: sh -c './utils/poll_postgres.sh ${POSTGRES_USER} ${POSTGRES_PASS} ${POSTGRES_GUEST_PORT} && export PYTHONDONTWRITEBYTECODE=1 && make docker.init.prod'

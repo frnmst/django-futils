@@ -37,7 +37,7 @@ ENV PATH "$PATH:/code/.local/bin"
 RUN pip3 install --user --no-cache-dir --requirement /code/django/requirements.txt && rm /code/django/requirements.txt
 USER root
 
-COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py /code/django/
+COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py ./.env /code/django/
 COPY --chown=django:django ./docs/ /code/django/docs/
 COPY --chown=django:django ./django_futils /code/django/django_futils/
 COPY --chown=django:django --from=docker_debian_postgis_django /code/django/utils /code/django/utils/
