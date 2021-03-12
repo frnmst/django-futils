@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_futils',
-    version='1.0.0',
+    version='2.0.0',
     include_package_data=True,
     packages=find_packages(exclude=['*tests*']),
     license='GPL',
@@ -33,7 +33,7 @@ setup(
     author='Franco Masotti',
     author_email='franco.masotti@live.com',
     keywords='django utilities',
-    url='https://github.com/frnmst/django-futils',
+    url='https://software.franco.net.eu.org/frnmst/django-futils',
     python_requires='>=3.8, <4',
     classifiers=[
         'Development Status :: 3 - Alpha',
