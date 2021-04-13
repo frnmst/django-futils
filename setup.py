@@ -33,7 +33,7 @@ setup(
     author='Franco Masotti',
     author_email='franco.masotti@live.com',
     keywords='django utilities',
-    url='https://software.franco.net.eu.org/frnmst/django-futils',
+    url='https://blog.franco.net.eu.org/software/#django-futils',
     python_requires='>=3.8, <4',
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -47,7 +47,7 @@ setup(
         'Framework :: Django :: 3.1',
     ],
     install_requires=[
-        'Django>=3.1,<3.2',
+        'Django>=3.2,<3.3',
         'requests>=2.25,<2.26',
         'django-countries>=7.0,<7.1',
         'django-phone-field>=1.8,<1.9',
