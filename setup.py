@@ -47,9 +47,9 @@ setup(
         'Framework :: Django :: 3.1',
     ],
     install_requires=[
-        'Django>=3.2,<3.3',
+        'Django==3.1',
         'requests>=2.25,<2.26',
-        'django-countries>=7.0,<7.1',
+        'django-countries>=7.1,<7.2',
         'django-phone-field>=1.8,<1.9',
         'django-vies>=6.0,<6.1',
         'django-simple-history>=2.12,<2.13',

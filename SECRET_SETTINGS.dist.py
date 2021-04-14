@@ -65,7 +65,7 @@ OPENLAYERS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenL
 # 0=default
 # 1=raw
 # 2=autocomplete
-FOREIGN_KEY_FIELDS = 1
+FOREIGN_KEY_FIELDS = 2
 
 # django-simple-history
 SIMPLE_HISTORY_REVERT_DISABLED = True
