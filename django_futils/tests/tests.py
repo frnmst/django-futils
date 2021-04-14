@@ -186,7 +186,7 @@ class UtilsTestCase(TestCase):
         self.country = DEFAULT_COUNTRY
         self.country_code = DEFAULT_COUNTRY_CODE
 
-    def test_get_address_data__no_data_returned(self):
+    def test_get_address_data_no_data_returned(self):
         # case: None (no data returned)
         x = 'a',
         y = None
@@ -232,7 +232,7 @@ class UtilsTestCase(TestCase):
         self.assertEqual(point, None)
         self.assertEqual(postcode, str())
 
-    def test_get_address_data__cache_miss_mew_autofill(self):
+    def test_get_address_data_cache_miss_mew_autofill(self):
         # Case: autofill new.
         # Cache miss because it is new.
         postal_code = None

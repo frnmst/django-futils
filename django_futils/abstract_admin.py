@@ -104,7 +104,7 @@ class BaseMapAdmin(OSMGeoAdmin, BaseAdmin):
     default_zoom = 10
     default_lon = -90
     default_lat = 10
-    modifiable = False
+    modifiable = True
     openlayers_url = settings.OPENLAYERS_URL
 
 
