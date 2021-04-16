@@ -20,7 +20,7 @@
 #
 
 from django.test import TestCase, TransactionTestCase
-from ..default_models import PersonTelephone, GeocoderCache
+from ..default_models import PersonTelephone, GeocoderCache, PersonAddress
 from model_bakery import baker
 import decimal
 from django.core.exceptions import ValidationError
@@ -30,6 +30,7 @@ from django.utils import timezone
 from ..utils import get_address_data, run_geocoder_request
 from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Point
 import geopy
 
 
@@ -185,7 +186,11 @@ class UtilsTestCase(TestCase):
         self.street = DEFAULT_STREET
         self.country = DEFAULT_COUNTRY
         self.country_code = DEFAULT_COUNTRY_CODE
+        self.map = None
 
+    ####################
+    # get_address_data #
+    ####################
     def test_get_address_data_no_data_returned(self):
         # case: None (no data returned)
         x = 'a',
@@ -205,21 +210,21 @@ class UtilsTestCase(TestCase):
             # Existing postal code.
             postal_code = 'a'
             auto_fill = True
-            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, self.map, auto_fill)
             self.assertEqual(point, None)
             self.assertEqual(postcode, 'a')
 
             # Empty string postal code.
             postal_code = str()
             auto_fill = True
-            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, self.map, auto_fill)
             self.assertEqual(point, None)
             self.assertEqual(postcode, str())
 
             # Empty postal code.
             postal_code = None
             auto_fill = True
-            point, postcode = get_address_data(country, city, street_number, street, postal_code, auto_fill)
+            point, postcode = get_address_data(country, city, street_number, street, postal_code, self.map, auto_fill)
             self.assertEqual(point, None)
             self.assertEqual(postcode, str())
 
@@ -228,17 +233,18 @@ class UtilsTestCase(TestCase):
     def test_get_address_data_no_autofill(self):
         postal_code = None
         auto_fill = False
-        point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+        point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
         self.assertEqual(point, None)
         self.assertEqual(postcode, str())
 
-    def test_get_address_data_cache_miss_mew_autofill(self):
+    def test_get_address_data_cache_miss_new_autofill(self):
         # Case: autofill new.
         # Cache miss because it is new.
+        # Empty map
         postal_code = None
         auto_fill = True
         with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
-            point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+            point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
 
         c = GeocoderCache.objects.first()
         self.assertEqual(c.street, self.street)
@@ -251,12 +257,32 @@ class UtilsTestCase(TestCase):
         self.assertEqual(point, None)
         self.assertEqual(postcode, str())
 
+    def test_get_address_data_cache_miss_new_autofill_overridden_map(self):
+        # Overridden map.
+        postal_code = None
+        auto_fill = True
+        map = Point(1.1, 1.1)
+        with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
+            point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, map, auto_fill)
+
+        c = GeocoderCache.objects.first()
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.street_number, self.street_number)
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.country_code, self.country.lower())
+        self.assertEqual(c.cache_hits, 0)
+        self.assertEqual(c.postal_code, str())
+        # map in not overridden in the cache.
+        self.assertEqual(c.map, None)
+        self.assertEqual(point.coords, Point(1.1, 1.1).coords)
+        self.assertEqual(postcode, str())
+
     def test_get_address_data_cache_hit_autofill(self):
         postal_code = None
         auto_fill = True
         with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
             with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_HIT):
-                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
 
         c = GeocoderCache.objects.first()
         # Get the pervious value.
@@ -265,7 +291,7 @@ class UtilsTestCase(TestCase):
         auto_fill = True
         with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
             with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_HIT):
-                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
 
         c = GeocoderCache.objects.first()
         self.assertEqual(c.street, self.street)
@@ -279,12 +305,41 @@ class UtilsTestCase(TestCase):
         self.assertEqual(postcode, str())
         self.assertEqual(c.updated, updated)
 
+    def test_get_address_data_cache_hit_autofill_overridden_map(self):
+        postal_code = None
+        map = Point(1.1, 1.1)
+        auto_fill = True
+        with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
+            with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_HIT):
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, map, auto_fill)
+
+        c = GeocoderCache.objects.first()
+        # Get the pervious value.
+        updated = c.updated
+        postal_code = None
+        auto_fill = True
+        with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
+            with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_HIT):
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, map, auto_fill)
+
+        c = GeocoderCache.objects.first()
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.street_number, self.street_number)
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.country_code, self.country.lower())
+        self.assertEqual(c.cache_hits, 1)
+        self.assertEqual(c.postal_code, str())
+        self.assertEqual(c.map, None)
+        self.assertEqual(point.coords, Point(1.1, 1.1).coords)
+        self.assertEqual(postcode, str())
+        self.assertEqual(c.updated, updated)
+
     def test_get_address_data_cache_miss_expiry_autofill(self):
         postal_code = None
         auto_fill = True
         with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
             with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_MISS):
-                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
 
         c = GeocoderCache.objects.first()
         # Get the pervious value.
@@ -294,7 +349,7 @@ class UtilsTestCase(TestCase):
         with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
             with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_MISS):
                 import django.conf
-                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, auto_fill)
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, self.map, auto_fill)
 
         c = GeocoderCache.objects.first()
         self.assertEqual(c.street, self.street)
@@ -307,6 +362,38 @@ class UtilsTestCase(TestCase):
         self.assertEqual(point, None)
         self.assertEqual(postcode, str())
 
+    def test_get_address_data_cache_miss_expiry_autofill_overridden_map(self):
+        postal_code = None
+        auto_fill = True
+        map = Point(1.1, 1.1)
+        with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
+            with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_MISS):
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, map, auto_fill)
+
+        c = GeocoderCache.objects.first()
+        # Get the pervious value.
+        postal_code = None
+        auto_fill = True
+        # Simulate a cache expiry also by returning None.
+        with mock.patch('django_futils.utils.run_geocoder_request', return_value=(None, str())):
+            with mock.patch('django.conf.settings.GEOCODER_CACHE_TTL_SECONDS', GEOCODER_CACHE_TTL_SECONDS_MISS):
+                import django.conf
+                point, postcode = get_address_data(self.country, self.city, self.street_number, self.street, postal_code, map, auto_fill)
+
+        c = GeocoderCache.objects.first()
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.street_number, self.street_number)
+        self.assertEqual(c.street, self.street)
+        self.assertEqual(c.country_code, self.country.lower())
+        self.assertEqual(c.cache_hits, 0)
+        self.assertEqual(c.postal_code, str())
+        self.assertEqual(c.map, None)
+        self.assertEqual(point.coords, Point(1.1, 1.1).coords)
+        self.assertEqual(postcode, str())
+
+    ########################
+    # run_geocoder_request #
+    ########################
     # Case 0.
     def test_run_geocoder_request_ok(self):
         pnt = GEOSGeometry(str(NOMINATIM_JSON_OK['geojson']), srid=4326)

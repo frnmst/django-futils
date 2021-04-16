@@ -256,17 +256,9 @@ class AbstractAddressCommon(AbstractHasPrimary):
         abstract = True
 
     def save(self, *args, **kwargs):
-        map, self.postal_code = get_address_data(
+        self.map, self.postal_code = get_address_data(
             self.municipality.country.code, self.city, self.street_number,
-            self.street, self.postal_code, self.auto_fill)
-        if map is None:
-            # Get the point from the map if the user
-            # selected it manually or if the function returns None.
-            # In the latter case the point value will remain indefined.
-            self.map = self.map
-        else:
-            # Use the value computed by the function.
-            self.map = map
+            self.street, self.postal_code, self.map, self.auto_fill)
 
         super().save(*args, **kwargs)
 

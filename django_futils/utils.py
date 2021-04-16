@@ -141,7 +141,8 @@ def run_geocoder_request(street_number: str, street: str, city: str, country_cod
 
 
 def get_address_data(country: str, city: str, street_number: str,
-                     street: str, postal_code: str, auto_fill: bool) -> tuple:
+                     street: str, postal_code: str,
+                     map: django.contrib.gis.geos.point.Point, auto_fill: bool) -> tuple:
     r"""See
         https://nominatim.org/release-docs/latest/api/Search/
     """
@@ -183,5 +184,11 @@ def get_address_data(country: str, city: str, street_number: str,
             point, postcode = run_geocoder_request(street_number, street, city, country_code, postal_code)
             cache = geocoder_model(city=city, street_number=street_number, street=street, country_code=country_code, map=point, postal_code=postcode)
             cache.save()
+
+    # Get the point from the map if the user
+    # selected it manually or if the function returns None.
+    # In the latter case the point value will remain undefined.
+    if point is None:
+        point = map
 
     return point, postcode
