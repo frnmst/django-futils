@@ -8,16 +8,16 @@ verify_ssl = true
 model_bakery = "~=1.2"
 
 # Documentation.
-Sphinx = "~=3.5"
+Sphinx = "~=4.0"
 sphinx-rtd-theme = "~=0.5"
 
 # Tools.
 pygraphviz = "~=1.7"
-pre-commit = "~=2.12"
+pre-commit = "~=2.13"
 
 [packages]
 # Base.
-Django = "==3.1"
+Django = "~=3.2"
 requests = "~=2.25"
 
 # Models.
@@ -25,9 +25,9 @@ django-countries = "~=7.1"
 django-phone-field = "~=1.8"
 django-vies = "~=6.0"
 ## Model history.
-django-simple-history = "~=2.12"
+django-simple-history = "~=3.0"
 ## Remove dangling files.
-django-cleanup = "~=5.1"
+django-cleanup = "~=5.2"
 
 # Postgres.
 # If you prefer to avoid building psycopg2 from source, please install the PyPI
@@ -36,9 +36,9 @@ psycopg2-binary = "~=2.8"
 
 # Tools.
 django-extensions = "~=3.1"
-django-leaflet = "~=0.27"
+django-leaflet = "~=0.28"
 django-htmlmin = "~=0.11"
 geopy = "~=2.1"
 
 [requires]
-python_version = "3.9"
+python_version = "*"
