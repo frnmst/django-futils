@@ -51,7 +51,7 @@ services:
             - "127.0.0.1:${POSTGRES_EXPOSED_PORT}:${POSTGRES_GUEST_PORT}"
 
     web_build:
-        image: futils_web
+        image: django_futils_web
         build:
             context: .
             dockerfile: Dockerfile
@@ -61,7 +61,7 @@ services:
             - db
 
     web:
-        image: futils_web
+        image: django_futils_web
         restart: on-failure
         depends_on:
             - db
