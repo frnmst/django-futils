@@ -66,6 +66,15 @@ Install these packages from your package manager or from PyPI:
 | Python               | - python3           | 3.8              |
 +----------------------+---------------------+------------------+
 
+Debian GNU/Linux
+~~~~~~~~~~~~~~~~
+
+
+::
+
+
+    # apt-get install libgraphviz-dev
+
 
 PostgreSQL
 ``````````
@@ -135,54 +144,51 @@ Install these packages from your package manager or from PyPI:
 +----------------------+---------------------+------------------+
 | Python               | - python3           | 3.8              |
 +----------------------+---------------------+------------------+
+| Graphviz             |                     | 2.44.1           |
++----------------------+---------------------+------------------+
 
-
-PostgreSQL
-``````````
-
-To have permission to read the local PostgreSQL volume, run the following as ``root``:
-
-
-::
-
-
-    # useradd -s /bin/bash -u 999 -U postgis-docker
-    # chown postgis-docker ${volume}
-
-
-where ``${volume}`` corresponds by default to ``./db/dev/postgis-data/data``. You can
-then use the ``postgis-docker`` user:
+Debian GNU/Linux
+~~~~~~~~~~~~~~~~
 
 
 ::
 
 
-    # sudo -i -u postgis-docker
-
-
-If you have permission problems when running the program, execute this command
-
-
-::
-
-
-    # chown -R postgis-docker db/dev/postgis-data/data/
+    # apt-get install libgraphviz-dev
+    $ pip3 install docker-compose graphviz
 
 
 Docker
 ``````
 
-Add your user to the ``docker`` group and then start and enable the Docker service
+Start and enable the Docker service
 
 
 ::
 
 
-    # usermod -aG docker ${your_user}
     # systemctl start docker
     # systemctl enable docker
 
-Run ``make docker.build.dev`` or ``make docker.build.prod`` depending on what you have to do.
+
+User
+````
+
+A new user, ``postgis-docker``, needs to be created to run the app.
+
+::
+
+
+    # useradd -m -s /bin/bash -u 999 -U postgis-docker
+    # usermod -aG ${developer_group} postgis-docker
+    # cd django-futils/..
+    # chmod 770 django-futils
+    # usermod -aG docker postgis-docker
+    # sudo -i -u postgis-docker
+    $ cd django-futils
+
+
+Finally, run ``make docker.build.dev`` or ``make docker.build.prod`` depending on what you have to do.
 
 Default credentials and variables
 `````````````````````````````````
