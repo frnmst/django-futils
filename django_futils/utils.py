@@ -109,9 +109,9 @@ def run_geocoder_request(street_number: str, street: str, city: str, country_cod
                 # Case 6.
                 error = True
             else:
-                if 'geojson' in result.raw:
+                if hasattr(result, 'longitude') and hasattr(result, 'latitude'):
                     # Case 0
-                    point = GEOSGeometry(str(result.raw['geojson']), srid=4326)
+                    point = GEOSGeometry(str({'type': 'Point', 'coordinates': [result.longitude, result.latitude]}), srid=4326)
                 else:
                     # Case 2
                     error = True
@@ -178,7 +178,6 @@ def get_address_data(country: str, city: str, street_number: str,
                 # Since we are not changing neither the map nor the postal_code values,
                 # replace the updated field with its original value.
                 geocoder_model.objects.filter(pk=cache.pk).update(cache_hits=hit, updated=updated)
-
         except ObjectDoesNotExist:
             # Create the cache.
             point, postcode = run_geocoder_request(street_number, street, city, country_code, postal_code)
