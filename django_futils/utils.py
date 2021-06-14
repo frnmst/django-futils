@@ -109,18 +109,14 @@ def run_geocoder_request(street_number: str, street: str, city: str, country_cod
                 # Case 6.
                 error = True
             else:
-                if hasattr(result, 'longitude') and hasattr(result, 'latitude'):
-                    # Case 0
-                    point = GEOSGeometry(str({'type': 'Point', 'coordinates': [result.longitude, result.latitude]}), srid=4326)
-                else:
-                    # Case 2
-                    error = True
+                # Case 0.
+                point = GEOSGeometry(str({'type': 'Point', 'coordinates': [result.longitude, result.latitude]}), srid=4326)
 
                 if 'address' in result.raw and 'postcode' in result.raw['address']:
-                    # Case 0
+                    # Case 0.
                     postcode = result.raw['address']['postcode']
                 else:
-                    # case 1
+                    # case 1.
                     postcode = None
 
         except geopy.exc.GeopyError as e:

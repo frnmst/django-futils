@@ -122,50 +122,29 @@ DEFAULT_LAT = -20.0000001
 DEFAULT_COUNTRY = 'c'
 DEFAULT_COUNTRY_CODE = 'c'
 
-NOMINATIM_JSON_OK = {
-    "geojson": {
-        "coordinates": [
-            DEFAULT_LON,
-            DEFAULT_LAT
-        ],
-        "type": "Point"
+NOMINATIM_RAW_JSON_OK = {
+    "address": {
+        "city": DEFAULT_CITY,
+        "postcode": DEFAULT_POSTCODE,
+        "road": DEFAULT_STREET,
     },
+}
+NOMINATIM_RAW_JSON_MISSING_POSTCODE_0 = {
+    "address": {
+        "city": DEFAULT_CITY,
+        "road": DEFAULT_STREET,
+    }
+}
+NOMINATIM_RAW_JSON_MISSING_POSTCODE_1 = {
+}
+NOMINATIM_RAW_JSON_MISSING_LON_LAT = {
     "address": {
         "city": DEFAULT_CITY,
         "postcode": DEFAULT_POSTCODE,
         "road": DEFAULT_STREET,
     }
 }
-NOMINATIM_JSON_MISSING_POSTCODE_0 = {
-    "geojson": {
-        "coordinates": [
-            DEFAULT_LON,
-            DEFAULT_LAT
-        ],
-        "type": "Point"
-    },
-    "address": {
-        "city": DEFAULT_CITY,
-        "road": DEFAULT_STREET,
-    }
-}
-NOMINATIM_JSON_MISSING_POSTCODE_1 = {
-    "geojson": {
-        "coordinates": [
-            DEFAULT_LON,
-            DEFAULT_LAT
-        ],
-        "type": "Point"
-    },
-}
-NOMINATIM_JSON_MISSING_GEOJSON = {
-    "address": {
-        "city": DEFAULT_CITY,
-        "postcode": DEFAULT_POSTCODE,
-        "road": DEFAULT_STREET,
-    }
-}
-NOMINATIM_JSON_MISSING = {}
+NOMINATIM_RAW_JSON_MISSING = {}
 
 GEOCODER_CACHE_TTL_SECONDS_HIT = float('inf')
 GEOCODER_CACHE_TTL_SECONDS_MISS = 0
@@ -396,59 +375,53 @@ class UtilsTestCase(TestCase):
     ########################
     # Case 0.
     def test_run_geocoder_request_ok(self):
-        pnt = GEOSGeometry(str(NOMINATIM_JSON_OK['geojson']), srid=4326)
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_OK)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_OK)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code)
         self.assertEqual(point, pnt)
         self.assertEqual(postcode, DEFAULT_POSTCODE)
 
     # Case 1.
     def test_run_geocoder_request_missing_postcode(self):
-        pnt = GEOSGeometry(str(NOMINATIM_JSON_MISSING_POSTCODE_0['geojson']), srid=4326)
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_POSTCODE_0)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING_POSTCODE_0)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code)
         self.assertEqual(point, pnt)
         self.assertEqual(postcode, str())
 
-        pnt = GEOSGeometry(str(NOMINATIM_JSON_MISSING_POSTCODE_1['geojson']), srid=4326)
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_POSTCODE_1)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING_POSTCODE_1)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code, str())
         self.assertEqual(point, pnt)
         self.assertEqual(postcode, str())
 
-    # Case 2.
-    def test_run_nominatim_request_missing_geojson(self):
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_GEOJSON)):
-            point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code, str())
-        self.assertEqual(point, None)
-        self.assertEqual(postcode, DEFAULT_POSTCODE)
-
-    # Case 1 and 2.
+    # Case 1.
     def test_run_nominatim_request_missing_raw(self):
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code, str())
-        self.assertEqual(point, None)
+        self.assertEqual(point, pnt)
         self.assertEqual(postcode, str())
 
     # Case 3.
     def test_run_geocoder_request_input_postal_code_none(self):
-        pnt = GEOSGeometry(str(NOMINATIM_JSON_MISSING_POSTCODE_0['geojson']), srid=4326)
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_POSTCODE_0)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING_POSTCODE_0)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code, None)
         self.assertEqual(point, pnt)
         self.assertEqual(postcode, str())
 
     # Case 4.
     def test_run_geocoder_request_input_postal_code_override(self):
-        pnt = GEOSGeometry(str(NOMINATIM_JSON_MISSING_POSTCODE_0['geojson']), srid=4326)
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_POSTCODE_0)):
+        pnt = GEOSGeometry(str({'type': 'Point', 'coordinates': [DEFAULT_LON, DEFAULT_LAT]}), srid=4326)
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING_POSTCODE_0)):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code, DEFAULT_POSTCODE)
         self.assertEqual(point, pnt)
         self.assertEqual(postcode, DEFAULT_POSTCODE)
 
     # Case 5.
     def test_run_geocoder_request_input_postal_raise_geopy_exception(self):
-        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), raw=NOMINATIM_JSON_MISSING_POSTCODE_0), side_effect=geopy.exc.GeopyError('')):
+        with mock.patch('django_futils.utils.geopy.geocoders.Nominatim.geocode', return_value=mock.Mock(address=DEFUALT_STREET_NUMBER + ' ' + DEFAULT_STREET, point=geopy.Point(DEFAULT_LAT, DEFAULT_LON), latitude=DEFAULT_LAT, longitude=DEFAULT_LON, raw=NOMINATIM_RAW_JSON_MISSING_POSTCODE_0), side_effect=geopy.exc.GeopyError('')):
             point, postcode = run_geocoder_request(self.street_number, self.street, self.city, self.country_code)
         self.assertEqual(point, None)
         self.assertEqual(postcode, str())
