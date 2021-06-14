@@ -600,6 +600,11 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
     )
     list_display = ('id', 'person', 'file', 'added', 'updated')
     list_select_related = ('person', )
+    search_fields = (
+        'id',
+        'person__first_name',
+        'person__last_name',
+    )
 
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
