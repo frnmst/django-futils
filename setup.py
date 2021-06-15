@@ -34,7 +34,7 @@ setup(
     author_email='franco.masotti@live.com',
     keywords='django utilities',
     url='https://blog.franco.net.eu.org/software/#django-futils',
-    python_requires='>=3.8, <4',
+    python_requires='>=3.9, <4',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Utilities',
