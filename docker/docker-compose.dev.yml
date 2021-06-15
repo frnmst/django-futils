@@ -7,7 +7,7 @@ services:
 
     web:
         volumes:
-          - ./db/dev/data:/data
+          - ./db/dev/data:/code/django/data
 
         ports:
             - 3050:3050

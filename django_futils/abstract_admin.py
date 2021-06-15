@@ -53,6 +53,7 @@ class TypeBaseAdmin(BaseAdmin):
     readonly_fields = ('id', )
     list_display = (
         'id',
+        'code',
         'type',
     )
 
@@ -62,6 +63,7 @@ class NameBaseAdmin(BaseAdmin):
     readonly_fields = ('id', )
     list_display = (
         'id',
+        'code',
         'name',
     )
 
@@ -650,6 +652,6 @@ class AbstractCompanyAdmin(BaseAdmin):
         'updated',
         'is_primary',
     )
-    list_display = ('id', )
+    list_display = ('id', 'name', 'vat')
 
-    search_fields = ('name', )
+    search_fields = ('name', 'vat', )

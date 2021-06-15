@@ -6,11 +6,11 @@ import os
 # MEDIA_ROOT works out of the box for Docker.
 if 'DJANGO_ENV' in os.environ:
     if os.environ['DJANGO_ENV'] == 'development':
-        MEDIA_ROOT = '/code/db/dev/data/'
+        MEDIA_ROOT = '/code/django/data/'
     else:
-        MEDIA_ROOT = '/code/db/prod/data/'
+        MEDIA_ROOT = '/code/django/data/'
 else:
-    MEDIA_ROOT = '/code/db/dev/data/'
+    MEDIA_ROOT = '/code/django/data/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

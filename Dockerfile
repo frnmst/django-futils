@@ -42,7 +42,7 @@ COPY --chown=django:django ./docs/ /code/django/docs/
 COPY --chown=django:django ./django_futils /code/django/django_futils/
 COPY --chown=django:django --from=docker_debian_postgis_django /code/django/utils /code/django/utils/
 
-RUN chmod 700 /code && chown django:django /code && chown django:django /code/django
+RUN mkdir /code/django/data && chown django:django /code/django/data && chmod 700 /code && chown django:django /code && chown django:django /code/django
 
 # This is necessary to avoid the root user.
 USER django:django
