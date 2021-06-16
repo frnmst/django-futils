@@ -38,7 +38,11 @@
     <tr>
         <th><a href="{% url person_address_list_view_reverse_url person.id %}">{% translate "Address" %}</a></th>
         <th><a href="{% url person_telephone_list_view_reverse_url person.id %}">{% translate "Telephone" %}</a></th>
-        <th><a href="{% url person_email_list_view_reverse_url person.id %}">{% translate "Email" %}</a></th>
+        {% if person.personemail_of_this_person.all|length %}
+            <th><a href="{% url person_email_list_view_reverse_url person.id %}">{% translate "Email" %}</a></th>
+        {% else %}
+            <th>{% translate "Email" %}</th>
+        {% endif %}
     </tr>
         {% with address=person.personaddress_of_this_person.all|filter_primary:person.personaddress_of_this_person.all %}
         <td><a href="{% url person_address_detail_view_reverse_url address.id %}">{{ address }}</a></td>

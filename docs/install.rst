@@ -190,6 +190,8 @@ A new user, ``postgis-docker``, needs to be created to run the app.
 
 Finally, run ``make docker.build.dev`` or ``make docker.build.prod`` depending on what you have to do.
 
+Run ``# chown postgis-docker:postgis-docker ./db/dev/data`` if you have persmission problems when saving files.
+
 Default credentials and variables
 `````````````````````````````````
 
