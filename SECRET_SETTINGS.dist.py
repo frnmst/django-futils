@@ -73,6 +73,9 @@ SIMPLE_HISTORY_REVERT_DISABLED = True
 # The app label used in the views.
 VIEWS_APP_LABEL = 'django_futils'
 
+# Please change this.
+HASHID_FIELD_SALT = "a long and secure salt value that is not the same as SECRET_KEY"
+
 ############
 # Database #
 ############

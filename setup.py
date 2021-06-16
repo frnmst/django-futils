@@ -44,7 +44,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Programming Language :: Python :: 3',
         'Framework :: Django',
-        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
     ],
     install_requires=[
         'Django>=3.2,<3.3',
@@ -54,6 +54,7 @@ setup(
         'django-vies>=6.0,<6.1',
         'django-simple-history>=3.0,<3.1',
         'django-cleanup>=5.2,<5.3',
+        'django-hashid-field>=3.2,<3.3',
         'psycopg2-binary>=2.8,<2.9',
         'django-extensions>=3.1,<3.2',
         'django-leaflet>=0.28,<0.29',
