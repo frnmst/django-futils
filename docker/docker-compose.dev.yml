@@ -3,8 +3,7 @@ version: '3.8'
 services:
     db:
         volumes:
-          - ./db/dev/postgis-data/data:/var/lib/postgresql/data
-
+          - /home/postgis-docker/django-futils/dev/data:/var/lib/postgresql/data
     web:
         volumes:
           - ./db/dev/data:/code/django/data

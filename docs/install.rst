@@ -175,18 +175,18 @@ User
 ````
 
 A new user, ``postgis-docker``, needs to be created to run the app.
+Moreover, all the needed volumes must be created before running the app.
 
 ::
 
 
     # useradd -m -s /bin/bash -u 999 -U postgis-docker
-    # usermod -aG ${developer_group} postgis-docker
-    # cd django-futils/..
-    # chmod 770 django-futils
-    # usermod -aG docker postgis-docker
-    # sudo -i -u postgis-docker
-    $ cd django-futils
-
+    # mkdir -p /home/postgis-docker/django-futils/dev/data
+    # mkdir -p ./db/dev/data
+    # chown -R postgis-docker:postgis-docker /home/postgis-docker/django-futils
+    # chown -R ${developer}:${developer_group} ./db/dev/data
+    # chmod 700 -R /home/postgis-docker/django-futils
+    # chmod 700 -R ./db
 
 Finally, run ``make docker.build.dev`` or ``make docker.build.prod`` depending on what you have to do.
 
