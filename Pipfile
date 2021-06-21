@@ -29,6 +29,7 @@ django-simple-history = "~=3.0"
 ## Remove dangling files.
 django-cleanup = "~=5.2"
 django-hashid-field = "~=3.2"
+django-import-export = "~=2.5"
 
 # Postgres.
 # If you prefer to avoid building psycopg2 from source, please install the PyPI

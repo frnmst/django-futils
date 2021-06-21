@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'django_countries',
     'django.contrib.gis',
     'django_extensions',
+    'import_export',
     'django_futils.apps.DjangoFutilsConfig',
     'django_futils.apps.DjangoFutilsDefaultAdminConfig',
     'django.contrib.auth',

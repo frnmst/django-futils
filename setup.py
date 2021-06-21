@@ -55,6 +55,7 @@ setup(
         'django-simple-history>=3.0,<3.1',
         'django-cleanup>=5.2,<5.3',
         'django-hashid-field>=3.2,<3.3',
+        'django-import-export>=2.5,<2.6',
         'psycopg2-binary>=2.8,<2.9',
         'django-extensions>=3.1,<3.2',
         'django-leaflet>=0.28,<0.29',

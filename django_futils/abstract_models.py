@@ -154,8 +154,8 @@ class AbstractHasPrimary(AbstractRecordTimestamps):
         abstract = True
 
     def delete(self, *args, **kwargs):
-        if self.is_primary:
-            raise ValidationError(_('cannot delete primary object'))
+        if not self._can_be_empty and self.is_primary:
+            raise ValidationError(_('cannot delete a primary required object'))
         else:
             super().delete(*args, **kwargs)
 
@@ -165,6 +165,10 @@ class AbstractTelephoneCommon(AbstractHasPrimary):
     has_whatsapp = models.BooleanField(_('has whatsapp'), default=False)
     has_telegram = models.BooleanField(_('has telegram'), default=False)
     is_primary = models.BooleanField(_('primary'), default=False)
+
+    @property
+    def _can_be_empty(self):
+        return False
 
     def __str__(self):
         return str(self.number)
@@ -210,6 +214,10 @@ class AbstractEmailCommon(AbstractHasPrimary):
                               max_length=const.EMAIL_MAX_LENGTH,
                               unique=True,
                               db_index=True)
+
+    @property
+    def _can_be_empty(self):
+        return True
 
     class Meta:
         abstract = True
@@ -261,6 +269,10 @@ class AbstractAddressCommon(AbstractHasPrimary):
                                    max_length=const.GENERIC_CHAR_FIELD_LENGTH,
                                    blank=True)
     auto_fill = models.BooleanField(_('auto fill'), default=False)
+
+    @property
+    def _can_be_empty(self):
+        return False
 
     class Meta:
         abstract = True

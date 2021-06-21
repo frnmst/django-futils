@@ -32,16 +32,32 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from simple_history.admin import SimpleHistoryAdmin
+from import_export import resources
+from . import abstract_models
+from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 
 from .formsets import HasPrimaryInlineFormSet
 from django.conf import settings
 from . import constants as const
 
 
+#################
+# Import Export #
+#################
+class AbstractRecordTimestampsResource(resources.ModelResource):
+    class Meta:
+        model = abstract_models.AbstractRecordTimestamps
+
+
+class AbstractBasicElementResource(resources.ModelResource):
+    class Meta:
+        model = abstract_models.AbstractBasicElement
+
+
 ################
 # Base classes #
 ################
-class BaseAdmin(SimpleHistoryAdmin):
+class BaseAdmin(SimpleHistoryAdmin, ImportExportActionModelAdmin):
     list_per_page = 10
     readonly_fields = ('id', 'serial_id', )
     ordering = ('id',)
@@ -50,7 +66,6 @@ class BaseAdmin(SimpleHistoryAdmin):
 
 
 class TypeBaseAdmin(BaseAdmin):
-    actions = ('delete_selected',)
     readonly_fields = ('id', 'serial_id', )
     list_display = (
         'id',
@@ -61,7 +76,6 @@ class TypeBaseAdmin(BaseAdmin):
 
 
 class NameBaseAdmin(BaseAdmin):
-    actions = ('delete_selected',)
     readonly_fields = ('id', 'serial_id', )
     list_display = (
         'id',
@@ -128,8 +142,8 @@ class AddressCommonAdmin(BaseMapAdmin):
 ##########
 # Leaves #
 ##########
+
 class AbstractCompanyAddressAdmin(AddressCommonAdmin):
-    actions = ['delete_selected']
     readonly_fields = (
         'id',
         'serial_id',
@@ -204,7 +218,6 @@ class AbstractMunicipalityAdmin(NameBaseAdmin):
 
 
 class AbstractGeocoderCacheAdmin(OSMGeoAdmin, BaseAdmin):
-    actions = ['delete_selected']
     readonly_fields = (
         'id',
         'serial_id',
@@ -452,13 +465,6 @@ class AbstractPersonEmailAdmin(BaseAdmin):
                 return self.readonly_fields + ('is_primary', 'person',)
         return self.readonly_fields
 
-    def has_delete_permission(self, request, obj=None):
-        change = True
-        if obj is not None:
-            if obj.is_primary:
-                change = False
-        return change
-
 
 class AbstractCompanyEmailAdmin(BaseAdmin):
     readonly_fields = (
@@ -501,13 +507,6 @@ class AbstractCompanyEmailAdmin(BaseAdmin):
             if obj.is_primary:
                 return self.readonly_fields + ('is_primary', 'company', )
         return self.readonly_fields
-
-    def has_delete_permission(self, request, obj=None):
-        change = True
-        if obj is not None:
-            if obj.is_primary:
-                change = False
-        return change
 
 
 class AbstractPersonTelephoneAdmin(BaseAdmin):
