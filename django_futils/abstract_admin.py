@@ -685,3 +685,12 @@ class AbstractCompanyAdmin(BaseAdmin):
         'vat',
     )
     search_fields = ('name', 'vat', )
+
+    if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
+        raw_id_fields = (
+            'person',
+        )
+    elif settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_AUTOCOMPLETE:
+        autocomplete_fields = (
+            'person',
+        )

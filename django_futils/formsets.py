@@ -29,5 +29,5 @@ class HasPrimaryInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
         for form in self.deleted_forms:
-            if form.instance.is_primary:
+            if not form.instance._can_be_empty and form.instance.is_primary:
                 raise ValidationError(_('cannot delete primary object'))

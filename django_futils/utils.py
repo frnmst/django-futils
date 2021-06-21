@@ -72,6 +72,15 @@ def save_primary(self, field_name: str, field_value: str):
         self.is_primary = True
 
 
+def set_primary_next_element(self):
+    r"""Assign is_primary=True of an object to a different one."""
+    obj = type(self).objects.first()
+    if obj is not None:
+        obj.is_primary = True
+
+    return obj
+
+
 # In case of renaming these functions you must change the migration files. See:
 # https://groups.google.com/d/msg/django-users/LK8zq-3tDnA/yTF_3XXcl5gJ
 def personattachment_directory_path(instance, filename: str) -> str:

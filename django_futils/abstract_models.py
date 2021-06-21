@@ -31,7 +31,7 @@ from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
 from hashid_field import Hashid
-from .utils import personattachment_directory_path, get_address_data, save_primary
+from .utils import personattachment_directory_path, get_address_data, save_primary, set_primary_next_element
 import django_futils.constants as const
 
 
@@ -147,17 +147,28 @@ class AbstractCommonAttachment(AbstractRecordTimestamps):
         return self.name
 
 
+class AbstractHasPrimaryQuerySet(models.QuerySet):
+    # This operation is slow for bulk deletes
+    def delete(self, *args, **kwargs):
+        for obj in self:
+            if not obj._can_be_empty and obj.is_primary:
+                raise ValidationError(_('cannot delete a primary required object'))
+            else:
+                r = obj
+                obj.delete()
+                s = set_primary_next_element(r)
+                if s is not None:
+                    s.save()
+
+        super(AbstractHasPrimaryQuerySet, self).delete(*args, **kwargs)
+
+
 class AbstractHasPrimary(AbstractRecordTimestamps):
+    objects = AbstractHasPrimaryQuerySet.as_manager()
     is_primary = models.BooleanField(_('is primary'), default=False)
 
     class Meta:
         abstract = True
-
-    def delete(self, *args, **kwargs):
-        if not self._can_be_empty and self.is_primary:
-            raise ValidationError(_('cannot delete a primary required object'))
-        else:
-            super().delete(*args, **kwargs)
 
 
 class AbstractTelephoneCommon(AbstractHasPrimary):
