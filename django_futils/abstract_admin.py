@@ -636,6 +636,11 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
             'type',
         )
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # editing an existing object
+            return self.readonly_fields + ('person',)
+        return self.readonly_fields
+
 
 class AbstractPersonAdmin(BaseAdmin):
     readonly_fields = (
