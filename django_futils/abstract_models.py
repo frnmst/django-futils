@@ -30,7 +30,6 @@ from phone_field import PhoneField
 from vies.models import VATINField
 from simple_history.models import HistoricalRecords
 from django.utils.translation import gettext_lazy as _
-from hashid_field import Hashid
 from .utils import personattachment_directory_path, get_address_data, save_primary, set_primary_next_element
 import django_futils.constants as const
 
@@ -39,10 +38,6 @@ class AbstractRecordTimestamps(models.Model):
     added = models.DateTimeField(_('added'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
     history = HistoricalRecords(inherit=True)
-
-    @property
-    def serial_id(self):
-        return Hashid(self.id, min_length=16, salt=settings.HASHID_FIELD_SALT)
 
     class Meta:
         abstract = True
@@ -54,10 +49,6 @@ class AbstractBasicElement(models.Model):
                             unique=True)
     description = models.TextField(_('description'), blank=True, null=True)
     history = HistoricalRecords(inherit=True)
-
-    @property
-    def serial_id(self):
-        return Hashid(self.id, min_length=16, salt=settings.HASHID_FIELD_SALT)
 
     class Meta:
         abstract = True

@@ -59,36 +59,35 @@ class AbstractBasicElementResource(resources.ModelResource):
 ################
 class BaseAdmin(SimpleHistoryAdmin, ImportExportActionModelAdmin):
     list_per_page = 10
-    readonly_fields = ('id', 'serial_id', )
-    ordering = ('id',)
+    readonly_fields = ('id', )
+    ordering = ('id', )
     change_form_template = "django_futils/detail_change_form.html"
-    list_display_links = ('id', 'serial_id', )
 
 
 class TypeBaseAdmin(BaseAdmin):
-    readonly_fields = ('id', 'serial_id', )
+    readonly_fields = ('id', )
     list_display = (
         'id',
-        'serial_id',
         'code',
         'type',
     )
+    list_display_links = list_display
 
 
 class NameBaseAdmin(BaseAdmin):
-    readonly_fields = ('id', 'serial_id', )
+    readonly_fields = ('id', )
     list_display = (
         'id',
-        'serial_id',
         'code',
         'name',
     )
+    list_display_links = list_display
 
 
 class BaseAdminInline(admin.StackedInline):
     SHOW_IDS = True
     if SHOW_IDS:
-        readonly_fields = ('id', 'serial_id', )
+        readonly_fields = ('id', )
     else:
         readonly_fields = ()
 
@@ -146,13 +145,11 @@ class AddressCommonAdmin(BaseMapAdmin):
 class AbstractCompanyAddressAdmin(AddressCommonAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'street_number',
         'street',
         'city',
@@ -160,6 +157,7 @@ class AbstractCompanyAddressAdmin(AddressCommonAdmin):
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = ('company', )
     list_per_page = 10
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -220,19 +218,18 @@ class AbstractMunicipalityAdmin(NameBaseAdmin):
 class AbstractGeocoderCacheAdmin(OSMGeoAdmin, BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
         'cache_hits',
     )
     list_display = (
         'id',
-        'serial_id',
         'street_number',
         'street',
         'city',
         'country_code',
     )
+    list_display_links = list_display
 
 
 ###########
@@ -294,7 +291,6 @@ class AbstractPersonEmailAdminInline(BaseAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
-        'serial_id',
         'is_primary',
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -307,7 +303,6 @@ class AbstractCompanyEmailAdminInline(BaseAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
-        'serial_id',
         'is_primary',
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -320,7 +315,6 @@ class AbstractPersonTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
-        'serial_id',
         'is_primary',
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -333,7 +327,6 @@ class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
     formset = HasPrimaryInlineFormSet
     readonly_fields = (
         'id',
-        'serial_id',
         'is_primary',
     )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
@@ -345,12 +338,11 @@ class AbstractCompanyTelephoneAdminInline(BaseOneElementMandatoryAdminInline):
 class AbstractPersonAdminInline(BaseAdminInline):
     readonly_fields = (
         'id',
-        'serial_id',
     )
 
 
 class AbstractPersonAttachmentAdminInline(BaseAdminInline):
-    readonly_fields = ('id', 'serial_id', )
+    readonly_fields = ('id', )
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:
         raw_id_fields = (
             'type',
@@ -367,13 +359,11 @@ class AbstractPersonAttachmentAdminInline(BaseAdminInline):
 class AbstractPersonAddressAdmin(AddressCommonAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'street_number',
         'street',
         'city',
@@ -381,6 +371,7 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = (
         'person',
         'type',
@@ -425,18 +416,17 @@ class AbstractPersonAddressAdmin(AddressCommonAdmin):
 class AbstractPersonEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'email',
         'person',
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = (
         'person',
         'type',
@@ -469,18 +459,17 @@ class AbstractPersonEmailAdmin(BaseAdmin):
 class AbstractCompanyEmailAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'email',
         'company',
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = (
         'company',
         'type',
@@ -512,18 +501,17 @@ class AbstractCompanyEmailAdmin(BaseAdmin):
 class AbstractPersonTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'number',
         'person',
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = (
         'person',
         'type',
@@ -563,18 +551,17 @@ class AbstractPersonTelephoneAdmin(BaseAdmin):
 class AbstractCompanyTelephoneAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'number',
         'company',
         'type',
         'is_primary',
     )
+    list_display_links = list_display
     list_select_related = (
         'company',
         'type',
@@ -613,11 +600,17 @@ class AbstractCompanyTelephoneAdmin(BaseAdmin):
 class AbstractPersonAttachmentAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
-    list_display = ('id', 'serial_id', 'person', 'file', 'added', 'updated')
+    list_display = (
+        'id',
+        'person',
+        'file',
+        'added',
+        'updated'
+    )
+    list_display_links = list_display
     list_select_related = ('person', )
     search_fields = (
         'id',
@@ -645,17 +638,16 @@ class AbstractPersonAttachmentAdmin(BaseAdmin):
 class AbstractPersonAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
         'added',
         'updated',
     )
     list_display = (
         'id',
-        'serial_id',
         'first_name',
         'last_name',
         'fiscal_code',
     )
+    list_display_links = list_display
     search_fields = (
         'first_name',
         'last_name',
@@ -677,18 +669,16 @@ class AbstractPersonAdmin(BaseAdmin):
 class AbstractCompanyAdmin(BaseAdmin):
     readonly_fields = (
         'id',
-        'serial_id',
-        'serial_id',
         'added',
         'updated',
         'is_primary',
     )
     list_display = (
         'id',
-        'serial_id',
         'name',
         'vat',
     )
+    list_display_links = list_display
     search_fields = ('name', 'vat', )
 
     if settings.FOREIGN_KEY_FIELDS == const.FOREIGN_KEY_FIELDS_RAW:

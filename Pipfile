@@ -28,7 +28,6 @@ django-vies = "~=6.0"
 django-simple-history = "~=3.0"
 ## Remove dangling files.
 django-cleanup = "~=5.2"
-django-hashid-field = "~=3.2"
 django-import-export = "~=2.5"
 
 # Postgres.
