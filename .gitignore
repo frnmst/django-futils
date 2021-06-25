@@ -5,6 +5,7 @@
 django_futils/__pycache__
 /SECRET_SETTINGS.*
 !/SECRET_SETTINGS.dist.py
+/uwsgi.ini
 /static
 /docs/dbschema.svg
 /*/migrations
