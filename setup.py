@@ -49,6 +49,7 @@ setup(
     install_requires=[
         'Django>=3.2,<3.3',
         'requests>=2.25,<2.26',
+        'uwsgi>=2.0,<2.1',
         'django-countries>=7.1,<7.2',
         'django-phone-field>=1.8,<1.9',
         'django-vies>=6.0,<6.1',

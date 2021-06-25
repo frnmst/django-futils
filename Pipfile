@@ -18,7 +18,7 @@ pre-commit = "~=2.13"
 [packages]
 # Base.
 Django = "~=3.2"
-uwsgi = "~=2.0.19.1"
+uwsgi = "~=2.0"
 requests = "~=2.25"
 
 # Models.
