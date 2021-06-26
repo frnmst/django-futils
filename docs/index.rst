@@ -10,6 +10,7 @@ Welcome to django-futils's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   overview
    install
    installation_in_other_projects
    running

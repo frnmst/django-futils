@@ -28,21 +28,10 @@ variable (among other apps) in the settings file. See below:
        'vies',
        'phone_field',
        'leaflet',
+       'import_export',
        ...
     ]
 
-
-Abstract models contain all the necessary variables, attributes and methods,
-except foreign keys which are implemented in the concrete models: concrete
-models inherit everything from the abstract models. You can use these concrete
-models directly or override them. The admin part follows this same philosophy.
-
-Primary objects are instances with the ``is_primary`` attribute set to ``True``.
-Usually these objects are not deletable because they are used to keep data
-integrity. For example a person must have at least one address and telephone
-number and if you want to delete the address, or the telephone number
-you must delete the whole person. If you have multiple addresses you can change
-the primary address and then execute a deletion.
 
 Documentation
 -------------
@@ -78,5 +67,6 @@ Crypto donations
 ----------------
 
 - Bitcoin: bc1qnkflazapw3hjupawj0lm39dh9xt88s7zal5mwu
+- Monero: 84KHWDTd9hbPyGwikk33Qp5GW7o7zRwPb8kJ6u93zs4sNMpDSnM5ZTWVnUp2cudRYNT6rNqctnMQ9NbUewbj7MzCBUcrQEY
 - Dogecoin: DMB5h2GhHiTNW7EcmDnqkYpKs6Da2wK3zP
 - Vertcoin: vtc1qd8n3jvkd2vwrr6cpejkd9wavp4ld6xfu9hkhh0
