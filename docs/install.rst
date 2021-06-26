@@ -1,15 +1,18 @@
 Installation
 ============
 
-Secret settings file
---------------------
+Distribution files
+------------------
 
-First of copy these files and then edit them if needed:
+django-futils uses `dist` files for some configurations. These files end
+with the `dist` suffix and are example files for configurations. What
+you need to do is to copy them to new files without the `.dist` suffix and edit
+them as you like:
 
-- copy ``./SECRET_SETTINGS.dist.py`` into ``./SECRET_SETTINGS.py``
-- copy ``./env.dist`` into ``./.env``
+- ``./SECRET_SETTINGS.py.dist``
+- ``./env.dist``
 
-.. important:: Generate a new secret key and replace the once in the ``./SECRET_SETTINGS.py`` file. Run:
+.. important:: Once everything is installed and working generate a new secret key and replace the once in the ``./SECRET_SETTINGS.py`` file. Run:
 
 
   ::
@@ -19,115 +22,15 @@ First of copy these files and then edit them if needed:
 
 
 
-Have a look at the bottom of ``./SECRET_SETTINGS.py``. You will see the database settings
-both for Docker and to be able to run the the app on *bare metal*.
-By default the Docker credential are enabled so . Change them if needed.
+Makefile and uwsgi.ini
+----------------------
 
-Makefile
---------
+Follow these instructions to download some required files:
 
-Follow these instructions to download the makefile:
-
-- https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django/src/branch/master#the-makefile
-
-Installation in another project
--------------------------------
-
-You can run this command, where ``${VERSION}`` corresponds to a git tag or branch,
-such as ``0.0.3``.
-
-::
-
-
-    pip3 install git+https://software.franco.net.eu.org/frnmst/django-futils.git@${VERSION}
-
-
-Bare metal
-----------
+-  https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django/src/branch/master#other-files
 
 Prerequsites
-````````````
-
-Install these packages from your package manager or from PyPI:
-
-+----------------------+---------------------+------------------+
-| Name                 | Binaries            | Version          |
-+======================+=====================+==================+
-| GNU make             | - make              | 4.3              |
-+----------------------+---------------------+------------------+
-| PostgreSQL           | - postgres          | 12.4             |
-+----------------------+---------------------+------------------+
-| Postgis              |                     | 3.0.2            |
-+----------------------+---------------------+------------------+
-| Graphviz             |                     | 2.44.1           |
-+----------------------+---------------------+------------------+
-| pipenv               | - pipenv            |                  |
-+----------------------+---------------------+------------------+
-| Python               | - python3           | 3.8              |
-+----------------------+---------------------+------------------+
-
-Debian GNU/Linux
-~~~~~~~~~~~~~~~~
-
-
-::
-
-
-    # apt-get install libgraphviz-dev
-
-
-PostgreSQL
-``````````
-
-Initialize PostgreSQL
-
-
-::
-
-
-    # This applies to the first start of PostgreSQL only
-    initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
-
-    sudo -i -u postgres
-
-    # We will call the newly created user ${DB_USER}
-    createuser --interactive
-
-
-Add the PostGIS extension to the template. From now on every new database,
-including test databases, will have this extension enabled.
-
-
-::
-
-
-    psql template1
-    CREATE EXTENSION postgis;
-    exit
-
-
-Create the database with the new user:
-
-
-::
-
-
-    createdb -O ${DB_USER} ${DB_NAME}
-
-
-where the ``DB_USER`` and ``DB_NAME`` variables must be the same as the ones reported in ``./SECRET_SETTINGS.py``.
-
-Initialization
-``````````````
-
-Run ``make init``
-
-
-Docker
-------
-
-Prerequsites
-````````````
+------------
 
 Install these packages from your package manager or from PyPI:
 
@@ -148,18 +51,19 @@ Install these packages from your package manager or from PyPI:
 +----------------------+---------------------+------------------+
 
 Debian GNU/Linux
-~~~~~~~~~~~~~~~~
+````````````````
+
+These commands will help having everything working, including
+building the documentation on Debian GNU/Linux:
 
 
 ::
 
 
-    # apt-get install libgraphviz-dev
+    # apt-get install libgdal-dev libgraphviz-dev graphviz
     $ pip3 install docker-compose graphviz
+    $ make install-dev
 
-
-Docker
-``````
 
 Start and enable the Docker service
 
@@ -171,11 +75,8 @@ Start and enable the Docker service
     # systemctl enable docker
 
 
-User
-````
-
 A new user, ``postgis-docker``, needs to be created to run the app.
-Moreover, all the needed volumes must be created before running the app.
+Moreover, all the needed directories must be created **before** running the app.
 
 ::
 
@@ -190,10 +91,8 @@ Moreover, all the needed volumes must be created before running the app.
 
 Finally, run ``make docker.build.dev`` or ``make docker.build.prod`` depending on what you have to do.
 
-Run ``# chown postgis-docker:postgis-docker ./db/dev/data`` if you have persmission problems when saving files.
-
 Default credentials and variables
-`````````````````````````````````
+---------------------------------
 
 +---------------------------+---------------------+
 | Description               | Value               |

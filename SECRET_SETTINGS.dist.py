@@ -76,15 +76,7 @@ VIEWS_APP_LABEL = 'django_futils'
 ############
 # Database #
 ############
-# Bare metal.
 
-# DB_NAME = 'futils'
-# DB_USER = 'futils'
-# DB_PASSWORD = 'futils'
-# DB_HOST = '127.0.0.1'
-# DB_PORT = '5432'
-
-# Docker.
 if 'DJANGO_ENV' in os.environ:
     if os.environ['DJANGO_ENV'] == 'development':
         DB_NAME = 'postgres_dev'

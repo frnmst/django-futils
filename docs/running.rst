@@ -1,65 +1,52 @@
 Running
 =======
 
-Bare metal
-----------
-
-Set the ``DEBUG`` and ``DJANGO_ENV`` environment variables.
-
-+----------------+---------------------------------+--------------------+
-| Variable       | Values                          | Default value      |
-+================+=================================+====================+
-| ``DEBUG``      | ``True``, ``False``             | ``True``           |
-+----------------+---------------------------------+--------------------+
-| ``DJANGO_ENV`` | ``development``, ``production`` | ``development``    |
-+----------------+---------------------------------+--------------------+
-
-You can set the variables like this:
-
-::
-
-
-    export DEBUG=True
-    export DJANGO_ENV=development
-
-
 Development
-```````````
+-----------
+
+The first time you run django-futils you need to initialize the database:
 
 
 ::
 
-    make serve-dev
+
+    make docker.up.dev.debug.volume.init
+
+
+To serve the app:
+
+
+::
+
+
+    make docker.up.dev.debug.volume.serve
+
 
 
 Production
-``````````
+----------
 
-
-::
-
-    make serve-prod
-
-
-Docker
-------
-
-You have various options to manage the containers. Have a look at the Makefile in the root directory.
-
-Docker related make targets have this name format:
+The first time you run django-futils you need to initialize the database:
 
 
 ::
 
 
-    docker.{build,up,down,run,rm}.{dev,prod}[.{debug,no-debug},{volume,no-volume}.{init,shell,serve}]
+    make docker.up.prod.no-debug.no-volume.init
 
 
+To serve the app:
 
-If you want to have a quick look run ``make docker.up.dev.debug.volume.serve``
+
+::
+
+
+    make docker.up.prod.no-debug.no-volume.serve
+
 
 Tests
-`````
+-----
+
 
 To run the tests you need to build the image and initialize it, then:
 
@@ -68,3 +55,39 @@ To run the tests you need to build the image and initialize it, then:
 
 
     make docker.up.dev.debug.volume.test
+
+
+Shell
+-----
+
+Development
+```````````
+
+
+::
+
+
+    make docker.run.dev.debug.volume.shell
+
+
+Production
+``````````
+
+
+::
+
+
+    make docker.run.prod.no-debug.no-volume.shell
+
+
+
+Docker makefile target structure
+````````````````````````````````
+
+Docker related make targets have this name format:
+
+
+::
+
+
+    docker.{build,up,down,run,rm}.{dev,prod}[.{debug,no-debug},{volume,no-volume}.{init,shell,serve}]

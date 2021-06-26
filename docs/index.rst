@@ -11,6 +11,7 @@ Welcome to django-futils's documentation!
    :caption: Contents:
 
    install
+   installation_in_other_projects
    running
    views
    extras

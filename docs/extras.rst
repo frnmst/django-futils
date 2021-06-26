@@ -20,6 +20,16 @@ Add this to the settings file of your project that uses django-futils.
     LOCALE_PATHS.append(os.path.join(BASE_DIR, DJANGO_FUTILS_LOCALE_DIR_SUFFIX))
 
 
+Add this to the Dockerfile:
+
+
+::
+
+
+    # Include translations for django-futils.
+    COPY --chown=django:django ./django_futils /code/django/django_futils/
+
+
 .. important:: Don't forget to add ``/django_futils/`` to ``.gitignore``.
 
 Continuous integration
@@ -110,13 +120,3 @@ You can find sample systemd service and timer files here:
 
 - https://projects.torsion.org/witten/borgmatic/raw/branch/master/sample/systemd/borgmatic.service
 - https://projects.torsion.org/witten/borgmatic/raw/branch/master/sample/systemd/borgmatic.timer
-
-Database replication
---------------------
-
-Replication of the database must be done at the database level, not by docker.
-See:
-
-- https://cloud.google.com/community/tutorials/setting-up-postgres-hot-standby
-- https://stackoverflow.com/questions/60220907/high-availability-database-postgresql-with-docker-swarm
-- https://www.opsdash.com/blog/postgresql-streaming-replication-howto.html
