@@ -1,11 +1,20 @@
+# Dist files.
+/SECRET_SETTINGS.*
+!/SECRET_SETTINGS.py.dist
+!/uwsgi.ini.dist
+/uwsgi.ini
+/docker/docker-compose.dev.yml
+/docker/docker-compose.prod.yml
+/docker/docker-compose.serve_dev.yml
+/docker/docker-compose.serve_prod.yml
+/docker/docker-compose.test_dev.yml
+
+# Other.
 /ci.sh
 /Makefile
 /Pipfile.lock
 /django_futils/__pycache__/
 django_futils/__pycache__
-/SECRET_SETTINGS.*
-!/SECRET_SETTINGS.dist.py
-/uwsgi.ini
 /static
 /docs/dbschema.svg
 /*/migrations
