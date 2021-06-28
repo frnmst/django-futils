@@ -11,6 +11,11 @@ them as you like:
 
 - ``./SECRET_SETTINGS.py.dist``
 - ``./env.dist``
+- ``./docker/docker-compose.dev.yml.dist``
+- ``./docker/docker-compose.prod.yml.dist``
+- ``./docker/docker-compose.serve_dev.yml.dist``
+- ``./docker/docker-compose.serve_prod.yml.dist``
+- ``./docker/docker-compose.test_dev.yml.dist``
 
 .. important:: Once everything is installed and working generate a new secret key and replace the once in the ``./SECRET_SETTINGS.py`` file. Run:
 
