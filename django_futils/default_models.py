@@ -22,36 +22,36 @@
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from .abstract_models import (AbstractAddressType, AbstractEmailType, AbstractTelephoneType, AbstractAttachmentType, AbstractMunicipality, AbstractPersonTelephone, AbstractCompanyTelephone, AbstractPersonEmail, AbstractCompanyEmail, AbstractPersonAddress, AbstractCompanyAddress, AbstractCompany, AbstractPerson, AbstractPersonAttachment, AbstractGeocoderCache)
+from . import abstract_models as DFU_abstract_models
 
 
 ################
 # Type classes #
 ################
-class AddressType(AbstractAddressType):
+class AddressType(DFU_abstract_models.AbstractAddressType):
     pass
 
 
-class EmailType(AbstractEmailType):
+class EmailType(DFU_abstract_models.AbstractEmailType):
     pass
 
 
-class TelephoneType(AbstractTelephoneType):
+class TelephoneType(DFU_abstract_models.AbstractTelephoneType):
     pass
 
 
-class AttachmentType(AbstractAttachmentType):
+class AttachmentType(DFU_abstract_models.AbstractAttachmentType):
     pass
 
 
 ###################
 # Element classes #
 ###################
-class Municipality(AbstractMunicipality):
+class Municipality(DFU_abstract_models.AbstractMunicipality):
     pass
 
 
-class PersonTelephone(AbstractPersonTelephone):
+class PersonTelephone(DFU_abstract_models.AbstractPersonTelephone):
     type = models.ForeignKey(
         'TelephoneType',
         related_name='persontelephone_of_this_telephonetype',
@@ -65,7 +65,7 @@ class PersonTelephone(AbstractPersonTelephone):
         verbose_name=_('person'),
     )
 
-    class Meta(AbstractPersonTelephone.Meta):
+    class Meta(DFU_abstract_models.AbstractPersonTelephone.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'person'],
@@ -73,7 +73,7 @@ class PersonTelephone(AbstractPersonTelephone):
         ]
 
 
-class CompanyTelephone(AbstractCompanyTelephone):
+class CompanyTelephone(DFU_abstract_models.AbstractCompanyTelephone):
     type = models.ForeignKey(
         'TelephoneType',
         related_name='companytelephone_of_this_telephonetype',
@@ -87,7 +87,7 @@ class CompanyTelephone(AbstractCompanyTelephone):
         verbose_name=_('company'),
     )
 
-    class Meta(AbstractCompanyTelephone.Meta):
+    class Meta(DFU_abstract_models.AbstractCompanyTelephone.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['number', 'type', 'company'],
@@ -95,7 +95,7 @@ class CompanyTelephone(AbstractCompanyTelephone):
         ]
 
 
-class PersonEmail(AbstractPersonEmail):
+class PersonEmail(DFU_abstract_models.AbstractPersonEmail):
     type = models.ForeignKey(
         'EmailType',
         related_name='personemail_of_this_emailtype',
@@ -109,7 +109,7 @@ class PersonEmail(AbstractPersonEmail):
         verbose_name=_('person'),
     )
 
-    class Meta(AbstractPersonEmail.Meta):
+    class Meta(DFU_abstract_models.AbstractPersonEmail.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'person'],
@@ -117,7 +117,7 @@ class PersonEmail(AbstractPersonEmail):
         ]
 
 
-class CompanyEmail(AbstractCompanyEmail):
+class CompanyEmail(DFU_abstract_models.AbstractCompanyEmail):
     type = models.ForeignKey(
         'EmailType',
         related_name='companyemail_of_this_emailtype',
@@ -131,7 +131,7 @@ class CompanyEmail(AbstractCompanyEmail):
         verbose_name=_('company'),
     )
 
-    class Meta(AbstractCompanyEmail.Meta):
+    class Meta(DFU_abstract_models.AbstractCompanyEmail.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['email', 'type', 'company'],
@@ -139,7 +139,7 @@ class CompanyEmail(AbstractCompanyEmail):
         ]
 
 
-class PersonAddress(AbstractPersonAddress):
+class PersonAddress(DFU_abstract_models.AbstractPersonAddress):
     type = models.ForeignKey(
         'AddressType',
         related_name='personaddress_of_this_addresstype',
@@ -159,7 +159,7 @@ class PersonAddress(AbstractPersonAddress):
         verbose_name=_('person'),
     )
 
-    class Meta(AbstractPersonAddress.Meta):
+    class Meta(DFU_abstract_models.AbstractPersonAddress.Meta):
         constraints = [
             # See
             # https://stackoverflow.com/questions/55044802/django-admin-inline-unique-constraint-violation-on-edit
@@ -171,7 +171,7 @@ class PersonAddress(AbstractPersonAddress):
         ]
 
 
-class CompanyAddress(AbstractCompanyAddress):
+class CompanyAddress(DFU_abstract_models.AbstractCompanyAddress):
     type = models.ForeignKey(
         'AddressType',
         related_name='companyaddress_of_this_addresstype',
@@ -191,7 +191,7 @@ class CompanyAddress(AbstractCompanyAddress):
         verbose_name=_('company'),
     )
 
-    class Meta(AbstractCompanyAddress.Meta):
+    class Meta(DFU_abstract_models.AbstractCompanyAddress.Meta):
         constraints = [
             models.UniqueConstraint(
                 fields=['street_number', 'street', 'city', 'municipality', 'type', 'company'],
@@ -199,7 +199,7 @@ class CompanyAddress(AbstractCompanyAddress):
         ]
 
 
-class PersonAttachment(AbstractPersonAttachment):
+class PersonAttachment(DFU_abstract_models.AbstractPersonAttachment):
     type = models.ForeignKey(
         'AttachmentType',
         related_name='personattachment_of_this_attachmenttype',
@@ -214,11 +214,11 @@ class PersonAttachment(AbstractPersonAttachment):
     )
 
 
-class Person(AbstractPerson):
+class Person(DFU_abstract_models.AbstractPerson):
     pass
 
 
-class Company(AbstractCompany):
+class Company(DFU_abstract_models.AbstractCompany):
     person = models.ForeignKey(
         'Person',
         related_name='company_of_this_person',
@@ -226,7 +226,7 @@ class Company(AbstractCompany):
         verbose_name=_('person'),
     )
 
-    class Meta(AbstractCompany.Meta):
+    class Meta(DFU_abstract_models.AbstractCompany.Meta):
         constraints = [
             models.UniqueConstraint(fields=['person'],
                                     condition=Q(is_primary=True),
@@ -234,5 +234,5 @@ class Company(AbstractCompany):
         ]
 
 
-class GeocoderCache(AbstractGeocoderCache):
+class GeocoderCache(DFU_abstract_models.AbstractGeocoderCache):
     pass

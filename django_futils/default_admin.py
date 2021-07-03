@@ -20,8 +20,8 @@
 #
 
 from django.contrib import admin
-from .default_models import AddressType, EmailType, TelephoneType, AttachmentType, CompanyAddress, CompanyEmail, CompanyTelephone, PersonAddress, PersonEmail, PersonTelephone, Company, PersonAttachment, Person, Municipality, GeocoderCache
-from .abstract_admin import AbstractAddressTypeAdmin, AbstractEmailTypeAdmin, AbstractTelephoneTypeAdmin, AbstractAttachmentTypeAdmin, AbstractMunicipalityAdmin, AbstractCompanyAddressAdmin, AbstractCompanyTelephoneAdmin, AbstractCompanyEmailAdmin, AbstractCompanyAdmin, AbstractCompanyEmailAdminInline, AbstractCompanyTelephoneAdminInline, AbstractCompanyAddressAdminInline, AbstractPersonEmailAdminInline, AbstractPersonTelephoneAdminInline, AbstractPersonAddressAdminInline, AbstractPersonAttachmentAdminInline, AbstractPersonAdmin, AbstractPersonAddressAdmin, AbstractPersonTelephoneAdmin, AbstractPersonEmailAdmin, AbstractPersonAttachmentAdmin, AbstractGeocoderCacheAdmin, AbstractCompanyAdminInline
+from . import default_models as DFU_default_models
+from . import abstract_admin as DFU_abstract_admin
 from django.conf import settings
 from . import constants as const
 from .utils import abstract_response_change
@@ -41,42 +41,42 @@ admin_site = MyAdminSite(name='admin')
 ###########
 # Inlines #
 ###########
-class CompanyAdminInline(AbstractCompanyAdminInline):
-    model = Company
+class CompanyAdminInline(DFU_abstract_admin.AbstractCompanyAdminInline):
+    model = DFU_default_models.Company
 
 
-class CompanyAddressAdminInline(AbstractCompanyAddressAdminInline):
-    model = CompanyAddress
+class CompanyAddressAdminInline(DFU_abstract_admin.AbstractCompanyAddressAdminInline):
+    model = DFU_default_models.CompanyAddress
 
 
-class CompanyEmailAdminInline(AbstractCompanyEmailAdminInline):
-    model = CompanyEmail
+class CompanyEmailAdminInline(DFU_abstract_admin.AbstractCompanyEmailAdminInline):
+    model = DFU_default_models.CompanyEmail
 
 
-class CompanyTelephoneAdminInline(AbstractCompanyTelephoneAdminInline):
-    model = CompanyTelephone
+class CompanyTelephoneAdminInline(DFU_abstract_admin.AbstractCompanyTelephoneAdminInline):
+    model = DFU_default_models.CompanyTelephone
 
 
-class PersonAddressAdminInline(AbstractPersonAddressAdminInline):
-    model = PersonAddress
+class PersonAddressAdminInline(DFU_abstract_admin.AbstractPersonAddressAdminInline):
+    model = DFU_default_models.PersonAddress
 
 
-class PersonEmailAdminInline(AbstractPersonEmailAdminInline):
-    model = PersonEmail
+class PersonEmailAdminInline(DFU_abstract_admin.AbstractPersonEmailAdminInline):
+    model = DFU_default_models.PersonEmail
 
 
-class PersonTelephoneAdminInline(AbstractPersonTelephoneAdminInline):
-    model = PersonTelephone
+class PersonTelephoneAdminInline(DFU_abstract_admin.AbstractPersonTelephoneAdminInline):
+    model = DFU_default_models.PersonTelephone
 
 
-class PersonAttachmentAdminInline(AbstractPersonAttachmentAdminInline):
-    model = PersonAttachment
+class PersonAttachmentAdminInline(DFU_abstract_admin.AbstractPersonAttachmentAdminInline):
+    model = DFU_default_models.PersonAttachment
 
 
 ##########
 # Normal #
 ##########
-class CompanyAdmin(AbstractCompanyAdmin):
+class CompanyAdmin(DFU_abstract_admin.AbstractCompanyAdmin):
     inlines = [
         CompanyAddressAdminInline,
         CompanyTelephoneAdminInline,
@@ -87,7 +87,7 @@ class CompanyAdmin(AbstractCompanyAdmin):
         return abstract_response_change(self, request, obj, settings.reverse_urls['CompanyDetailView'])
 
 
-class PersonAdmin(AbstractPersonAdmin):
+class PersonAdmin(DFU_abstract_admin.AbstractPersonAdmin):
     inlines = [
         PersonAddressAdminInline,
         PersonTelephoneAdminInline,
@@ -100,85 +100,85 @@ class PersonAdmin(AbstractPersonAdmin):
         return abstract_response_change(self, request, obj, settings.reverse_urls['PersonDetailView'])
 
 
-class AddressTypeAdmin(AbstractAddressTypeAdmin):
+class AddressTypeAdmin(DFU_abstract_admin.AbstractAddressTypeAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['AddressTypeDetailView'])
 
 
-class EmailTypeAdmin(AbstractEmailTypeAdmin):
+class EmailTypeAdmin(DFU_abstract_admin.AbstractEmailTypeAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['EmailTypeDetailView'])
 
 
-class TelephoneTypeAdmin(AbstractTelephoneTypeAdmin):
+class TelephoneTypeAdmin(DFU_abstract_admin.AbstractTelephoneTypeAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['TelephoneTypeDetailView'])
 
 
-class AttachmentTypeAdmin(AbstractAttachmentTypeAdmin):
+class AttachmentTypeAdmin(DFU_abstract_admin.AbstractAttachmentTypeAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['AttachmentTypeDetailView'])
 
 
-class MunicipalityAdmin(AbstractMunicipalityAdmin):
+class MunicipalityAdmin(DFU_abstract_admin.AbstractMunicipalityAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['MunicipalityDetailView'])
 
 
-class PersonAddressAdmin(AbstractPersonAddressAdmin):
+class PersonAddressAdmin(DFU_abstract_admin.AbstractPersonAddressAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['PersonAddressDetailView'])
 
 
-class PersonTelephoneAdmin(AbstractPersonTelephoneAdmin):
+class PersonTelephoneAdmin(DFU_abstract_admin.AbstractPersonTelephoneAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['PersonTelephoneDetailView'])
 
 
-class PersonAttachmentAdmin(AbstractPersonAttachmentAdmin):
+class PersonAttachmentAdmin(DFU_abstract_admin.AbstractPersonAttachmentAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['PersonAttachmentDetailView'])
 
 
-class PersonEmailAdmin(AbstractPersonEmailAdmin):
+class PersonEmailAdmin(DFU_abstract_admin.AbstractPersonEmailAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['PersonEmailDetailView'])
 
 
-class CompanyAddressAdmin(AbstractCompanyAddressAdmin):
+class CompanyAddressAdmin(DFU_abstract_admin.AbstractCompanyAddressAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['CompanyAddressDetailView'])
 
 
-class CompanyTelephoneAdmin(AbstractCompanyTelephoneAdmin):
+class CompanyTelephoneAdmin(DFU_abstract_admin.AbstractCompanyTelephoneAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['CompanyTelephoneDetailView'])
 
 
-class CompanyEmailAdmin(AbstractCompanyEmailAdmin):
+class CompanyEmailAdmin(DFU_abstract_admin.AbstractCompanyEmailAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['CompanyEmailDetailView'])
 
 
-class GeocoderCacheAdmin(AbstractGeocoderCacheAdmin):
+class GeocoderCacheAdmin(DFU_abstract_admin.AbstractGeocoderCacheAdmin):
     def response_change(self, request, obj):
         return abstract_response_change(self, request, obj, settings.reverse_urls['GeocoderCacheDetailView'])
 
 
 # Register like this and not with the decorator because we are
 # not using the default admin: we are admin_site instead
-admin_site.register(AddressType, AddressTypeAdmin)
-admin_site.register(EmailType, EmailTypeAdmin)
-admin_site.register(TelephoneType, TelephoneTypeAdmin)
-admin_site.register(AttachmentType, AttachmentTypeAdmin)
-admin_site.register(Municipality, MunicipalityAdmin)
-admin_site.register(PersonAddress, PersonAddressAdmin)
-admin_site.register(PersonTelephone, PersonTelephoneAdmin)
-admin_site.register(PersonAttachment, PersonAttachmentAdmin)
-admin_site.register(PersonEmail, PersonEmailAdmin)
-admin_site.register(CompanyAddress, CompanyAddressAdmin)
-admin_site.register(CompanyTelephone, CompanyTelephoneAdmin)
-admin_site.register(CompanyEmail, CompanyEmailAdmin)
-admin_site.register(Company, CompanyAdmin)
-admin_site.register(Person, PersonAdmin)
-admin_site.register(GeocoderCache, GeocoderCacheAdmin)
+admin_site.register(DFU_default_models.AddressType, AddressTypeAdmin)
+admin_site.register(DFU_default_models.EmailType, EmailTypeAdmin)
+admin_site.register(DFU_default_models.TelephoneType, TelephoneTypeAdmin)
+admin_site.register(DFU_default_models.AttachmentType, AttachmentTypeAdmin)
+admin_site.register(DFU_default_models.Municipality, MunicipalityAdmin)
+admin_site.register(DFU_default_models.PersonAddress, PersonAddressAdmin)
+admin_site.register(DFU_default_models.PersonTelephone, PersonTelephoneAdmin)
+admin_site.register(DFU_default_models.PersonAttachment, PersonAttachmentAdmin)
+admin_site.register(DFU_default_models.PersonEmail, PersonEmailAdmin)
+admin_site.register(DFU_default_models.CompanyAddress, CompanyAddressAdmin)
+admin_site.register(DFU_default_models.CompanyTelephone, CompanyTelephoneAdmin)
+admin_site.register(DFU_default_models.CompanyEmail, CompanyEmailAdmin)
+admin_site.register(DFU_default_models.Company, CompanyAdmin)
+admin_site.register(DFU_default_models.Person, PersonAdmin)
+admin_site.register(DFU_default_models.GeocoderCache, GeocoderCacheAdmin)
