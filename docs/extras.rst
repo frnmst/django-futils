@@ -1,37 +1,6 @@
 Extras
 ======
 
-Translations
-------------
-
-Add this to the settings file of your project that uses django-futils.
-
-
-::
-
-
-    # Copy the locale files of django-futils.
-    import shutil
-    import django_futils
-    DJANGO_FUTILS_LOCALE_DIR_SUFFIX = 'django_futils/locale'
-    futils_path = os.path.dirname(django_futils.__file__)
-    shutil.copytree(os.path.join(futils_path, 'locale'), os.path.join(BASE_DIR, DJANGO_FUTILS_LOCALE_DIR_SUFFIX), dirs_exist_ok=True)
-
-    LOCALE_PATHS.append(os.path.join(BASE_DIR, DJANGO_FUTILS_LOCALE_DIR_SUFFIX))
-
-
-Add this to the Dockerfile:
-
-
-::
-
-
-    # Include translations for django-futils.
-    COPY --chown=django:django ./django_futils /code/django/django_futils/
-
-
-.. important:: Don't forget to add ``/django_futils/`` to ``.gitignore``.
-
 Continuous integration
 ----------------------
 
