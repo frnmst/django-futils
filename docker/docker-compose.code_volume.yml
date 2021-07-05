@@ -9,7 +9,7 @@ services:
       - ./Pipfile:/code/django/Pipfile
       - ./setup.py:/code/django/setup.py
       - ./manage.py:/code/django/manage.py
-      - ./SECRET_SETTINGS.dist.py:/code/django/SECRET_SETTINGS.dist.py
+      - ./SECRET_SETTINGS.py.dist:/code/django/SECRET_SETTINGS.py.dist
       - ./django_futils:/code/django/django_futils
       - ./SECRET_SETTINGS.py:/code/django/SECRET_SETTINGS.py
       - ./.env:/code/django/.env
