@@ -49,3 +49,41 @@ extract of a Pipfile:
     django-simple-history = "~=3.0"
     ## Remove dangling files.
     django-import-export = "~=2.5"
+
+
+Models, admin, views, etc...
+----------------------------
+
+These files contain the concrete classes and data that you
+can use in other projects. You just need to copy the files and change
+the import paths:
+
+- ``./django_futils/default_models.py``
+- ``./django_futils/default_admin.py``
+- ``./django_futils/views.py``
+
+For example, instead of:
+
+
+::
+
+
+    from . import abstract_views as DFU_abstract_views
+
+
+use:
+
+
+::
+
+
+    import django_futils.abstract_views as DFU_abstract_views
+
+
+In case of ``./django_futils/set_defaults.py`` just add this to the imports:
+
+
+::
+
+
+    from django_futils import set_defaults

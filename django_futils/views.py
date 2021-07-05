@@ -21,7 +21,7 @@
 
 from django.shortcuts import get_list_or_404
 from .default_models import AddressType, TelephoneType, EmailType, AttachmentType, Person, PersonAddress, PersonTelephone, PersonEmail, PersonAttachment, Company, CompanyAddress, CompanyTelephone, CompanyEmail, Municipality
-from .abstract_views import AbstractAddressTypeDetailView, AbstractTelephoneTypeDetailView, AbstractEmailTypeDetailView, AbstractAttachmentTypeDetailView, AbstractPersonDetailView, AbstractPersonAddressDetailView, AbstractPersonTelephoneDetailView, AbstractPersonEmailDetailView, AbstractPersonAttachmentDetailView, AbstractCompanyDetailView, AbstractCompanyAddressDetailView, AbstractCompanyTelephoneDetailView, AbstractCompanyEmailDetailView, AbstractMunicipalityDetailView, AbstractPersonAddressListView, AbstractPersonTelephoneListView, AbstractPersonEmailListView, AbstractCompanyAddressListView, AbstractCompanyTelephoneListView, AbstractCompanyEmailListView
+from . import abstract_views as DFU_abstract_views
 from django.conf import settings
 
 # Here you can override:
@@ -34,7 +34,7 @@ from django.conf import settings
 ################
 # Type views #
 ##############
-class AddressTypeDetailView(AbstractAddressTypeDetailView):
+class AddressTypeDetailView(DFU_abstract_views.AbstractAddressTypeDetailView):
     model = AddressType
 
     def get_context_data(self, **kwargs):
@@ -43,7 +43,7 @@ class AddressTypeDetailView(AbstractAddressTypeDetailView):
         )
 
 
-class TelephoneTypeDetailView(AbstractTelephoneTypeDetailView):
+class TelephoneTypeDetailView(DFU_abstract_views.AbstractTelephoneTypeDetailView):
     model = TelephoneType
 
     def get_context_data(self, **kwargs):
@@ -52,7 +52,7 @@ class TelephoneTypeDetailView(AbstractTelephoneTypeDetailView):
         )
 
 
-class EmailTypeDetailView(AbstractEmailTypeDetailView):
+class EmailTypeDetailView(DFU_abstract_views.AbstractEmailTypeDetailView):
     model = EmailType
 
     def get_context_data(self, **kwargs):
@@ -61,7 +61,7 @@ class EmailTypeDetailView(AbstractEmailTypeDetailView):
         )
 
 
-class AttachmentTypeDetailView(AbstractAttachmentTypeDetailView):
+class AttachmentTypeDetailView(DFU_abstract_views.AbstractAttachmentTypeDetailView):
     model = AttachmentType
 
     def get_context_data(self, **kwargs):
@@ -73,7 +73,7 @@ class AttachmentTypeDetailView(AbstractAttachmentTypeDetailView):
 # Normal views #
 ################
 # Person.
-class PersonDetailView(AbstractPersonDetailView):
+class PersonDetailView(DFU_abstract_views.AbstractPersonDetailView):
     model = Person
 
     def get_context_data(self, **kwargs):
@@ -88,7 +88,7 @@ class PersonDetailView(AbstractPersonDetailView):
         )
 
 
-class PersonAddressDetailView(AbstractPersonAddressDetailView):
+class PersonAddressDetailView(DFU_abstract_views.AbstractPersonAddressDetailView):
     model = PersonAddress
 
     def get_context_data(self, **kwargs):
@@ -100,7 +100,7 @@ class PersonAddressDetailView(AbstractPersonAddressDetailView):
         )
 
 
-class PersonTelephoneDetailView(AbstractPersonTelephoneDetailView):
+class PersonTelephoneDetailView(DFU_abstract_views.AbstractPersonTelephoneDetailView):
     model = PersonTelephone
 
     def get_context_data(self, **kwargs):
@@ -111,7 +111,7 @@ class PersonTelephoneDetailView(AbstractPersonTelephoneDetailView):
         )
 
 
-class PersonEmailDetailView(AbstractPersonEmailDetailView):
+class PersonEmailDetailView(DFU_abstract_views.AbstractPersonEmailDetailView):
     model = PersonEmail
 
     def get_context_data(self, **kwargs):
@@ -122,7 +122,7 @@ class PersonEmailDetailView(AbstractPersonEmailDetailView):
         )
 
 
-class PersonAttachmentDetailView(AbstractPersonAttachmentDetailView):
+class PersonAttachmentDetailView(DFU_abstract_views.AbstractPersonAttachmentDetailView):
     model = PersonAttachment
 
     def get_context_data(self, **kwargs):
@@ -134,7 +134,7 @@ class PersonAttachmentDetailView(AbstractPersonAttachmentDetailView):
 
 
 # Company.
-class CompanyDetailView(AbstractCompanyDetailView):
+class CompanyDetailView(DFU_abstract_views.AbstractCompanyDetailView):
     model = Company
 
     def get_context_data(self, **kwargs):
@@ -149,7 +149,7 @@ class CompanyDetailView(AbstractCompanyDetailView):
         )
 
 
-class CompanyAddressDetailView(AbstractCompanyAddressDetailView):
+class CompanyAddressDetailView(DFU_abstract_views.AbstractCompanyAddressDetailView):
     model = CompanyAddress
 
     def get_context_data(self, **kwargs):
@@ -161,7 +161,7 @@ class CompanyAddressDetailView(AbstractCompanyAddressDetailView):
         )
 
 
-class CompanyTelephoneDetailView(AbstractCompanyTelephoneDetailView):
+class CompanyTelephoneDetailView(DFU_abstract_views.AbstractCompanyTelephoneDetailView):
     model = CompanyTelephone
 
     def get_context_data(self, **kwargs):
@@ -172,7 +172,7 @@ class CompanyTelephoneDetailView(AbstractCompanyTelephoneDetailView):
         )
 
 
-class CompanyEmailDetailView(AbstractCompanyEmailDetailView):
+class CompanyEmailDetailView(DFU_abstract_views.AbstractCompanyEmailDetailView):
     model = CompanyEmail
 
     def get_context_data(self, **kwargs):
@@ -184,7 +184,7 @@ class CompanyEmailDetailView(AbstractCompanyEmailDetailView):
 
 
 # Other.
-class MunicipalityDetailView(AbstractMunicipalityDetailView):
+class MunicipalityDetailView(DFU_abstract_views.AbstractMunicipalityDetailView):
     model = Municipality
 
     def get_context_data(self, **kwargs):
@@ -197,7 +197,7 @@ class MunicipalityDetailView(AbstractMunicipalityDetailView):
 # List views #
 ##############
 # Person.
-class PersonAddressListView(AbstractPersonAddressListView):
+class PersonAddressListView(DFU_abstract_views.AbstractPersonAddressListView):
     model = PersonAddress
 
     def get_queryset(self):
@@ -211,7 +211,7 @@ class PersonAddressListView(AbstractPersonAddressListView):
         )
 
 
-class PersonTelephoneListView(AbstractPersonTelephoneListView):
+class PersonTelephoneListView(DFU_abstract_views.AbstractPersonTelephoneListView):
     model = PersonTelephone
 
     def get_queryset(self):
@@ -225,7 +225,7 @@ class PersonTelephoneListView(AbstractPersonTelephoneListView):
         )
 
 
-class PersonEmailListView(AbstractPersonEmailListView):
+class PersonEmailListView(DFU_abstract_views.AbstractPersonEmailListView):
     model = PersonEmail
 
     def get_queryset(self):
@@ -240,7 +240,7 @@ class PersonEmailListView(AbstractPersonEmailListView):
 
 
 # Company.
-class CompanyAddressListView(AbstractCompanyAddressListView):
+class CompanyAddressListView(DFU_abstract_views.AbstractCompanyAddressListView):
     model = CompanyAddress
 
     def get_queryset(self):
@@ -254,7 +254,7 @@ class CompanyAddressListView(AbstractCompanyAddressListView):
         )
 
 
-class CompanyTelephoneListView(AbstractCompanyTelephoneListView):
+class CompanyTelephoneListView(DFU_abstract_views.AbstractCompanyTelephoneListView):
     model = CompanyTelephone
 
     def get_queryset(self):
@@ -268,7 +268,7 @@ class CompanyTelephoneListView(AbstractCompanyTelephoneListView):
         )
 
 
-class CompanyEmailListView(AbstractCompanyEmailListView):
+class CompanyEmailListView(DFU_abstract_views.AbstractCompanyEmailListView):
     model = CompanyEmail
 
     def get_queryset(self):
