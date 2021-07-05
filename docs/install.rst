@@ -1,7 +1,8 @@
 Installation
 ============
 
-Installation of django-futils is only supported on Docker.
+Although you can install django-futils as a normal Python package, running
+the app is only supported on Docker.
 
 Distribution files
 ------------------
