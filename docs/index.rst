@@ -14,7 +14,6 @@ Welcome to django-futils's documentation!
    install
    installation_in_other_projects
    running
-   views
    extras
    database_schema
    references
