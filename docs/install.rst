@@ -6,7 +6,7 @@ Distribution files
 
 django-futils uses `dist` files for some configurations. These files end
 with the `dist` suffix and are example files for configurations. What
-you need to do is to copy them to new files without the `.dist` suffix and edit
+you need to do is to copy them to new files without the ``.dist`` suffix and edit
 them as you like:
 
 - ``./SECRET_SETTINGS.py.dist``
@@ -37,7 +37,7 @@ Follow these instructions to download some required files:
 Prerequsites
 ------------
 
-Install these packages from your package manager or from PyPI:
+Install these packages from your package manager:
 
 +----------------------+---------------------+------------------+
 | Name                 | Binaries            | Version          |
@@ -46,13 +46,21 @@ Install these packages from your package manager or from PyPI:
 +----------------------+---------------------+------------------+
 | Docker               | - docker            | >= 19.03.0       |
 +----------------------+---------------------+------------------+
-| docker-compose       | - docker-compose    | >= 1.25.5        |
-+----------------------+---------------------+------------------+
-| pipenv               | - pipenv            |                  |
-+----------------------+---------------------+------------------+
 | Python               | - python3           | 3.8              |
 +----------------------+---------------------+------------------+
 | Graphviz             |                     | 2.44.1           |
++----------------------+---------------------+------------------+
+
+Install these packages from PyPI:
+
++----------------------+---------------------+------------------+
+| Name                 | Binaries            | Version          |
++======================+=====================+==================+
+| docker-compose       | - docker-compose    | >= 1.25.5        |
++----------------------+---------------------+------------------+
+| graphviz             |                     |                  |
++----------------------+---------------------+------------------+
+| pipenv               | - pipenv            |                  |
 +----------------------+---------------------+------------------+
 
 Debian GNU/Linux
@@ -66,7 +74,7 @@ building the documentation on Debian GNU/Linux:
 
 
     # apt-get install libgdal-dev libgraphviz-dev graphviz
-    $ pip3 install docker-compose graphviz
+    $ pip3 install pipenv docker-compose graphviz
     $ make install-dev
 
 
