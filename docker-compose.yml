@@ -25,7 +25,7 @@ services:
     dependencies:
         image: docker_debian_postgis_django
         build:
-            context: https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django.git#4.0.0
+            context: https://software.franco.net.eu.org/frnmst/docker-debian-postgis-django.git#5.0.0
     db:
         # See
         # https://github.com/frnmst/docker-debian-postgis-django/blob/master/README.md#database
