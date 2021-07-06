@@ -25,6 +25,7 @@ from . import abstract_admin as DFU_abstract_admin
 from django.conf import settings
 from . import constants as const
 from .utils import abstract_response_change
+from django.contrib.auth.models import Group
 
 
 # Specific stuff for this example.
@@ -35,7 +36,14 @@ class MyAdminSite(admin.AdminSite):
     pass
 
 
+# Avoid:
+#     ImportError: Module "django_futils.default_admin"
+#     does not define a "MyAdminSite" attribute/class.
+from django.contrib.auth.admin import UserAdmin
+
 admin_site = MyAdminSite(name='admin')
+admin_site.register(DFU_default_models.ProxyUser, UserAdmin)
+admin_site.register(Group)
 
 
 ###########

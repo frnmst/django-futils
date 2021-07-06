@@ -22,7 +22,25 @@
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser
 from . import abstract_models as DFU_abstract_models
+
+
+class User(AbstractUser):
+    r"""Custom user class."""
+
+
+class ProxyUser(User):
+    r"""This is a virtual class used in the admin instead of User.
+
+        See
+        https://stackoverflow.com/a/61691173
+    """
+    class Meta:
+        app_label = 'auth'
+        proxy = True
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
 
 ################

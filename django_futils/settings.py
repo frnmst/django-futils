@@ -207,6 +207,8 @@ LEAFLET_CONFIG = {
 
 HTML_MINIFY = True
 
+AUTH_USER_MODEL = 'django_futils.User'
+
 # Unit tests.
 if 'test' in sys.argv:
     PASSWORD_HASHERS = [

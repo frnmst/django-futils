@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-18 12:19+0200\n"
+"POT-Creation-Date: 2021-07-05 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,294 +18,308 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: django_futils/abstract_admin.py:122 django_futils/abstract_admin.py:274
+#: django_futils/abstract_admin.py:135 django_futils/abstract_admin.py:284
 msgid "fill the postal code and the map data automatically"
 msgstr "riempi automaticamente il CAP e la mappa"
 
-#: django_futils/abstract_models.py:39
+#: django_futils/abstract_models.py:38
 msgid "added"
 msgstr "aggiunto"
 
-#: django_futils/abstract_models.py:40
+#: django_futils/abstract_models.py:39
 msgid "updated"
 msgstr "aggiornato"
 
-#: django_futils/abstract_models.py:52
+#: django_futils/abstract_models.py:47
 msgid "code"
 msgstr "codice"
 
-#: django_futils/abstract_models.py:55
+#: django_futils/abstract_models.py:50
 msgid "description"
 msgstr "descrizione"
 
-#: django_futils/abstract_models.py:70 django_futils/default_models.py:59
-#: django_futils/default_models.py:81 django_futils/default_models.py:103
-#: django_futils/default_models.py:125 django_futils/default_models.py:147
-#: django_futils/default_models.py:179
+#: django_futils/abstract_models.py:61 django_futils/default_models.py:77
+#: django_futils/default_models.py:99 django_futils/default_models.py:121
+#: django_futils/default_models.py:143 django_futils/default_models.py:165
+#: django_futils/default_models.py:197
 msgid "type"
 msgstr "tipo"
 
-#: django_futils/abstract_models.py:84
+#: django_futils/abstract_models.py:75
 msgid "address type"
 msgstr "tipo di indirizzo"
 
-#: django_futils/abstract_models.py:85
+#: django_futils/abstract_models.py:76
 msgid "address types"
 msgstr "tipi di indirizzo"
 
-#: django_futils/abstract_models.py:91
+#: django_futils/abstract_models.py:82
 msgid "email type"
 msgstr "tipo di email"
 
-#: django_futils/abstract_models.py:92
+#: django_futils/abstract_models.py:83
 msgid "email types"
 msgstr "tipi di email"
 
-#: django_futils/abstract_models.py:98
+#: django_futils/abstract_models.py:89
 msgid "telephone type"
 msgstr "tipo di telefono"
 
-#: django_futils/abstract_models.py:99
+#: django_futils/abstract_models.py:90
 msgid "telephone types"
 msgstr "tipi di telefono"
 
-#: django_futils/abstract_models.py:105 django_futils/default_models.py:207
+#: django_futils/abstract_models.py:96 django_futils/default_models.py:225
 msgid "attachment type"
 msgstr "tipo di allegato"
 
-#: django_futils/abstract_models.py:106
+#: django_futils/abstract_models.py:97
 msgid "attachment types"
 msgstr "tipi di allegato"
 
-#: django_futils/abstract_models.py:113 django_futils/abstract_models.py:140
-#: django_futils/abstract_models.py:312
+#: django_futils/abstract_models.py:104 django_futils/abstract_models.py:131
+#: django_futils/abstract_models.py:326
 msgid "name"
 msgstr "nome"
 
-#: django_futils/abstract_models.py:128
+#: django_futils/abstract_models.py:119
 msgid "country"
 msgstr "stato"
 
-#: django_futils/abstract_models.py:132 django_futils/default_models.py:153
-#: django_futils/default_models.py:185
+#: django_futils/abstract_models.py:123 django_futils/default_models.py:171
+#: django_futils/default_models.py:203
 msgid "municipality"
 msgstr "comune"
 
-#: django_futils/abstract_models.py:133
+#: django_futils/abstract_models.py:124
 msgid "municipalities"
 msgstr "comuni"
 
-#: django_futils/abstract_models.py:141
+#: django_futils/abstract_models.py:132
 msgid "notes"
 msgstr "note"
 
-#: django_futils/abstract_models.py:151 django_futils/abstract_models.py:314
+#: django_futils/abstract_models.py:146
+#, fuzzy
+#| msgid "cannot delete primary object"
+msgid "cannot delete a primary required object"
+msgstr "non si può eliminare un oggetto principale"
+
+#: django_futils/abstract_models.py:159 django_futils/abstract_models.py:328
 msgid "is primary"
 msgstr "principale"
 
-#: django_futils/abstract_models.py:158 django_futils/formsets.py:33
-msgid "cannot delete primary object"
-msgstr "non si può eliminare un oggetto principale"
-
-#: django_futils/abstract_models.py:164
+#: django_futils/abstract_models.py:166
 msgid "number"
 msgstr "numero"
 
-#: django_futils/abstract_models.py:165
+#: django_futils/abstract_models.py:167
 msgid "has whatsapp"
 msgstr "ha whatsapp"
 
-#: django_futils/abstract_models.py:166
+#: django_futils/abstract_models.py:168
 msgid "has telegram"
 msgstr "ha telegram"
 
-#: django_futils/abstract_models.py:167
+#: django_futils/abstract_models.py:169
 msgid "primary"
 msgstr "principale"
 
-#: django_futils/abstract_models.py:179
+#: django_futils/abstract_models.py:185
 msgid "person telephone"
 msgstr "telefono persona"
 
-#: django_futils/abstract_models.py:180
+#: django_futils/abstract_models.py:186
 msgid "person telephones"
 msgstr "telefoni persona"
 
-#: django_futils/abstract_models.py:189
+#: django_futils/abstract_models.py:195
 msgid "cannot assign a primary telephone to a different person once it is set"
 msgstr ""
 "non si può assegnare un telefono principale ad un'altra persona una volta "
 "che è impostato"
 
-#: django_futils/abstract_models.py:195
+#: django_futils/abstract_models.py:201
 msgid "company telephone"
 msgstr "telefono azienda"
 
-#: django_futils/abstract_models.py:196
+#: django_futils/abstract_models.py:202
 msgid "company telephones"
 msgstr "telefoni aziende"
 
-#: django_futils/abstract_models.py:205
+#: django_futils/abstract_models.py:211
 msgid "cannot assign a primary telephone to a different company once it is set"
 msgstr ""
 "non si può assegnare un telefono principale ad un'altra azienda una volta "
 "che è impostato"
 
-#: django_futils/abstract_models.py:209
+#: django_futils/abstract_models.py:215
 msgid "email"
 msgstr "email"
 
-#: django_futils/abstract_models.py:224
+#: django_futils/abstract_models.py:234
 msgid "person email"
 msgstr "email persona"
 
-#: django_futils/abstract_models.py:225
+#: django_futils/abstract_models.py:235
 msgid "person emails"
 msgstr "email persona"
 
-#: django_futils/abstract_models.py:234
+#: django_futils/abstract_models.py:244
 msgid "cannot assign a primary email to a different person once it is set"
 msgstr ""
 "non si può assegnare una email principale ad un'altra persona una volta che "
 "è impostato"
 
-#: django_futils/abstract_models.py:240
+#: django_futils/abstract_models.py:250
 msgid "company email"
 msgstr "email azienda"
 
-#: django_futils/abstract_models.py:241
+#: django_futils/abstract_models.py:251
 msgid "company emails"
 msgstr "email azienda"
 
-#: django_futils/abstract_models.py:250
+#: django_futils/abstract_models.py:260
 msgid "cannot assign a primary email to a different company once it is set"
 msgstr ""
 "non si può assegnare una email principale ad un'altra azienda una volta che "
 "è impostato"
 
-#: django_futils/abstract_models.py:254 django_futils/abstract_models.py:375
+#: django_futils/abstract_models.py:264 django_futils/abstract_models.py:389
 msgid "map"
 msgstr "mappa"
 
-#: django_futils/abstract_models.py:255 django_futils/abstract_models.py:366
+#: django_futils/abstract_models.py:265 django_futils/abstract_models.py:380
 msgid "street number"
 msgstr "numero civico"
 
-#: django_futils/abstract_models.py:258 django_futils/abstract_models.py:369
+#: django_futils/abstract_models.py:268 django_futils/abstract_models.py:383
 msgid "street"
 msgstr "via"
 
-#: django_futils/abstract_models.py:259 django_futils/abstract_models.py:370
+#: django_futils/abstract_models.py:269 django_futils/abstract_models.py:384
 msgid "city"
 msgstr "città"
 
-#: django_futils/abstract_models.py:260 django_futils/abstract_models.py:372
+#: django_futils/abstract_models.py:270 django_futils/abstract_models.py:386
 msgid "postal code"
 msgstr "CAP"
 
-#: django_futils/abstract_models.py:263
+#: django_futils/abstract_models.py:273
 msgid "auto fill"
 msgstr "riempimento automatico"
 
-#: django_futils/abstract_models.py:282
+#: django_futils/abstract_models.py:296
 msgid "person address"
 msgstr "indirizzo persona"
 
-#: django_futils/abstract_models.py:283
+#: django_futils/abstract_models.py:297
 msgid "person addresses"
 msgstr "indirizzi persona"
 
-#: django_futils/abstract_models.py:292
+#: django_futils/abstract_models.py:306
 msgid "cannot assign a primary address to a different person once it is set"
 msgstr ""
 "non si può assegnare un indirizzo principale ad un'altra persona una volta "
 "che è impostato"
 
-#: django_futils/abstract_models.py:298
+#: django_futils/abstract_models.py:312
 msgid "company address"
 msgstr "indirizzo azienda"
 
-#: django_futils/abstract_models.py:299
+#: django_futils/abstract_models.py:313
 msgid "company addresses"
 msgstr "indirizzi azienda"
 
-#: django_futils/abstract_models.py:308
+#: django_futils/abstract_models.py:322
 msgid "cannot assign a primary address to a different company once it is set"
 msgstr ""
 "non si può assegnare un indirizzo principale ad un'altra azienda una volta "
 "che è impostato"
 
-#: django_futils/abstract_models.py:313
+#: django_futils/abstract_models.py:327
 #: django_futils/templates/django_futils/company_detail.html:19
 msgid "VAT"
 msgstr "partita IVA"
 
-#: django_futils/abstract_models.py:318 django_futils/default_models.py:87
-#: django_futils/default_models.py:131 django_futils/default_models.py:191
+#: django_futils/abstract_models.py:332 django_futils/default_models.py:105
+#: django_futils/default_models.py:149 django_futils/default_models.py:209
 msgid "company"
 msgstr "azienda"
 
-#: django_futils/abstract_models.py:319
+#: django_futils/abstract_models.py:333
 msgid "companies"
 msgstr "aziende"
 
-#: django_futils/abstract_models.py:330
+#: django_futils/abstract_models.py:344
 msgid "first name"
 msgstr "nome"
 
-#: django_futils/abstract_models.py:333
+#: django_futils/abstract_models.py:347
 msgid "last name"
 msgstr "cognome"
 
-#: django_futils/abstract_models.py:334
+#: django_futils/abstract_models.py:348
 msgid "date of birth"
 msgstr "data di nascita"
 
-#: django_futils/abstract_models.py:335
+#: django_futils/abstract_models.py:349
 msgid "city of birth"
 msgstr "città di nascita"
 
-#: django_futils/abstract_models.py:336
+#: django_futils/abstract_models.py:350
 msgid "fiscal code"
 msgstr "codice fiscale"
 
-#: django_futils/abstract_models.py:346 django_futils/default_models.py:65
-#: django_futils/default_models.py:109 django_futils/default_models.py:159
-#: django_futils/default_models.py:213 django_futils/default_models.py:226
+#: django_futils/abstract_models.py:360 django_futils/default_models.py:83
+#: django_futils/default_models.py:127 django_futils/default_models.py:177
+#: django_futils/default_models.py:231 django_futils/default_models.py:244
 msgid "person"
 msgstr "persona"
 
-#: django_futils/abstract_models.py:347
+#: django_futils/abstract_models.py:361
 msgid "people"
 msgstr "persone"
 
-#: django_futils/abstract_models.py:351
+#: django_futils/abstract_models.py:365
 msgid "file"
 msgstr "file"
 
-#: django_futils/abstract_models.py:357
+#: django_futils/abstract_models.py:371
 msgid "person attachment"
 msgstr "allegato persona"
 
-#: django_futils/abstract_models.py:358
+#: django_futils/abstract_models.py:372
 msgid "person attachments"
 msgstr "allegati persona"
 
-#: django_futils/abstract_models.py:371
+#: django_futils/abstract_models.py:385
 msgid "contry code"
 msgstr "codice stato"
 
-#: django_futils/abstract_models.py:376
+#: django_futils/abstract_models.py:390
 msgid "cache hits"
 msgstr "cache hits"
 
-#: django_futils/abstract_models.py:380
+#: django_futils/abstract_models.py:394
 msgid "Nominatim cache"
 msgstr "cache Nominatim"
 
-#: django_futils/abstract_models.py:381
+#: django_futils/abstract_models.py:395
 msgid "Nominatim caches"
 msgstr "cache Nominatim"
+
+#: django_futils/default_models.py:42
+msgid "user"
+msgstr ""
+
+#: django_futils/default_models.py:43
+msgid "users"
+msgstr ""
+
+#: django_futils/formsets.py:33
+msgid "cannot delete primary object"
+msgstr "non si può eliminare un oggetto principale"
 
 #: django_futils/settings.py:77
 msgid "Italian"
@@ -393,7 +407,8 @@ msgstr "Indirizzo"
 msgid "Telephone"
 msgstr "tipo di telefono"
 
-#: django_futils/templates/django_futils/company_detail.html:37
+#: django_futils/templates/django_futils/company_detail.html:38
+#: django_futils/templates/django_futils/company_detail.html:40
 #: django_futils/templates/django_futils/includes/email_data.html:5
 #: django_futils/templates/django_futils/includes/email_detail.html:5
 #: django_futils/templates/django_futils/includes/email_detail.html:11
