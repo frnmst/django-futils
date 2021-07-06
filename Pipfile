@@ -22,7 +22,7 @@ uwsgi = "~=2.0"
 requests = "~=2.25"
 
 # Models.
-django-countries = "~=7.1"
+django-countries = "~=7.2"
 django-phone-field = "~=1.8"
 django-vies = "~=6.0"
 ## Model history.
@@ -34,7 +34,7 @@ django-import-export = "~=2.5"
 # Postgres.
 # If you prefer to avoid building psycopg2 from source, please install the PyPI
 #'psycopg2-binary' package instead.
-psycopg2-binary = "~=2.8"
+psycopg2-binary = "~=2.9"
 
 # Tools.
 django-extensions = "~=3.1"
