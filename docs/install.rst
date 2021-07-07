@@ -98,10 +98,10 @@ Moreover, all the needed directories must be created **before** running the app.
 
 
     # useradd -m -s /bin/bash -u 999 -U postgis-docker
-    # mkdir -p /home/postgis-docker/django-futils/dev/data
-    # mkdir -p ./db/dev/data
+    # mkdir -p /home/postgis-docker/django-futils/{dev,prod}/data
+    # mkdir -p ./db/{dev,prod}/data
     # chown -R postgis-docker:postgis-docker /home/postgis-docker/django-futils
-    # chown -R ${developer}:${developer_group} ./db/dev/data
+    # chown -R ${developer}:${developer_group} ./db
     # chmod 700 -R /home/postgis-docker/django-futils
     # chmod 700 -R ./db
 
