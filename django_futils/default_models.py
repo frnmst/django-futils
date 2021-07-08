@@ -19,10 +19,11 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser
+
 from . import abstract_models as DFU_abstract_models
 
 

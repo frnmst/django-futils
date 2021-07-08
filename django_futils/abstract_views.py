@@ -19,8 +19,8 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
 
 class BasePermissions(LoginRequiredMixin):

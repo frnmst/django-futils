@@ -1,7 +1,8 @@
-from django import template
 import decimal
-import urllib
 import pathlib
+import urllib
+
+from django import template
 
 register = template.Library()
 

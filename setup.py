@@ -19,7 +19,7 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name='django_futils',

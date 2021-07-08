@@ -19,10 +19,15 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.shortcuts import get_list_or_404
-from .default_models import AddressType, TelephoneType, EmailType, AttachmentType, Person, PersonAddress, PersonTelephone, PersonEmail, PersonAttachment, Company, CompanyAddress, CompanyTelephone, CompanyEmail, Municipality
-from . import abstract_views as DFU_abstract_views
 from django.conf import settings
+from django.shortcuts import get_list_or_404
+
+from . import abstract_views as DFU_abstract_views
+from .default_models import (AddressType, AttachmentType, Company,
+                             CompanyAddress, CompanyEmail, CompanyTelephone,
+                             EmailType, Municipality, Person, PersonAddress,
+                             PersonAttachment, PersonEmail, PersonTelephone,
+                             TelephoneType)
 
 # Here you can override:
 #   template_name

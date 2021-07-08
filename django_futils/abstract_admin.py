@@ -19,26 +19,27 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from django.conf import settings
 from django.contrib import admin
-from django.db import models
-from django.forms import TextInput, Textarea
-from django.contrib.gis.admin import OSMGeoAdmin
-from django.db.models import Sum, Avg
-from django.db.models.functions import Coalesce
 from django.contrib.admin import site
-from django.forms.models import BaseInlineFormSet
+from django.contrib.gis.admin import OSMGeoAdmin
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.db.models import Avg, Sum
+from django.db.models.functions import Coalesce
+from django.forms import Textarea, TextInput
+from django.forms.models import BaseInlineFormSet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from simple_history.admin import SimpleHistoryAdmin
 from import_export import resources
-from . import abstract_models
-from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
+from import_export.admin import (ImportExportActionModelAdmin,
+                                 ImportExportModelAdmin)
+from simple_history.admin import SimpleHistoryAdmin
 
-from .formsets import HasPrimaryInlineFormSet
-from django.conf import settings
+from . import abstract_models
 from . import constants as const
+from .formsets import HasPrimaryInlineFormSet
 
 
 #################

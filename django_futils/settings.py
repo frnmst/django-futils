@@ -30,14 +30,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
-from django.utils.translation import gettext_lazy as _
-import django_futils.constants as const
 import sys
+from pathlib import Path
 
+from django.utils.translation import gettext_lazy as _
 # Required variables.
-from SECRET_SETTINGS import SECRET_KEY, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, MEDIA_ROOT, MEDIA_URL, INTERNAL_IPS, DEBUG, ALLOWED_HOSTS, LANGUAGE_CODE, TIME_ZONE, USE_X_FORWARDED_HOST, STATIC_URL, STATIC_ROOT_SUFFIX, STATICFILES_DIR_SUFFIX, LOCALE_DIR_SUFFIX
+from SECRET_SETTINGS import (ALLOWED_HOSTS, DB_HOST, DB_NAME, DB_PASSWORD,
+                             DB_PORT, DB_USER, DEBUG, INTERNAL_IPS,
+                             LANGUAGE_CODE, LOCALE_DIR_SUFFIX, MEDIA_ROOT,
+                             MEDIA_URL, SECRET_KEY, STATIC_ROOT_SUFFIX,
+                             STATIC_URL, STATICFILES_DIR_SUFFIX, TIME_ZONE,
+                             USE_X_FORWARDED_HOST)
+
+import django_futils.constants as const
 
 # Optional variables.
 try:

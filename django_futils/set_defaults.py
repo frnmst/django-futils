@@ -20,6 +20,7 @@
 #
 
 from django.conf import settings
+
 import django_futils.constants as const
 
 # Set variables if the user did not set them.

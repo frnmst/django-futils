@@ -19,19 +19,21 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.db import models
-from django.contrib.gis.db import models as gis_models
-from django_countries.fields import CountryField
-from django.core.exceptions import ValidationError
-from django.core.exceptions import ObjectDoesNotExist
-from django.utils import timezone
 from django.conf import settings
-from phone_field import PhoneField
-from vies.models import VATINField
-from simple_history.models import HistoricalRecords
+from django.contrib.gis.db import models as gis_models
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from .utils import personattachment_directory_path, get_address_data, save_primary, set_primary_next_element
+from django_countries.fields import CountryField
+from phone_field import PhoneField
+from simple_history.models import HistoricalRecords
+from vies.models import VATINField
+
 import django_futils.constants as const
+
+from .utils import (get_address_data, personattachment_directory_path,
+                    save_primary, set_primary_next_element)
 
 
 class AbstractRecordTimestamps(models.Model):

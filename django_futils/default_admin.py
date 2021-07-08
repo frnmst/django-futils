@@ -19,13 +19,14 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.contrib import admin
-from . import default_models as DFU_default_models
-from . import abstract_admin as DFU_abstract_admin
 from django.conf import settings
-from . import constants as const
-from .utils import abstract_response_change
+from django.contrib import admin
 from django.contrib.auth.models import Group
+
+from . import abstract_admin as DFU_abstract_admin
+from . import constants as const
+from . import default_models as DFU_default_models
+from .utils import abstract_response_change
 
 
 # Specific stuff for this example.

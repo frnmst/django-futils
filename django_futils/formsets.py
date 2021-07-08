@@ -19,8 +19,8 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.forms.models import BaseInlineFormSet
 from django.core.exceptions import ValidationError
+from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
 
 

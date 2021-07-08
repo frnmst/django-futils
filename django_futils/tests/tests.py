@@ -19,19 +19,20 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.test import TestCase, TransactionTestCase
-from ..default_models import PersonTelephone, GeocoderCache, PersonAddress
-from model_bakery import baker
 import decimal
+from unittest import mock
+
+import geopy
+from django.conf import settings
+from django.contrib.gis.geos import GEOSGeometry, Point
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
-from unittest import mock
+from django.test import TestCase, TransactionTestCase
 from django.utils import timezone
+from model_bakery import baker
+
+from ..default_models import GeocoderCache, PersonAddress, PersonTelephone
 from ..utils import get_address_data, run_geocoder_request
-from django.conf import settings
-from django.contrib.gis.geos import GEOSGeometry
-from django.contrib.gis.geos import Point
-import geopy
 
 
 ##########

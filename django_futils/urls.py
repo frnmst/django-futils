@@ -19,15 +19,15 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.contrib import admin
-from django.urls import path, re_path, reverse_lazy, include
-# See https://overiq.com/django-1-10/handling-media-files-in-django/
-from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path, re_path, reverse_lazy
+# See https://overiq.com/django-1-10/handling-media-files-in-django/
+from django.views.generic.base import RedirectView
 
-from .default_admin import admin_site
 from . import views
+from .default_admin import admin_site
 
 # See https://stackoverflow.com/a/55723121
 urlpatterns = [

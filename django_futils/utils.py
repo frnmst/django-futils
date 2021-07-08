@@ -19,20 +19,22 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from django.utils.timezone import localdate
+import urllib.parse
+import uuid
+
+import django.apps
+import geopy
+import requests
 from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils import timezone
 from django.db.models import Q
-import requests
-import uuid
-import urllib.parse
-import django_futils.set_defaults
-import django.apps
-import geopy
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.timezone import localdate
+
+import django_futils.set_defaults
 
 
 def abstract_response_change(self, request, obj, reverse_url):
