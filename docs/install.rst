@@ -66,8 +66,8 @@ Install these packages from PyPI:
 | pipenv               | - pipenv            |                  |
 +----------------------+---------------------+------------------+
 
-Debian GNU/Linux
-````````````````
+Debian GNU/Linux 10
+```````````````````
 
 These commands will help having everything working, including
 building the documentation on Debian GNU/Linux:
@@ -81,7 +81,7 @@ building the documentation on Debian GNU/Linux:
     $ make install-dev
 
 
-Start and enable the Docker service
+Start and enable the Docker service:
 
 
 ::

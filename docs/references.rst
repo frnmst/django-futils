@@ -7,6 +7,8 @@ List of software
 ==============================    ======================================================
 Software name                     Homepage
 ==============================    ======================================================
+Borgmatic                         https://torsion.org/borgmatic/
+BorgBackup                        https://readthedocs.org/projects/borgbackup/
 Docker                            https://www.docker.com/
 docker-compose                    https://www.docker.com/
 GNU make                          https://www.gnu.org/software/make
