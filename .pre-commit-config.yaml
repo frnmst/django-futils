@@ -32,3 +32,8 @@ repos:
     hooks:
     -   id: skjold
         args: ['-s', 'gemnasium', '-s', 'pyup']
+
+-   repo: https://github.com/pycqa/isort
+    rev: 5.5.2
+    hooks:
+      - id: isort
