@@ -49,7 +49,7 @@ hooks:
           username: postgres
           password: postgres
           format: tar
-          options: ""
+          options: "--verbose"
 
 consistency:
     checks:
