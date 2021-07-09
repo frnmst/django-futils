@@ -35,6 +35,8 @@ import sys
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
+
+import django_futils.constants as const
 # Required variables.
 from SECRET_SETTINGS import (ALLOWED_HOSTS, DB_HOST, DB_NAME, DB_PASSWORD,
                              DB_PORT, DB_USER, DEBUG, INTERNAL_IPS,
@@ -42,8 +44,6 @@ from SECRET_SETTINGS import (ALLOWED_HOSTS, DB_HOST, DB_NAME, DB_PASSWORD,
                              MEDIA_URL, SECRET_KEY, STATIC_ROOT_SUFFIX,
                              STATIC_URL, STATICFILES_DIR_SUFFIX, TIME_ZONE,
                              USE_X_FORWARDED_HOST)
-
-import django_futils.constants as const
 
 # Optional variables.
 try:
