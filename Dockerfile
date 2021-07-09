@@ -19,7 +19,9 @@
 # along with django-futils.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM docker_debian_postgis_django as builder
+FROM docker_debian_postgis_django:latest as build
+
+USER django:django
 
 # Pass the environment variable from the docker-compose file.
 ARG DJANGO_ENV
@@ -31,7 +33,6 @@ ARG GID
 ENV PYTHONUNBUFFERED 1
 
 COPY --chown=django:django ./requirements.txt /code/django/
-USER django:django
 # Executable path for python binaries.
 ENV PATH "$PATH:/code/.local/bin"
 RUN pip3 install --user --no-cache-dir --requirement /code/django/requirements.txt && rm /code/django/requirements.txt
@@ -40,7 +41,7 @@ USER root
 COPY --chown=django:django ./Makefile ./manage.py ./SECRET_SETTINGS.py ./.env ./uwsgi.ini /code/django/
 COPY --chown=django:django ./docs/ /code/django/docs/
 COPY --chown=django:django ./django_futils /code/django/django_futils/
-COPY --chown=django:django --from=docker_debian_postgis_django /code/django/utils /code/django/utils/
+COPY --chown=django:django --from=docker_debian_postgis_django:latest /code/django/utils /code/django/utils/
 
 RUN mkdir /code/django/data && chown -R django:django /code/django/data && chmod 700 /code && chown django:django /code && chown django:django /code/django
 
